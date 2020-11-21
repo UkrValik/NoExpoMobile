@@ -1,0 +1,41 @@
+{
+    "team": {
+        "teamId": 0,
+        "challengeId": 0,
+        "pcpId": 0,
+        "teamName": "Team Name 1",
+        "activityDays": 10,
+        "durationDays": 12,
+        "startDate": "2020-09-18",
+        "endDate": "2020-09-27",
+        "finishDate": "2020-09-29",
+        "createDate": "2020-09-18 16:10:30",
+        "challengeName": "Morning glass of water",
+        "challengeImage": "https://*.jpg",
+        "challengeSubtitle": "Some plain text",
+        "challengeDescription": "Some more plain text, it's description",
+        "participationStatus": "aaa Some text",
+        "challengeQuestion": "Enter yes/no",
+        "status": 1
+    },
+    "participants": [
+        {
+            "consumerId": 1502,
+            "displayName": "Ilon",
+            "status": 1,
+            "score": 34344,
+            "rank": 1,
+            "scores": [
+                {
+                    "date": "2020-09-18",
+                    "score": 50
+                },
+                {
+                    "date": "2020-09-19",
+                    "score": 75
+                }
+            ]
+        }
+    ],
+    "rank": 10
+}

@@ -1,0 +1,25 @@
+{
+    "lightblue": "#2a99d1",
+    "yellowgreen": "#a7c711",
+    "red": "e54215",
+    "blue": "#295077",
+    "pink": "#ff0068",
+    "gray": "#5f5f5f",
+    "midgray": "#bbb",
+    "lightgray": "#f2f2f4",
+    "dark": "#373737",
+
+    "mainColor": "#2a99d1",
+    "altColor": "#a7c711",
+    "linkColor": "#2a99d1",
+    "actionColor": "#ff0068",
+    "dangerColor": "e54215",
+    "successColor": "#2a99d1",
+    "mainBgColor": "#eceeef",
+    "textColor": "#373737",
+    "lightTextColor": "#5f5f5f",
+    "textSelectionColor": "#1573d1",
+    "gesundheitspartnerColor": "#a7c711",
+    "headlineColor": "#101010",
+    "borderColor": "#dbdede"
+}
