@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import TeamListItem from '../molecules/TeamListItem';
+import TeamListItem from '../atoms/TeamListItem';
 
 class TeamList extends React.Component {
 
@@ -10,7 +10,7 @@ class TeamList extends React.Component {
 
     render() {
         return (
-            <ScrollView style={{marginTop: 3}}>
+            <ScrollView style={{marginTop: 0}}>
                 {this.props.teams.map(team => (<TeamListItem key={team.teamId} team={team} navigation={this.props.navigation}/>))}
             </ScrollView>
         );

@@ -6,7 +6,9 @@ import GoogleFit, { Scopes } from 'react-native-google-fit';
 import AccountHeader from '../components/molecules/AccountHeader';
 import AccountBlock from '../components/atoms/AccountBlock';
 import AutomationCheckbox from '../components/atoms/AutomationCheckbox';
+import HeaderAccountScreen from '../components/atoms/HeaderAccountScreen';
 import { toggleGoogleFit } from '../redux/actions/ActionCreators';
+import HeaderMainScreen from '../components/atoms/HeaderMainScreen';
 
 const mapStateToProps = state => {
     return {
@@ -40,25 +42,17 @@ class AccountScreen extends React.Component {
         this.saveFirstName = this.saveFirstName.bind(this);
         this.saveLastName = this.saveLastName.bind(this);
         this.saveSex = this.saveSex.bind(this);
+        this.goBack = this.goBack.bind(this);
     }
 
     componentDidMount() {
         this.props.navigation.setOptions({
-            title: 'Account',
-            headerStyle: {
-                backgroundColor: colors.mainBgColor,
-                borderBottomColor: colors.mainColor,
-                borderBottomWidth: 5,
-                elevation: 0,
-            },
-            headerTintColor: colors.mainColor,
-            headerTitleStyle: {
-                flex: 1,
-                marginRight: '20%',
-                textAlign: 'center',
-                color: colors.textColor,
-            },
+            headerShown: false,
         });
+    }
+
+    goBack() {
+        this.props.navigation.goBack();
     }
 
     async saveSynchronizeCheckbox() {
@@ -122,7 +116,7 @@ class AccountScreen extends React.Component {
 
         return (
             <ScrollView style={{flex: 1, backgroundColor: colors.mainBgColor}} contentContainerStyle={{justifyContent: 'flex-start'}}>
-                <AccountHeader/>
+                <HeaderAccountScreen goBack={this.goBack} firstName={this.state.firstName || ''} lastName={this.state.lastName || ''}/>
                 <AutomationCheckbox
                     synchronizeCheckbox={this.props.consumer.synchronizeGoogleFit}
                     saveSynchronizeCheckbox={this.saveSynchronizeCheckbox}
