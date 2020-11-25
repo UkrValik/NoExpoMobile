@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     text: {
         color: colors.mainBgColor,
         fontSize: 20,
-        fontWeight: '600',
+        fontWeight: '700',
         paddingVertical: '3%',
     }
 });

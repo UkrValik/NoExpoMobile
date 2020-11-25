@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableNativeFeedback, Dimensions } from 'react-native';
 import colors from '../../styles/colors.json';
 
 class VerticalStatusBar extends React.Component {
@@ -32,16 +32,18 @@ class VerticalStatusBar extends React.Component {
                     backgroundColor: colors.mainBgColor,
                     // width: (100 / this.props.days).toString() + '%',
                     alignItems: 'center',
+                    borderRadius: 5,
                     }}>
-                    <TouchableWithoutFeedback onPress={() => this.onPress()}>
+                    <TouchableNativeFeedback onPress={() => this.onPress()}>
                         <View style={{
                             height: '100%',
                             backgroundColor: this.props.color,
                             width: '90%',
+                            borderRadius: 5,
                         }}>
                         </View>
-                    </TouchableWithoutFeedback>
-                    <Text style={{fontSize: 10, color: colors.textColor}}>
+                    </TouchableNativeFeedback>
+                    <Text style={{fontSize: 18 - this.props.days / 3, color: colors.lightTextColor, marginTop: '25%'}}>
                         {this.props.day.toString()}
                     </Text>
                 </View>

@@ -1,14 +1,13 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Alert } from 'react-native';
+import { StyleSheet, ScrollView, Alert, Text, View } from 'react-native';
+import { Input } from 'react-native-elements';
 import colors from '../styles/colors.json';
 import { connect } from 'react-redux';
 import GoogleFit, { Scopes } from 'react-native-google-fit';
-import AccountHeader from '../components/molecules/AccountHeader';
 import AccountBlock from '../components/atoms/AccountBlock';
 import AutomationCheckbox from '../components/atoms/AutomationCheckbox';
 import HeaderAccountScreen from '../components/atoms/HeaderAccountScreen';
 import { toggleGoogleFit } from '../redux/actions/ActionCreators';
-import HeaderMainScreen from '../components/atoms/HeaderMainScreen';
 
 const mapStateToProps = state => {
     return {
@@ -115,22 +114,105 @@ class AccountScreen extends React.Component {
     render() {
 
         return (
-            <ScrollView style={{flex: 1, backgroundColor: colors.mainBgColor}} contentContainerStyle={{justifyContent: 'flex-start'}}>
-                <HeaderAccountScreen goBack={this.goBack} firstName={this.state.firstName || ''} lastName={this.state.lastName || ''}/>
-                <AutomationCheckbox
+            <ScrollView 
+                style={{flex: 1, backgroundColor: colors.mainBgColor}}
+                contentContainerStyle={{justifyContent: 'flex-start'}}
+                >
+                <HeaderAccountScreen
+                    goBack={this.goBack}
+                    firstName={this.state.firstName || ''}
+                    lastName={this.state.lastName || ''}
+                    />
+                <View style={styles.profileContainer}>
+                    <Text style={styles.textProfile}>
+                        MAIN PROFILE
+                    </Text>
+                    <Text style={styles.textYourData}>
+                        Your data - at a glance
+                    </Text>
+                    <Text style={styles.textPersonal}>
+                        Main personal data
+                    </Text>
+                    <Input
+                        value={this.state.email}
+                        label='EMAIL:'
+                        inputContainerStyle={styles.inputContainerStyle}
+                        labelStyle={styles.labelStyle}
+                        inputStyle={{color: colors.textColor, textAlign: 'center'}}
+                        keyboardType='email-address'
+                        onChangeText={(value) => this.saveEmail(value)}
+                        />
+                    <Input
+                        value={this.state.firstName}
+                        label='FIRST NAME:'
+                        inputContainerStyle={styles.inputContainerStyle}
+                        labelStyle={styles.labelStyle}
+                        inputStyle={{color: colors.textColor, textAlign: 'center'}}
+                        onChangeText={(value) => this.saveFirstName(value)}
+                        />
+                    <Input
+                        value={this.state.lastName}
+                        label='LAST NAME:'
+                        inputContainerStyle={styles.inputContainerStyle}
+                        labelStyle={styles.labelStyle}
+                        inputStyle={{color: colors.textColor, textAlign: 'center'}}
+                        onChangeText={(value) => this.saveLastName(value)}
+                        />
+                </View>
+                {/* <AutomationCheckbox
                     synchronizeCheckbox={this.props.consumer.synchronizeGoogleFit}
                     saveSynchronizeCheckbox={this.saveSynchronizeCheckbox}
                     authorized={this.state.authorized}
                     authorizeGoogleFit={this.authorizeGoogleFit}
-                    />
-                <AccountBlock 
+                    /> */}
+                {/* <AccountBlock 
                     title='Main personal data' 
                     saveBlock={this.saveConsumerBlock} 
                     blockRotated={this.state.consumerBlockRotated}
-                    />
+                    /> */}
             </ScrollView>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    profileContainer: {
+        alignItems: 'center',
+        marginTop: '7%',
+        backgroundColor: colors.mainBgColor,
+    },
+    textProfile: {
+        fontSize: 20,
+        fontWeight: '700',
+        color: colors.mainColor,
+    },
+    textYourData: {
+        fontSize: 20,
+        color: colors.lightTextColor,
+        marginTop: '3%',
+    },
+    textPersonal: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: colors.textColor,
+        marginTop: '10%',
+        marginBottom: '5%',
+    },
+    inputContainerStyle: {
+        borderColor: colors.midgray,
+        borderRadius: 10,
+        borderBottomWidth: 1,
+        borderTopWidth: 1,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+    },
+    labelStyle: {
+        fontSize: 16,
+        color: colors.lightTextColor,
+        alignSelf: 'center',
+        fontWeight: 'normal',
+        marginBottom: '3%',
+    }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountScreen);

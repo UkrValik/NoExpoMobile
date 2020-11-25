@@ -5,20 +5,27 @@ import colors from '../../styles/colors.json';
 
 const RatingButton = (props) => {
     return (
-        <View style={{marginTop: 20, backgroundColor: colors.mainColor}}>
+        <View style={styles.container}>
             <Button
-                icon={{
-                    name: 'chevron-right',
-                    size: 15,
-                    color: 'white'
-                }}
-                iconRight
-                buttonStyle={{backgroundColor: colors.mainColor}}
-                title='To rating'
+                buttonStyle={{backgroundColor: colors.mainColor, borderRadius: 10, paddingVertical: '5%', elevation: 5}}
+                titleStyle={{fontSize: 16}}
+                title='TO RATING'
                 onPress={() => props.navigate('Rating')}
                 />
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        marginTop: '13%',
+        marginBottom: '20%',
+        backgroundColor: colors.mainColor,
+        marginHorizontal: '5%',
+        borderRadius: 10,
+        // paddingVertical: '5%',
+        elevation: 5,
+    }
+})
 
 export default RatingButton;
