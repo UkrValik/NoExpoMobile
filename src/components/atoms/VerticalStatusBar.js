@@ -20,17 +20,24 @@ class VerticalStatusBar extends React.Component {
     }
 
     render() {
+        
         return (
             <View style={{flex: 1}}>
-                {this.state.scoreVisible ? <View style={{position: 'absolute', left: -20, top: -35, width: Dimensions.get('screen').width / 100 * 17}}>
-                    <Text style={{backgroundColor: colors.pink, color: colors.lightgray, fontSize: 12, alignSelf: 'center', padding: 3, borderRadius: 5, transform: [{rotateZ: "-90deg"}]}}>
-                        {this.props.value.toString()}
-                    </Text>
+                {this.state.scoreVisible ? <View style={{position: 'absolute', left: -52 - this.props.days, top: -65}}>
+                    <View style={[styles.tooltip, this.props.style]}>
+                        <View style={{borderRadius: 10, backgroundColor: this.props.color}}>
+                            <Text style={styles.text}>
+                                {this.props.value.toString() + ' POINTS'}
+                            </Text>
+                        </View>
+                        <View style={[styles.arrow, {borderTopColor: this.props.color,}]}>
+                            <View style={[styles.halfCircle, {borderBottomColor: this.props.color}]}></View>
+                        </View>
+                    </View>
                 </View> : null}
                 <View style={{
                     height: this.props.percent.toString() + '%', 
                     backgroundColor: colors.mainBgColor,
-                    // width: (100 / this.props.days).toString() + '%',
                     alignItems: 'center',
                     borderRadius: 5,
                     }}>
@@ -43,7 +50,7 @@ class VerticalStatusBar extends React.Component {
                         }}>
                         </View>
                     </TouchableNativeFeedback>
-                    <Text style={{fontSize: 18 - this.props.days / 3, color: colors.lightTextColor, marginTop: '25%'}}>
+                    <Text style={{fontSize: 18 - this.props.days / 3, color: this.props.color === colors.pink ? colors.pink : colors.lightTextColor, marginTop: '25%'}}>
                         {this.props.day.toString()}
                     </Text>
                 </View>
@@ -51,5 +58,41 @@ class VerticalStatusBar extends React.Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    tooltip: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+    },
+    arrow: {
+        width: 15,
+        height: 7,
+        borderStyle: 'solid',
+        borderBottomWidth: 0,
+        borderRightWidth: 5,
+        borderTopWidth: 9,
+        borderLeftWidth: 5,
+        borderRightColor: 'transparent',
+        borderBottomColor: 'transparent',
+        borderLeftColor: 'transparent',
+    },
+    halfCircle: {
+        width: 5,
+        height: 0,
+        backgroundColor: 'transparent',
+        borderStyle: 'solid',
+        borderBottomWidth: 2,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+    },
+    text: {
+        width: 150,
+        color: colors.mainBgColor,
+        padding: 10,
+        fontSize: 14,
+        textAlign: 'center',
+    }
+});
 
 export default VerticalStatusBar;

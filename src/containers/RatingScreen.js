@@ -1,114 +1,85 @@
 import React from 'react';
-import { View, ScrollView, Text, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { connect } from 'react-redux';
+import HeaderRatingScreen from '../components/atoms/HeaderRatingScreen';
+import RatingList from '../components/atoms/RatingList';
 import colors from '../styles/colors.json';
 
-const rateList = [
-    {
-        name: 'Ilon Mask',
-        score: '125',
-    },
-    {
-        name: 'Johny Johnson',
-        score: '112',
-    },
-    {
-        name: 'My new Name',
-        score: '100',
-    },
-    {
-        name: 'No Name',
-        score: '89',
-    },
-    {
-        name: 'Real Name',
-        score: '87',
-    },
-    {
-        name: 'Simple Man Name',
-        score: '84',
-    },
-    {
-        name: 'Some Adorable Name',
-        score: '65',
-    },
-    {
-        name: 'Short Nm',
-        score: '56',
-    }
-];
+const mapStateToProps = (state) => {
+    return {
+        teams: state.teams.teams,
+    };
+}
 
 class RatingScreen extends React.Component {
+
     constructor(props) {
         super(props);
+
+        this.state = {
+            team: this.props.teams.filter(team => team.teamId === this.props.route.params.teamId)[0],
+        };
+
+        this.goBack = this.goBack.bind(this);
     }
 
     componentDidMount() {
         this.props.navigation.setOptions({
-            title: 'Team rating',
-            headerStyle: {
-                backgroundColor: colors.mainBgColor,
-                borderBottomColor: colors.mainColor,
-                borderBottomWidth: 5,
-                elevation: 0,
-            },
-            headerTintColor: colors.mainColor,
-            headerTitleStyle: {
-                flex: 1,
-                marginRight: '20%',
-                textAlign: 'center',
-                color: colors.textColor,
-            },
+            headerShown: false,
         });
+    }
+
+    goBack() {
+        this.props.navigation.goBack();
     }
 
     render() {
 
-        let i = 0;
-
         return (
-            <ScrollView style={{backgroundColor: colors.mainBgColor}}>
-                <View style={{flex: 20, flexDirection: 'row', backgroundColor: colors.mainBgColor, marginVertical: 1, paddingVertical: 3}}>
-                    <Text style={{flex: 2, color: colors.textColor, fontSize: 16, textAlign: 'center'}}>
-                        №
-                    </Text>
-                    <View style={{flex: 18, flexDirection: 'row', justifyContent: 'space-between', marginLeft: 10}}>
-                        <Text style={{color: colors.textColor, fontSize: 16}}>
-                            name
-                        </Text>
-                        <Text style={{color: colors.textColor, fontSize: 16}}>
-                            score
-                        </Text>
-                    </View>
+            <View style={{backgroundColor: colors.mainBgColor}}>
+                <HeaderRatingScreen goBack={this.goBack}/>
+                <Image
+                    source={{uri: 'https://gesundheit-dev.teamworking.de/wp-content/uploads/B%C3%BCrolympics-Go-for-gold-challenge-1090.jpg'}}
+                    style={styles.imageStyle}
+                    resizeMode='contain'
+                    />
+                <Text style={styles.teamName}>{this.state.team.teamName.toUpperCase()}</Text>
+                <View style={styles.columnNames}>
+                    <Text style={[styles.column, {flex: 1}]}>№</Text>
+                    <Text style={[styles.column, {flex: 3, textAlign: 'left', marginLeft: '5%'}]}>NAME</Text>
+                    <Text style={[styles.column, {flex: 1.5}]}>SCORE</Text>
                 </View>
-                {rateList.map(rateLine => {
-                    let backColor;
-                    if (++i === 1) {
-                        backColor = colors.pink;
-                    } else if (i === 2) {
-                        backColor = colors.mainColor;
-                    } else if (i === 3) {
-                        backColor = colors.altColor;
-                    } else {
-                        backColor = colors.midgray;
-                    }
-                    return (
-                        <View key={i} style={{flex: 20, flexDirection: 'row', backgroundColor: backColor, marginVertical: 1, paddingVertical: 3}}>
-                            <Text style={{flex: 2, color: colors.textColor, fontSize: 16, textAlign: 'center'}}>
-                                {i.toString()}
-                            </Text>
-                            <View key={rateLine.name} style={{flex: 18, flexDirection: 'row', justifyContent: 'space-between'}}>
-                                <Text style={{color: colors.textColor, fontSize: 16}}>
-                                    {rateLine.name}
-                                </Text>
-                                <Text style={{color: colors.textColor, fontSize: 16}}>
-                                    {rateLine.score.toString()}
-                                </Text>
-                            </View>
-                        </View>
-                )})}
-            </ScrollView>
+                <RatingList participants={this.state.team.participants}/>
+            </View>
         );
     }
 }
 
-export default RatingScreen;
+const styles = StyleSheet.create({
+    imageStyle: {
+        height: Dimensions.get('screen').width / 4,
+        marginTop: '15%',
+        borderRadius: 20,
+    },
+    teamName: {
+        textAlign: 'center',
+        marginTop: '10%',
+        fontSize: 20,
+        color: colors.mainColor,
+        fontWeight: '600',
+    },
+    column: {
+        fontSize: 20,
+        color: colors.mainColor,
+        fontWeight: '700',
+        textAlign: 'center',
+    },
+    columnNames: {
+        flexDirection: 'row',
+        marginTop: '15%',
+        marginHorizontal: '5%',
+        marginBottom: '3%',
+    }
+});
+
+export default connect(mapStateToProps)(RatingScreen);

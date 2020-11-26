@@ -25,26 +25,19 @@ class MonthChallengeDiagram extends React.Component {
         }
         const step = upperLine / 5;
 
+        const barColor = (date) => {
+            const currentDate = new Date();
+            const barDate = new Date(date);
+            if (barDate.getFullYear() === currentDate.getFullYear() &&
+                barDate.getMonth() === currentDate.getMonth() &&
+                barDate.getDate() === currentDate.getDate()) {
+                return colors.pink;
+            } else {
+                return colors.mainColor;
+            }
+        }
+
         return (
-            // <View style={{flex: 0.2, marginTop: 10}}>
-            //     <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center',}}>
-            //         <Text style={{marginLeft: -30, marginTop: -10, alignSelf: 'flex-start', color: colors.midgray}}>
-            //             {monthName}-
-            //         </Text>
-            //         <View style={{ borderWidth: 1, borderColor: colors.borderColor, width: '80%', height: Dimensions.get('screen').height / 5, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-end'}}>
-            //             {this.props.month.map(day => (
-            //                 <VerticalStatusBar
-            //                     key={day.date}
-            //                     percent={maximum >= day.score ? 100 * day.score / maximum : 100}
-            //                     color={colors.altColor}
-            //                     days={this.props.month.length}
-            //                     day={day.date.split(' ')[2]}
-            //                     value={day.score}
-            //                     />
-            //             ))}
-            //         </View>
-            //     </View>
-            // </View>
             <View style={styles.container}>
                 <Text style={styles.monthName}>
                     {months[monthName]}
@@ -62,7 +55,7 @@ class MonthChallengeDiagram extends React.Component {
                         <VerticalStatusBar
                             key={day.date}
                             percent={upperLine >= day.score ? 100 * day.score / upperLine : 100}
-                            color={colors.altColor}
+                            color={barColor(day.date)}
                             days={this.props.month.length}
                             day={day.date.split(' ')[2]}
                             value={day.score}

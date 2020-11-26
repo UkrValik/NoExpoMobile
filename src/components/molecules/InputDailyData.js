@@ -1,5 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Alert, TouchableOpacity, TouchableNativeFeedback } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Dimensions,
+    Alert,
+    TouchableOpacity,
+    TouchableNativeFeedback
+} from 'react-native';
 import { Icon, Input, Button } from 'react-native-elements';
 import colors from '../../styles/colors.json';
 import DateTimePicker from '@react-native-community/datetimepicker';

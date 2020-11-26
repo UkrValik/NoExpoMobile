@@ -174,7 +174,10 @@ class TeamScreen extends React.Component {
                         maximumScore={this.state.maximumScore}
                         />
                 ))}
-                <RatingButton navigate={this.props.navigation.navigate}/>
+                <RatingButton
+                    navigate={this.props.navigation.navigate}
+                    teamId={this.state.team.teamId}
+                    />
                 <InputDailyData 
                     toggleDataInput={this.toggleDataInput} 
                     manualDataInput={this.state.manualDataInput}
