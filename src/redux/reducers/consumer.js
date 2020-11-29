@@ -7,16 +7,17 @@ const initialState = {
     synchronizeGoogleFit: false,
     steps: [],
     synchronizationResult: null,
+    firstLogin: true,
 };
 
 export const consumer = (state = initialState, action) => {
 
     switch (action.type) {
         case ActionTypes.ADD_CONSUMER:
-            return {...state, errMess: null, token: state.token, consumer: action.payload.consumer, synchronizeGoogleFit: false};
+            return {...state, errMess: null, token: state.token, consumer: action.payload.consumer};
 
         case ActionTypes.ADD_CONSUMER_TOKEN:
-            return {...state, errMess: null, token: action.payload.data.token, consumer: state.consumer};
+            return {...state, errMess: null, token: action.payload.data.token};
 
         case ActionTypes.VALIDATE_TOKEN:
             if (action.payload.success) {
@@ -29,10 +30,10 @@ export const consumer = (state = initialState, action) => {
             return {...state, errMess: null, token: state.token, consumer: action.payload};
 
         case ActionTypes.CONSUMER_FAILED:
-            return {...state, errMess: action.payload, token: state.token, consumer: state.consumer};
+            return {...state, errMess: action.payload, token: state.token};
 
         case ActionTypes.TOKEN_FAILED:
-            return {...state, errMess: action.payload, token: state.token, consumer: state.consumer};
+            return {...state, errMess: action.payload, token: null};
 
         case ActionTypes.TOGGLE_GOOGLE_FIT:
             return {...state, synchronizeGoogleFit: !state.synchronizeGoogleFit};
@@ -42,6 +43,9 @@ export const consumer = (state = initialState, action) => {
 
         case ActionTypes.SEND_CHALLENGE_DATA:
             return {...state, synchronizationResult: action.payload};
+
+        case ActionTypes.MAKE_FIRST_LOGIN:
+            return {...state, firstLogin: false};
 
         default:
             return state;

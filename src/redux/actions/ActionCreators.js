@@ -237,3 +237,7 @@ export const updateSynchronizationResult = (result) => ({
     type: ActionTypes.SEND_CHALLENGE_DATA,
     payload: result,
 });
+
+export const makeFirstLogin = () => dispatch => dispatch({
+    type: ActionTypes.MAKE_FIRST_LOGIN,
+});

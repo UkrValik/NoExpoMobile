@@ -8,17 +8,25 @@ import AccountScreen from '../containers/AccountScreen';
 import TeamScreen from '../containers/TeamScreen';
 import RatingScreen from '../containers/RatingScreen';
 import LoginScreen from '../containers/LoginScreen';
-import { fetchTokenValid, addSteps } from '../redux/actions/ActionCreators';
+import {
+    fetchTokenValid,
+    addSteps,
+    updateConsumerScores,
+    sendChallengeData,
+} from '../redux/actions/ActionCreators';
 
 const mapStateToProps = state => {
     return {
         consumer: state.consumer,
+        teams: state.teams,
     };
 };
 
 const mapDispatchToProps = dispatch => ({
     fetchTokenValid: async (token) => dispatch(fetchTokenValid(token)),
     addSteps: (steps) => dispatch(addSteps(steps)),
+    updateConsumerScores: (teamId, steps, startDate, endDate) => dispatch(updateConsumerScores(teamId, steps, startDate, endDate)),
+    sendChallengeData: (data, token) => dispatch(sendChallengeData(data, token)),
 });
 
 const MainStackNavigator = createStackNavigator();
@@ -26,6 +34,9 @@ const MainStackNavigator = createStackNavigator();
 class Main extends React.Component {
     constructor(props) {
         super(props);
+
+        this._intervalDuration = 15000;
+        this.intervalCallback = this.intervalCallback.bind(this);
     }
 
     async componentDidMount() {
@@ -45,27 +56,44 @@ class Main extends React.Component {
                         }
                         GoogleFit.authorize(options)
                             .then(authResult => {
-                                console.log(authResult);
+                                // console.log(authResult);
                             })
                             .catch(err => {
-                                console.log(err);
+                                // console.log(err);
                             });
                     }
                 });
         }
-        this.interval = setInterval(async () => {
-            if (GoogleFit.isAuthorized && this.props.consumer.synchronizeGoogleFit) {
-                const steps = await GoogleFit.getDailyStepCountSamples({
-                    startDate: new Date('2018-05-05').toISOString(),
-                    endDate: new Date().toISOString(),
+        this.intervalCallback();
+        this._interval = setInterval(this.intervalCallback, this._intervalDuration);
+    }
+
+    async intervalCallback() {
+        if (GoogleFit.isAuthorized && this.props.consumer.synchronizeGoogleFit) {
+            const steps = await GoogleFit.getDailyStepCountSamples({
+                startDate: new Date('2018-05-05').toISOString(),
+                endDate: new Date().toISOString(),
+            });
+            await this.props.addSteps(steps[1].steps);
+            if (this.props.teams.teams.length > 0) {
+                for (let team of this.props.teams.teams) {
+                    await this.props.updateConsumerScores(team.teamId, this.props.consumer.steps, team.startDate, team.endDate);
+                }
+                setTimeout(() => {
+                    for (let team of this.props.teams.teams) {
+                        const data = {
+                            id: team.challengeId,
+                            activities: team.scores,
+                        };
+                        this.props.sendChallengeData(data, this.props.consumer.token);
+                    }
                 });
-                this.props.addSteps(steps[1].steps);
             }
-        }, 5000);
+        }
     }
 
     componentWillUnmount() {
-        clearInterval(this.interval);
+        clearInterval(this._interval);
     }
 
     render() {

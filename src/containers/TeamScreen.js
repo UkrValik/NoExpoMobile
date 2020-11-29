@@ -8,7 +8,6 @@ import InputDailyData from '../components/molecules/InputDailyData';
 import RatingButton from '../components/atoms/RatingButton';
 import colors from '../styles/colors.json';
 import { sortScores } from '../utilities/index';
-import { updateConsumerScores, sendChallengeData } from '../redux/actions/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -16,11 +15,6 @@ const mapStateToProps = state => {
         teams: state.teams,
     };
 };
-
-const mapDispatchToProps = dispatch => ({
-    updateConsumerScores: (teamId, steps, startDate, endDate) => dispatch(updateConsumerScores(teamId, steps, startDate, endDate)),
-    sendChallengeData: (data, token) => dispatch(sendChallengeData(data, token)),
-});
 
 class TeamScreen extends React.Component {
     constructor(props) {
@@ -44,23 +38,14 @@ class TeamScreen extends React.Component {
         this.props.navigation.setOptions({
             headerShown: false,
         });
-        this.interval = setInterval(() => {
-            if (this.props.consumer.steps.length > 0 && this.props.consumer.synchronizeGoogleFit) {
-                this.props.updateConsumerScores(this.state.team.teamId, this.props.consumer.steps, this.state.team.startDate, this.state.team.endDate);
-                setTimeout(() => {
-                    const data = {
-                        id: this.state.team.challengeId,
-                        activities: this.state.team.scores,
-                    };
-                    this.props.sendChallengeData(data, this.props.consumer.token);
-                }, 2000);
-            }
-        }, 5000);
         this.buildDiagramRanges();
+        this._unsubscribe = this.props.navigation.addListener('focus', () => {
+            this.buildDiagramRanges();
+        });
     }
 
     componentWillUnmount() {
-        clearInterval(this.interval);
+        this._unsubscribe();
     }
 
     onDateChange(date) {
@@ -213,4 +198,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TeamScreen);
+export default connect(mapStateToProps)(TeamScreen);

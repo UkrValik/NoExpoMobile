@@ -7,7 +7,16 @@ export const teams = (state = {
 
     switch (action.type) {
         case ActionTypes.ADD_TEAMS:
-            return {...state, errMess: null, teams: action.payload};
+            if (state.teams.length > 0) {
+                for (let team of action.payload) {
+                    if (state.teams.find(teamState => teamState.teamId === team.teamId) === undefined) {
+                        state.teams.unshift(team);
+                    } 
+                }
+                return state;
+            } else {
+                return {...state, teams: action.payload};
+            }
 
         case ActionTypes.TEAMS_FAILED:
             return {...state, errMess: action.payload, teams: [] };
@@ -44,16 +53,13 @@ export const teams = (state = {
             currTeamIndex = state.teams.findIndex(team => team.teamId === action.payload.teamId);
             let newScores = [];
             for (let step of action.payload.steps) {
-                if (new Date(step.date).getFullYear() >= new Date(action.payload.startDate).getFullYear() && 
-                    new Date(step.date).getMonth()    >= new Date(action.payload.startDate).getMonth() && 
-                    new Date(step.date).getDate()     >= new Date(action.payload.startDate).getDate() &&
-                    new Date(step.date).getFullYear() <= new Date(action.payload.endDate).getFullYear() && 
-                    new Date(step.date).getMonth()    <= new Date(action.payload.endDate).getMonth() && 
-                    new Date(step.date).getDate()     <= new Date(action.payload.endDate).getDate())
-                    newScores.push({
+                if (new Date(step.date).getTime() >= new Date(action.payload.startDate).getTime() &&
+                    new Date(step.date).getTime() <= new Date(action.payload.endDate)) {
+                    newScores.push({ 
                         date: step.date,
                         score: step.value,
                     });
+                }
             }
             currTeam.scores = newScores;
             state.teams.splice(currTeamIndex, 1, currTeam);

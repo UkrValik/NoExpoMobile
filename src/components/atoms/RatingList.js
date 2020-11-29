@@ -27,7 +27,7 @@ class RatingList extends React.Component {
 
         return (
             <ScrollView>
-                {this.props.participants.map(consumer => (
+                {this.props.participants.map(consumer => consumer.status === 1 && (
                     <TouchableNativeFeedback key={i.toString()}>
                         <View style={[styles.columnNames, {backgroundColor: backgroundColor(i)}]}>
                             <Text style={[styles.column, {flex: 1}]}>{(++i).toString()}</Text>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { View } from 'react-native';
 import TeamListItem from '../atoms/TeamListItem';
 
 class TeamList extends React.Component {
@@ -9,11 +9,17 @@ class TeamList extends React.Component {
     }
 
     render() {
-        return (
-            <ScrollView style={{marginTop: 0}}>
-                {this.props.teams.map(team => (<TeamListItem key={team.teamId} team={team} navigation={this.props.navigation}/>))}
-            </ScrollView>
-        );
+        if (this.props.teams) {
+            return (
+                <View style={{marginTop: 0}}>
+                    {this.props.teams.map(team => (<TeamListItem key={team.teamId} team={team} navigation={this.props.navigation}/>))}
+                </View>
+            );
+        } else {
+            return (
+                <></>
+            );
+        }
     }
 }
 

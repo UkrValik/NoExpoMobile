@@ -3,8 +3,6 @@ import {
     View,
     Text,
     StyleSheet,
-    Dimensions,
-    Alert,
     TouchableOpacity,
     TouchableNativeFeedback
 } from 'react-native';
@@ -12,17 +10,19 @@ import { Icon, Input, Button } from 'react-native-elements';
 import colors from '../../styles/colors.json';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { connect } from 'react-redux';
-import { postConsumerScore } from '../../redux/actions/ActionCreators';
+import { postConsumerScore, sendChallengeData } from '../../redux/actions/ActionCreators';
 
 const mapStateToProps = state => {
     return {
         consumer: state.consumer.consumer,
         teams: state.teams.teams,
+        token: state.consumer.token,
     };
 };
 
 const mapDispatchToProps = dispatch => ({
     postConsumerScore: async (teamId, consumerId, day) => dispatch(postConsumerScore(teamId, consumerId, day)),
+    sendChallengeData: (data, token) => dispatch(sendChallengeData(data, token)),
 });
 
 class InputDailyData extends React.Component {
@@ -59,67 +59,21 @@ class InputDailyData extends React.Component {
             score: this.props.stepValue,
         };
         await this.props.postConsumerScore(this.props.teamId, day);
-        this.props.buildDiagramRanges();
+
+        const team = this.props.teams.filter(team => team.teamId === this.props.teamId)[0];
+        const data = {
+            id: team.challengeId,
+            activities: team.scores,
+        };
+        await this.props.sendChallengeData(data, this.props.token);
+        setTimeout(() =>  {
+            this.props.buildDiagramRanges();
+        }, 2000);
     }
 
     render() {
 
         return (
-            // <View style={styles.container}>
-            //     <View style={{alignItems: 'center'}}>
-            //         <Text style={{color: colors.textColor}}>
-            //             Choose date
-            //         </Text>
-            //         <DatePicker
-            //             style={{backgroundColor: colors.mainBgColor}}
-            //             customStyles={{dateText: {color: colors.textColor, fontWeight: 'bold'}}}
-            //             showIcon={false}
-            //             date={this.props.endDate}
-            //             androidVariant='nativeAndroid'
-            //             mode='date'
-            //             maxDate={new Date(this.props.endDate)}
-            //             minDate={new Date(this.props.startDate)}
-            //             onDateChange={(date) => this.onDateChange(date)}
-            //             />
-            //     </View>
-            //     <View style={{alignItems: 'center'}}>
-            //         <Text style={{color: colors.textColor}}>
-            //             Input data
-            //         </Text>
-                    
-            //         <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: colors.mainBgColor}}>
-            //             <Input
-            //                 value={this.props.stepValue.toString()}
-            //                 containerStyle={{width: Dimensions.get('screen').width / 24 * 7, height: Dimensions.get('screen').height / 14}}
-            //                 onChangeText={(value) => this.saveStepValue(value)}
-            //                 inputContainerStyle={{borderBottomWidth: 0}}
-            //                 />
-            //             <Icon
-            //                 type='material-community'
-            //                 name='check-bold'
-            //                 color={colors.textColor}
-            //                 onPress={() => this.writeValue()}
-            //                 />
-            //         </View>
-            //         {/* {!this.props.manualDataInput && ( }
-            //             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            //                 <Icon
-            //                     type='material-community'
-            //                     name='chevron-left'
-            //                     color={colors.textColor}
-            //                     onPress={this.props.toggleDataInput}
-            //                     />
-            //                 <Button
-            //                     style={{width: Dimensions.get('screen').width / 24 * 7, paddingVertical: 5}}
-            //                     buttonStyle={{backgroundColor: colors.mainBgColor}}
-            //                     titleStyle={{fontSize: 14, color: colors.textColor, fontWeight: '300'}}
-            //                     title='Get data from tracker'
-            //                     onPress={this.buttonPress}
-            //                     />
-            //             </View>
-            //         )} */}
-            //     </View>
-            // </View>
             <View>
                 <Text style={styles.text}>Choose date</Text>
                 <View>

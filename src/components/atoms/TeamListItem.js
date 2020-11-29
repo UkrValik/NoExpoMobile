@@ -34,13 +34,13 @@ class TeamListItem extends React.Component {
     }
 
     componentDidMount() {
-        this._unsibscribe = this.props.navigation.addListener('focus', () => {
+        this._unsubscribe = this.props.navigation.addListener('focus', () => {
             this.setState({ loading: false });
         });
     }
 
     componentWillUnmount() {
-        this._unsibscribe();
+        this._unsubscribe();
     }
     
     async moveToTeamScreen() {
@@ -59,7 +59,7 @@ class TeamListItem extends React.Component {
             return (
                 <Loading/>
             );
-        } else {
+        } else if (this.props.team.status === 1) {
             return (
                 <TouchableNativeFeedback onPress={() => this.moveToTeamScreen()}>
                     <View style={[styles.container, {height: imageSize}]}>
@@ -76,12 +76,18 @@ class TeamListItem extends React.Component {
                                 {AllHtmlEntities.decode(this.props.team.challengeName)}
                             </Text>
                             <Text style={styles.blueText}>
-                                {'LAUFZEIT: ' + this.props.team.activityDays}
+                                {'LAUFZEIT: ' + (this.props.team.activityDays === undefined ?
+                                    '?'
+                                :
+                                    this.props.team.activityDays)
+                                }
                             </Text>
                         </View>
                     </View>
                 </TouchableNativeFeedback>
             );
+        } else {
+            return (<></>);
         }
     }
 }
