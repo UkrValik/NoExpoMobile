@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
+import icomoonConfig from '../../styles/selection.json';
 import colors from '../../styles/colors.json';
+
+const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
 class HeaderMainScreen extends React.Component {
 
@@ -17,11 +20,10 @@ class HeaderMainScreen extends React.Component {
                     Main
                 </Text>
                 <Icon
-                    type='material-community'
-                    name='account'
+                    name='user'
                     color={colors.mainBgColor}
-                    size={28}
-                    containerStyle={{marginRight: '3%'}}
+                    size={18}
+                    style={{marginHorizontal: '3%'}}
                     onPress={() => this.props.navigateToAccount()}
                     />
             </View>

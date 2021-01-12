@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
+import icomoonConfig from '../../styles/selection.json';
 import colors from '../../styles/colors.json';
+
+const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
 class HeaderTeamScreen extends React.Component {
 
@@ -14,11 +17,10 @@ class HeaderTeamScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <Icon
-                    type='material-community'
-                    name='chevron-left'
+                    name='arrow-left'
                     color={colors.mainBgColor}
-                    size={28}
-                    containerStyle={{marginRight: '3%'}}
+                    size={16}
+                    style={{marginLeft: '3%'}}
                     onPress={() => this.props.goBack()}
                     />
                 <Text style={styles.text}>

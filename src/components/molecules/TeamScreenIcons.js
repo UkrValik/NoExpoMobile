@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import TeamScreenIconText from '../atoms/TeamScreenIconText';
-import colors from '../../styles/colors.json';
 
 class TeamScreenIcons extends React.Component {
 
@@ -37,11 +36,6 @@ class TeamScreenIcons extends React.Component {
                             value={activeParticipants}
                             />
                     </View>
-                    {/* <TeamScreenIcon
-                        iconName='rank.png'
-                        label='Your rank'
-                        value={this.props.team.rank + '/' + activeParticipants}
-                        /> */}
                     <View>
                         <Image
                             source={require('../../assets/rank.png')}

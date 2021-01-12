@@ -6,11 +6,15 @@ import {
     TouchableOpacity,
     TouchableNativeFeedback
 } from 'react-native';
-import { Icon, Input, Button } from 'react-native-elements';
+import { Input } from 'react-native-elements';
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
+import icomoonConfig from '../../styles/selection.json';
 import colors from '../../styles/colors.json';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { connect } from 'react-redux';
 import { postConsumerScore, sendChallengeData } from '../../redux/actions/ActionCreators';
+
+const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
 const mapStateToProps = state => {
     return {
@@ -82,11 +86,10 @@ class InputDailyData extends React.Component {
                         >
                         <View style={styles.datePicker}>
                             <Icon
-                                type='material-community'
-                                name='calendar-range'
+                                name='calendar'
                                 size={30}
                                 color={colors.midgray}
-                                containerStyle={{marginLeft: 12}}
+                                style={{marginLeft: 12}}
                                 />
                             <Text style={styles.inputText}>
                                 {this.props.date.toISOString().split('T')[0].split('-').reverse().join('.')}
@@ -112,8 +115,7 @@ class InputDailyData extends React.Component {
                     inputContainerStyle={styles.inputContainerStyle}
                     leftIcon={
                         <Icon
-                            type='material-community'
-                            name='forum-outline'
+                            name='conversation'
                             size={30}
                             color={colors.midgray}
                             style={{marginLeft: 12}}

@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
+import icomoonConfig from '../../styles/selection.json';
 import colors from '../../styles/colors.json';
+
+const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
 class HeaderAccountScreen extends React.Component {
 
@@ -14,20 +17,18 @@ class HeaderAccountScreen extends React.Component {
             <View style={styles.container}>
                 <View style={styles.top}>
                     <Icon
-                        type='material-community'
-                        name='chevron-left'
-                        size={30}
+                        name='arrow-left'
+                        size={16}
                         color={colors.mainBgColor}
-                        containerStyle={{marginLeft: '2%'}}
+                        style={{marginLeft: '3%'}}
                         onPress={() => this.props.goBack()}
                         />
                     <Text style={styles.textAccount}>
                         Account
                     </Text>
                     <Icon
-                        type='material-community'
-                        name='exit-to-app'
-                        size={30}
+                        name='exit'
+                        size={20}
                         color={colors.mainBgColor}
                         style={{marginRight: '5%'}}
                         />

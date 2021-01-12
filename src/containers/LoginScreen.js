@@ -1,10 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import { Icon, Input, Button } from 'react-native-elements';
+import { Input, Button } from 'react-native-elements';
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import { connect } from 'react-redux';
+import icomoonConfig from '../styles/selection.json';
 import colors from '../styles/colors.json';
 import { fetchToken, fetchConsumer } from '../redux/actions/ActionCreators';
 import Tooltip from '../components/atoms/Tooltip';
+
+const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
 const mapDispatchToProps = dispatch => ({
     fetchToken: (emailPass) => dispatch(fetchToken(emailPass)),
@@ -104,21 +108,19 @@ class LoginScreen extends React.Component {
                         autoCapitalize='none'
                         leftIcon={
                             <Icon
-                                type='material-community'
-                                name='email'
+                                name='mail'
                                 color={colors.midgray}
                                 size={24}
-                                containerStyle={{marginLeft: 10}}
+                                style={{marginLeft: 10}}
                                 />
                         }
                         rightIcon={
                             this.state.wrongPassword ? 
                                 <Icon
-                                    type='material-community'
-                                    name='alert-circle'
+                                    name='info'
                                     size={24}
                                     color={colors.pink}
-                                    containerStyle={{marginRight: 10}}
+                                    style={{marginRight: 10}}
                                     />
                             :
                                 <></>
@@ -136,29 +138,26 @@ class LoginScreen extends React.Component {
                         autoCapitalize='none'
                         leftIcon={
                             <Icon
-                                type='material-community'
                                 name='lock'
                                 color={colors.midgray}
                                 size={24}
-                                containerStyle={{marginLeft: 10}}
+                                style={{marginLeft: 10}}
                                 />
                         }
                         rightIcon={
                             this.state.wrongPassword ? 
                                 <Icon
-                                    type='material-community'
-                                    name='alert-circle'
+                                    name='info'
                                     size={24}
                                     color={colors.pink}
-                                    containerStyle={{marginRight: 10}}
+                                    style={{marginRight: 10}}
                                     />
                             :
                                 <Icon
-                                    type='material-community'
-                                    name={this.state.passwordVisible ? 'eye-off' : 'eye'}
+                                    name={this.state.passwordVisible ? 'minus' : 'plus'}
                                     size={24}
                                     color={colors.midgray}
-                                    containerStyle={{marginRight: 10}}
+                                    style={{marginRight: 10}}
                                     onPress={() => this.onPasswordVisisble()}
                                     />
                         }

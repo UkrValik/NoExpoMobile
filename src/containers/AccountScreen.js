@@ -4,8 +4,6 @@ import { Input } from 'react-native-elements';
 import colors from '../styles/colors.json';
 import { connect } from 'react-redux';
 import GoogleFit, { Scopes } from 'react-native-google-fit';
-import AccountBlock from '../components/atoms/AccountBlock';
-import AutomationCheckbox from '../components/atoms/AutomationCheckbox';
 import AuthGoogleFitButton from '../components/atoms/AuthGoogleFitButton';
 import HeaderAccountScreen from '../components/atoms/HeaderAccountScreen';
 import { toggleGoogleFit } from '../redux/actions/ActionCreators';

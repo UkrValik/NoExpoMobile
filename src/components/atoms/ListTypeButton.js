@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableNativeFeedback, StyleSheet, Dimensions } from 'react-native';
+import { View, TouchableNativeFeedback, StyleSheet } from 'react-native';
 import colors from '../../styles/colors.json';
 
 class ListTypeButton extends React.Component {
