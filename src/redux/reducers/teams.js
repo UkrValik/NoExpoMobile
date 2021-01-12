@@ -15,7 +15,12 @@ export const teams = (state = {
                 }
                 return state;
             } else {
-                return {...state, teams: action.payload};
+                console.log(action.payload);
+                if (action.payload)
+                    return {...state, teams: action.payload};
+                else {
+                    return state;
+                }
             }
 
         case ActionTypes.TEAMS_FAILED:

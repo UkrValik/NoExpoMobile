@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { connect } from 'react-redux';
 import GoogleFit, {Scopes} from 'react-native-google-fit';
+import Loading from '../components/atoms/Loading';
 import MainScreen from '../containers/MainScreen';
 import AccountScreen from '../containers/AccountScreen';
 import TeamScreen from '../containers/TeamScreen';
@@ -37,10 +38,15 @@ class Main extends React.Component {
 
         this._intervalDuration = 15000;
         this.intervalCallback = this.intervalCallback.bind(this);
+        
+        this.state = {
+            tokenChecked: false,
+        };
     }
 
     async componentDidMount() {
         const token = await this.props.fetchTokenValid(this.props.consumer.token);
+        this.setState({ tokenChecked: true });
 
         if (this.props.consumer.synchronizeGoogleFit) {
             GoogleFit.checkIsAuthorized()
@@ -97,24 +103,31 @@ class Main extends React.Component {
     }
 
     render() {
-        return (
-            <NavigationContainer>
-                <MainStackNavigator.Navigator>
-                    {this.props.consumer.token == null ? (
-                        <>
-                            <MainStackNavigator.Screen name='Login' component={LoginScreen}/>
-                        </>
-                    ) : (
-                        <>
-                            <MainStackNavigator.Screen name='Main' component={MainScreen}/>
-                            <MainStackNavigator.Screen name='Account' component={AccountScreen}/>
-                            <MainStackNavigator.Screen name='Team' component={TeamScreen}/>
-                            <MainStackNavigator.Screen name='Rating' component={RatingScreen}/>
-                        </>
-                    )}
-                </MainStackNavigator.Navigator>
-            </NavigationContainer>
-        );
+
+        if (this.state.tokenChecked) {
+            return (
+                <NavigationContainer>
+                    <MainStackNavigator.Navigator>
+                        {this.props.consumer.token == null ? (
+                            <>
+                                <MainStackNavigator.Screen name='Login' component={LoginScreen}/>
+                            </>
+                        ) : (
+                            <>
+                                <MainStackNavigator.Screen name='Main' component={MainScreen}/>
+                                <MainStackNavigator.Screen name='Account' component={AccountScreen}/>
+                                <MainStackNavigator.Screen name='Team' component={TeamScreen}/>
+                                <MainStackNavigator.Screen name='Rating' component={RatingScreen}/>
+                            </>
+                        )}
+                    </MainStackNavigator.Navigator>
+                </NavigationContainer>
+            );
+        } else {
+            return (
+                <Loading/>
+            );
+        }
     }
 }
 

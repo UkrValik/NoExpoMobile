@@ -5,6 +5,7 @@ import GoogleFit, {Scopes} from 'react-native-google-fit';
 import HeaderMainScreen from '../components/atoms/HeaderMainScreen';
 import TeamList from '../components/molecules/TeamList';
 import Loading from '../components/atoms/Loading';
+import ListTypeButton from '../components/atoms/ListTypeButton';
 import colors from '../styles/colors.json';
 import {
     fetchTeams,
@@ -39,11 +40,13 @@ class MainScreen extends React.Component {
 
         this.state = {
             refresh: false,
+            listType: 2,
         };
 
         this.ref = React.createRef();
         this.navigateToAccount = this.navigateToAccount.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
+        this.setListType = this.setListType.bind(this);
     }
 
     async componentDidMount() {
@@ -53,6 +56,7 @@ class MainScreen extends React.Component {
         this._unsubscribe = this.props.navigation.addListener('focus', async () => {
             this.props.fetchConsumer(this.props.consumer.token);
             const teams = await this.props.fetchTeams(this.props.consumer.token);
+            console.log(teams);
             for (let team of teams.payload) {
                 this.props.fetchTeam(team.teamId, this.props.consumer.token);
             }
@@ -69,6 +73,10 @@ class MainScreen extends React.Component {
 
     modalButtonNo() {
         this.props.makeFirstLogin();
+    }
+
+    setListType(type) {
+        this.setState({ listType: type });
     }
 
     async modalButtonYes() {
@@ -134,10 +142,30 @@ class MainScreen extends React.Component {
                     </View>
                 </Modal>
                 <HeaderMainScreen navigateToAccount={this.navigateToAccount}/>
-                <Text style={styles.textTeams}>
-                    TEAMS
-                </Text>
-                {this.props.teams.teams.length === 0 ? (<Loading/>) : (
+                <View style={{marginHorizontal: '3.5%', flexDirection: 'row', marginVertical: '5%', alignItems: 'center', justifyContent: 'space-around'}}>
+                    <View style={{flex: 4}}>
+                        <ListTypeButton 
+                            style={{flex: 10}}
+                            buttonType={1} 
+                            listType={this.state.listType} 
+                            setListType={this.setListType}
+                            />
+                    </View>
+                    <View style={{flex: 4}}>
+                        <ListTypeButton 
+                            style={{flex: 10}}
+                            buttonType={2} 
+                            listType={this.state.listType} 
+                            setListType={this.setListType}
+                            />
+                    </View>
+                    <Text style={styles.textTeams}>
+                        TEAMS
+                    </Text>
+                    <View style={{flex: 4}}/>
+                    <View style={{flex: 4}}/>
+                </View>
+                {this.props.teams.teams && this.props.teams.teams.length === 0 ? (<Loading/>) : (
                     <ScrollView
                         refreshControl={
                             <RefreshControl
@@ -150,6 +178,7 @@ class MainScreen extends React.Component {
                         <TeamList
                             teams={this.props.teams.teams}
                             navigation={this.props.navigation}
+                            listType={this.state.listType}
                             />
                     </ScrollView>
                 )}
@@ -167,12 +196,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '700',
         color: colors.mainColor,
-        alignSelf: 'center',
         paddingVertical: '3%',
+        flex: 10,
+        textAlign: 'center',
     },
     modal: {
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        backgroundColor: 'rgba(255, 255, 255, 0.3)',
         justifyContent: 'center',
         alignItems: 'center',
     },

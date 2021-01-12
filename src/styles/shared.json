@@ -5,5 +5,7 @@
     "validateTokenPATH": "/wp-json/jwt-auth/v1/token/validate",
     "fetchTeamsPATH": "/wp-json/wpps/v1/teams",
     "fetchSingleTeamPATH": "/wp-json/wpps/v1/team/",
-    "sendChallengeDataPATH": "/wp-json/wpps/v1/challenge/data"
+    "sendChallengeDataPATH": "/wp-json/wpps/v1/challenge/data",
+    "userId": "alleavengers",
+    "password": "gb82166"
 }

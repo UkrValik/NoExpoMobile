@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, StyleSheet, TouchableHighlightBase } from 'react-native';
+import { ScrollView, Text, StyleSheet, } from 'react-native';
 import { connect } from 'react-redux';
 import TeamScreenIcons from '../components/molecules/TeamScreenIcons';
 import MonthChallengeDiagram from '../components/molecules/MonthChallengeDiagram';
@@ -32,6 +32,7 @@ class TeamScreen extends React.Component {
         this.saveStepValue = this.saveStepValue.bind(this);
         this.onDateChange = this.onDateChange.bind(this);
         this.goBack = this.goBack.bind(this);
+        this.onDataSent = this.onDataSent.bind(this);
     }
 
     componentDidMount() {
@@ -50,6 +51,10 @@ class TeamScreen extends React.Component {
 
     onDateChange(date) {
         this.setState({ date: date });
+    }
+
+    onDataSent() {
+        this.setState({ team: this.props.teams.teams.filter(team => team.teamId === this.props.route.params.teamId)[0] });
     }
 
     saveStepValue(value) {
@@ -137,6 +142,11 @@ class TeamScreen extends React.Component {
         const regex = /(<([^>]+)>)/ig;
         const endDate = new Date().getTime() > new Date(this.state.team.endDate).getTime() ? new Date(this.state.team.endDate) : new Date();
 
+        const showInputDataSection = (endDate) => {
+            const currDate = new Date();
+            return currDate.getTime() < endDate.getTime();
+        }
+
         return (
             <ScrollView style={{backgroundColor: colors.mainBgColor}}>
                 <HeaderTeamScreen
@@ -163,9 +173,7 @@ class TeamScreen extends React.Component {
                     navigate={this.props.navigation.navigate}
                     teamId={this.state.team.teamId}
                     />
-                <InputDailyData 
-                    toggleDataInput={this.toggleDataInput} 
-                    manualDataInput={this.state.manualDataInput}
+                {showInputDataSection(new Date(this.state.team.endDate)) && <InputDailyData 
                     teamId={this.state.team.teamId}
                     stepValue={this.state.stepValue}
                     date={this.state.date}
@@ -174,7 +182,8 @@ class TeamScreen extends React.Component {
                     buildDiagramRanges={this.buildDiagramRanges}
                     onDateChange={this.onDateChange}
                     saveStepValue={this.saveStepValue}
-                    />
+                    onDataSent={this.onDataSent}
+                    />}
             </ScrollView>
         );
     }

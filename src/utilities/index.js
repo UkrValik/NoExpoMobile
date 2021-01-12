@@ -1,5 +1,13 @@
+'use strict';
+
+const Buffer = require('buffer');
+
 export const sortScores = (scores) => {
     return quickSortScores(scores, 0, scores.length - 1);
+}
+
+export const base64Encode = (str) => {
+    return base64Enc(str);
 }
 
 const partition = (scores, p, q) => {
@@ -21,4 +29,9 @@ const quickSortScores = (scores, p, q) => {
     scores = quickSortScores(scores, p, i - 1);
     scores = quickSortScores(scores, i + 1, q);
     return scores;
+}
+
+const base64Enc = (str) => {
+    const buff = Buffer.Buffer.from(str);
+    return buff.toString('base64');
 }

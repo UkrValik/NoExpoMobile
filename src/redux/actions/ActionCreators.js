@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import shared from '../../styles/shared.json';
+import { base64Encode } from '../../utilities';
 
 export const fetchTeams = (token) => (dispatch) => {
     return fetch(shared.baseURL + shared.fetchTeamsPATH, {
@@ -7,9 +8,11 @@ export const fetchTeams = (token) => (dispatch) => {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token,
+            // 'Authorization': 'Basic ' + base64Encode(shared.userId + ':' + shared.password),
         }
     })
         .then(response => {
+            console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
             if (response.ok) {
                 return response;
             } else {
@@ -85,6 +88,7 @@ export const fetchToken = (namePass) => dispatch => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            // 'Authorization': 'Basic ' + base64Encode(shared.userId + ':' + shared.password),
         },
         body: JSON.stringify(namePass),
     })

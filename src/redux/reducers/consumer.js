@@ -20,6 +20,7 @@ export const consumer = (state = initialState, action) => {
             return {...state, errMess: null, token: action.payload.data.token};
 
         case ActionTypes.VALIDATE_TOKEN:
+            console.log(action.payload);
             if (action.payload.success) {
                 return state;
             } else {

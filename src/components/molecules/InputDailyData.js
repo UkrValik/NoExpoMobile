@@ -66,9 +66,8 @@ class InputDailyData extends React.Component {
             activities: team.scores,
         };
         await this.props.sendChallengeData(data, this.props.token);
-        setTimeout(() =>  {
-            this.props.buildDiagramRanges();
-        }, 2000);
+        this.props.onDataSent();
+        this.props.buildDiagramRanges();
     }
 
     render() {
@@ -90,7 +89,7 @@ class InputDailyData extends React.Component {
                                 containerStyle={{marginLeft: 12}}
                                 />
                             <Text style={styles.inputText}>
-                                {this.props.date.toISOString().split('T')[0].split('-').join('.')}
+                                {this.props.date.toISOString().split('T')[0].split('-').reverse().join('.')}
                             </Text>
                         </View>
                     </TouchableOpacity>
