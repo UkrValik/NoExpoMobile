@@ -59,6 +59,8 @@ class MonthChallengeDiagram extends React.Component {
                             days={this.props.month.length}
                             day={day.date.split(' ')[2]}
                             value={day.score}
+                            setPressedScoreBar={this.props.setPressedScoreBar}
+                            pressedScoreBar={this.props.pressedScoreBar}
                             />
                     ))}
                 </View>

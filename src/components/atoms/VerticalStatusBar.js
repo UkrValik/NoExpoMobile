@@ -12,9 +12,17 @@ class VerticalStatusBar extends React.Component {
         };
     }
 
+    componentDidUpdate() {
+        if (this.props.pressedScoreBar !== this && this.state.scoreVisible) {
+            this.setState({ scoreVisible: false });
+            clearTimeout(this._timeout);
+        }
+    }
+
     onPress() {
+        this.props.setPressedScoreBar(this);
         this.setState({ scoreVisible: true });
-        setTimeout(() => {
+        this._timeout = setTimeout(() => {
             this.setState({ scoreVisible: false });
         }, 3000);
     }

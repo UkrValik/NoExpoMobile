@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { 
+    View,
+    Text,
+    StyleSheet,
+    TouchableWithoutFeedback,
+    ImageBackground,
+    Dimensions
+} from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import { connect } from 'react-redux';
@@ -85,6 +92,11 @@ class LoginScreen extends React.Component {
     render() {
         return (
             <TouchableWithoutFeedback style={{flex: 1}} onPress={() => this.onOutPress()} accessible={false}>
+                <ImageBackground
+                    source={require('../assets/background-blue.png')}
+                    resizeMode='cover'
+                    style={{width: Dimensions.get('screen').width, height: Dimensions.get('screen').height - 20}}
+                    >
                 <View style={styles.container}>
                     <Text style={styles.appName}>
                         GESUNDHEIT BEWEGT
@@ -175,6 +187,7 @@ class LoginScreen extends React.Component {
                         Forgot password?
                     </Text>
                 </View>
+                </ImageBackground>
             </TouchableWithoutFeedback>
         );
     }
@@ -185,7 +198,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: colors.mainColor
+        // backgroundColor: colors.mainColor
     },
     inputContainerStyle: {
         borderWidth: 1,

@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Text, Modal, TouchableOpacity, RefreshControl } from 'react-native';
+import { StyleSheet,
+    View,
+    Text,
+    Modal,
+    TouchableOpacity,
+    RefreshControl,
+    ImageBackground
+} from 'react-native';
 import { connect } from 'react-redux';
 import GoogleFit, {Scopes} from 'react-native-google-fit';
 import HeaderMainScreen from '../components/atoms/HeaderMainScreen';
@@ -16,6 +23,7 @@ import {
     fetchConsumer,
 } from '../redux/actions/ActionCreators';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Dimensions } from 'react-native';
 
 const mapDispatchToProps = dispatch => ({
     fetchTeams: async (token) => dispatch(fetchTeams(token)),
@@ -125,9 +133,15 @@ class MainScreen extends React.Component {
             <View style={styles.container}>
                 <Modal
                     visible={this.props.consumer.firstLogin}
-                    transparent={true}
+                    presentationStyle='fullScreen'
+                    // transparent={true}
                     >
-                    <View style={styles.modal}>
+                    {/* <View style={styles.modal}> */}
+                    <ImageBackground
+                        source={require('../assets/background-white.png')}
+                        style={styles.modal}
+                        resizeMode='cover'
+                        >
                         <Text style={styles.text}>
                             Collect your google fit data automatically?
                         </Text>
@@ -139,7 +153,8 @@ class MainScreen extends React.Component {
                                 <Text style={styles.button}>Yes</Text>
                             </TouchableOpacity>
                         </View>
-                    </View>
+                    </ImageBackground>
+                    {/* </View> */}
                 </Modal>
                 <HeaderMainScreen navigateToAccount={this.navigateToAccount}/>
                 <View style={{marginHorizontal: '3.5%', flexDirection: 'row', marginVertical: '5%', alignItems: 'center', justifyContent: 'space-around'}}>
@@ -201,8 +216,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     modal: {
-        flex: 1,
-        backgroundColor: 'rgba(255, 255, 255, 0.3)',
+        width: Dimensions.get('screen').width + 30,
+        height: Dimensions.get('screen').height - 20,
+        position: 'absolute',
+        left: -15,
+        // backgroundColor: 'rgba(255, 255, 255, 0.3)',
         justifyContent: 'center',
         alignItems: 'center',
     },

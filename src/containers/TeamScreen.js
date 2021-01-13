@@ -26,6 +26,7 @@ class TeamScreen extends React.Component {
             date: new Date(),
             stepValue: 0,
             maximumScore: 0,
+            pressedScoreBar: null,
         };
 
         this.buildDiagramRanges = this.buildDiagramRanges.bind(this);
@@ -33,6 +34,7 @@ class TeamScreen extends React.Component {
         this.onDateChange = this.onDateChange.bind(this);
         this.goBack = this.goBack.bind(this);
         this.onDataSent = this.onDataSent.bind(this);
+        this.setPressedScoreBar = this.setPressedScoreBar.bind(this);
     }
 
     componentDidMount() {
@@ -51,6 +53,7 @@ class TeamScreen extends React.Component {
 
     onDateChange(date) {
         this.setState({ date: date });
+        this.setStepValueFromLocalStore(date);
     }
 
     onDataSent() {
@@ -59,6 +62,23 @@ class TeamScreen extends React.Component {
 
     saveStepValue(value) {
         this.setState({ stepValue: value });
+    }
+
+    setPressedScoreBar(component) {
+        this.setState({ pressedScoreBar: component });
+    }
+
+    setStepValueFromLocalStore(date) {
+        const scores = sortScores(this.state.team.scores);
+        const dateScore = scores.find(day => 
+            new Date(day.date).getFullYear() === date.getFullYear() &&
+            new Date(day.date).getMonth() === date.getMonth() &&
+            new Date(day.date).getDate() === date.getDate());
+        if (dateScore) {
+            this.setState({ stepValue: dateScore.score });
+        } else {
+            this.setState({ stepValue: 0 });
+        }
     }
 
     buildDiagramRanges() {
@@ -148,7 +168,7 @@ class TeamScreen extends React.Component {
         }
 
         return (
-            <ScrollView style={{backgroundColor: colors.mainBgColor}}>
+            <ScrollView style={{backgroundColor: '#FFFFFF'}}>
                 <HeaderTeamScreen
                     teamName={this.state.team.teamName}
                     goBack={this.goBack}
@@ -167,6 +187,8 @@ class TeamScreen extends React.Component {
                         team={this.state.team}
                         month={month}
                         maximumScore={this.state.maximumScore}
+                        setPressedScoreBar={this.setPressedScoreBar}
+                        pressedScoreBar={this.state.pressedScoreBar}
                         />
                 ))}
                 <RatingButton

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, ImageBackground } from 'react-native';
 import TeamScreenIconText from '../atoms/TeamScreenIconText';
 
 class TeamScreenIcons extends React.Component {
@@ -23,8 +23,13 @@ class TeamScreenIcons extends React.Component {
         }
 
         return (
-            <View>
-                <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: '10%'}}>
+            // <View>
+            <ImageBackground
+                source={require('../../assets/background-white.png')}
+                resizeMode='cover'
+                style={{flex: 1, marginHorizontal: '-10%', paddingVertical: '45%'}}
+                >
+                <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
                     <View>
                         <Image
                             source={require('../../assets/participants.png')}
@@ -72,7 +77,8 @@ class TeamScreenIcons extends React.Component {
                             />
                     </View>
                 </View>
-            </View>
+            {/* </View> */}
+            </ImageBackground>
         );
     }
 }

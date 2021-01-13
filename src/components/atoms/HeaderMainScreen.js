@@ -23,7 +23,7 @@ class HeaderMainScreen extends React.Component {
                     name='user'
                     color={colors.mainBgColor}
                     size={18}
-                    style={{marginHorizontal: '3%'}}
+                    style={{marginRight: '5%'}}
                     onPress={() => this.props.navigateToAccount()}
                     />
             </View>
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '700',
         paddingVertical: '3%',
+        marginLeft: '5%',
     }
 });
 
