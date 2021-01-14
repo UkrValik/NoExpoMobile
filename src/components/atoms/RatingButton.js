@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.mainColor,
         marginHorizontal: '5%',
         borderRadius: 10,
-        // paddingVertical: '5%',
         elevation: 5,
     }
 })

@@ -8,6 +8,7 @@ const initialState = {
     steps: [],
     synchronizationResult: null,
     firstLogin: true,
+    listType: 2,
 };
 
 export const consumer = (state = initialState, action) => {
@@ -47,6 +48,9 @@ export const consumer = (state = initialState, action) => {
 
         case ActionTypes.MAKE_FIRST_LOGIN:
             return {...state, firstLogin: false};
+
+        case ActionTypes.CHOOSE_LIST_TYPE:
+            return {...state, listType: action.payload};
 
         default:
             return state;

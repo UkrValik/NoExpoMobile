@@ -70,31 +70,33 @@ class TeamListItem extends React.Component {
             );
         } else if (this.props.team.status === 1) {
 
-            const imageSize = Dimensions.get('screen').width / 3;
+            const imageSize = Dimensions.get('screen').width / 31 * 10;
 
             if (this.props.listType === 1) {
                 return (
                     <TouchableNativeFeedback onPress={() => this.moveToTeamScreen()}>
-                        <View style={[styles.container, {height: imageSize}]}>
-                            <Image
-                                style={[styles.image, {width: imageSize, height: imageSize - 2}]}
-                                source={{uri: 'https://gesundheit-dev.teamworking.de/wp-content/uploads/B%C3%BCrolympics-Go-for-gold-challenge-1090.jpg'}}
-                                resizeMode='cover'
-                                />
-                            <View style={{marginLeft: '5%'}}>
-                                <Text style={styles.teamName}>
-                                    {beatifyName(this.props.team.teamName, 'team')}
-                                </Text>
-                                <Text style={styles.smallText}>
-                                    {beatifyName(this.props.team.challengeName, 'challenge')}
-                                </Text>
-                                <Text style={styles.blueText}>
-                                    {'LAUFZEIT: ' + (this.props.team.activityDays === undefined ?
-                                        '?'
-                                    :
-                                        this.props.team.activityDays)
-                                    }
-                                </Text>
+                        <View style={styles.topContainer}>
+                            <View style={[styles.container]}>
+                                <Image
+                                    style={[styles.image, {width: imageSize, height: imageSize}]}
+                                    source={{uri: 'https://gesundheit-dev.teamworking.de/wp-content/uploads/B%C3%BCrolympics-Go-for-gold-challenge-1090.jpg'}}
+                                    resizeMode='cover'
+                                    />
+                                <View style={{marginLeft: '5%', flex: 1}}>
+                                    <Text style={styles.teamName}>
+                                        {beatifyName(this.props.team.teamName, 'team')}
+                                    </Text>
+                                    <Text style={styles.smallText}>
+                                        {beatifyName(this.props.team.challengeName, 'challenge')}
+                                    </Text>
+                                    <Text style={styles.blueText}>
+                                        {'LAUFZEIT: ' + (this.props.team.activityDays === undefined ?
+                                            '?'
+                                        :
+                                            this.props.team.activityDays)
+                                        }
+                                    </Text>
+                                </View>
                             </View>
                         </View>
                     </TouchableNativeFeedback>
@@ -105,26 +107,28 @@ class TeamListItem extends React.Component {
 
                 return (
                     <TouchableNativeFeedback onPress={() => this.moveToTeamScreen()}>
-                        <View style={styles.container2}>
-                            <Image
-                                style={[styles.image2, {width: imageSize, height: imageSize - 2}]}
-                                source={{uri: 'https://gesundheit-dev.teamworking.de/wp-content/uploads/B%C3%BCrolympics-Go-for-gold-challenge-1090.jpg'}}
-                                resizeMode='cover'
-                                />
-                            <View style={styles.textBlock2}>
-                                <Text style={styles.teamName}>
-                                    {beatifyName(this.props.team.teamName, 'team')}
-                                </Text>
-                                <Text style={styles.smallText}>
-                                    {beatifyName(this.props.team.challengeName, 'challenge')}
-                                </Text>
-                                <Text style={styles.blueText}>
-                                    {'LAUFZEIT: ' + (this.props.team.activityDays === undefined ?
-                                        '?'
-                                    :
-                                        this.props.team.activityDays)
-                                    }
-                                </Text>
+                        <View style={styles.topContainer2}>
+                            <View style={styles.container2}>
+                                <Image
+                                    style={[styles.image2, {width: imageSize, height: imageSize}]}
+                                    source={{uri: 'https://gesundheit-dev.teamworking.de/wp-content/uploads/B%C3%BCrolympics-Go-for-gold-challenge-1090.jpg'}}
+                                    resizeMode='cover'
+                                    />
+                                <View style={styles.textBlock2}>
+                                    <Text style={styles.teamName}>
+                                        {beatifyName(this.props.team.teamName, 'team')}
+                                    </Text>
+                                    <Text style={styles.smallText}>
+                                        {beatifyName(this.props.team.challengeName, 'challenge')}
+                                    </Text>
+                                    <Text style={styles.blueText}>
+                                        {'LAUFZEIT: ' + (this.props.team.activityDays === undefined ?
+                                            '?'
+                                        :
+                                            this.props.team.activityDays)
+                                        }
+                                    </Text>
+                                </View>
                             </View>
                         </View>
                     </TouchableNativeFeedback>
@@ -136,24 +140,25 @@ class TeamListItem extends React.Component {
     }
 }
 
-const styles=StyleSheet.create({
+const styles = StyleSheet.create({
+    topContainer: {
+        elevation: 3,
+        marginVertical: 5,
+        marginHorizontal: 10,
+        borderTopLeftRadius: 10.1,
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10,
+    },
     container: {
         flexDirection: 'row',
-        margin: 7,
-        borderRadius: 10,
+        margin: 1.5,
         alignItems: 'center',
-        elevation: 3,
     },
     image: {
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
-        marginRight: 2,
-        marginTop: 2,
-    },
-    image2: {
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
-        marginLeft: 2,
+        // marginRight: 2,
         marginTop: 2,
     },
     blueText: {
@@ -171,11 +176,23 @@ const styles=StyleSheet.create({
         fontWeight: '700',
         marginVertical: '2%',
     },
-    container2: {
-        margin: 4,
-        borderRadius: 10,
-        alignItems: 'center',
+    topContainer2: {
         elevation: 3,
+        marginVertical: 4,
+        borderTopLeftRadius: 10.1,
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10,
+    },
+    container2: {
+        margin: 1.5,
+        alignItems: 'center',
+    },
+    image2: {
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        marginRight: 2,
+        marginTop: 2,
     },
     textBlock2: {
         marginLeft: '5%',

@@ -45,6 +45,7 @@ class TeamScreen extends React.Component {
         this._unsubscribe = this.props.navigation.addListener('focus', () => {
             this.buildDiagramRanges();
         });
+        this.setStepValueFromLocalStore(this.state.date);
     }
 
     componentWillUnmount() {
@@ -225,7 +226,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '700',
         textAlign: 'center',
-        marginTop: '30%',
+        marginTop: '10%',
     }
 });
 

@@ -21,6 +21,7 @@ import {
     toggleGoogleFit,
     addSteps,
     fetchConsumer,
+    chooseListType,
 } from '../redux/actions/ActionCreators';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Dimensions } from 'react-native';
@@ -32,6 +33,7 @@ const mapDispatchToProps = dispatch => ({
     toggleGoogleFit: () => dispatch(toggleGoogleFit()),
     addSteps: (steps) => dispatch(addSteps(steps)),
     fetchConsumer: (token) => dispatch(fetchConsumer(token)),
+    chooseListType: (type) => dispatch(chooseListType(type)),
 });
 
 const mapStateToProps = state => {
@@ -48,7 +50,7 @@ class MainScreen extends React.Component {
 
         this.state = {
             refresh: false,
-            listType: 2,
+            listType: this.props.consumer.listType,
         };
 
         this.ref = React.createRef();
@@ -85,6 +87,7 @@ class MainScreen extends React.Component {
 
     setListType(type) {
         this.setState({ listType: type });
+        this.props.chooseListType(type);
     }
 
     async modalButtonYes() {
@@ -134,9 +137,7 @@ class MainScreen extends React.Component {
                 <Modal
                     visible={this.props.consumer.firstLogin}
                     presentationStyle='fullScreen'
-                    // transparent={true}
                     >
-                    {/* <View style={styles.modal}> */}
                     <ImageBackground
                         source={require('../assets/background-white.png')}
                         style={styles.modal}
@@ -154,7 +155,6 @@ class MainScreen extends React.Component {
                             </TouchableOpacity>
                         </View>
                     </ImageBackground>
-                    {/* </View> */}
                 </Modal>
                 <HeaderMainScreen navigateToAccount={this.navigateToAccount}/>
                 <View style={{marginHorizontal: '3.5%', flexDirection: 'row', marginVertical: '5%', alignItems: 'center', justifyContent: 'space-around'}}>
@@ -197,6 +197,11 @@ class MainScreen extends React.Component {
                             />
                     </ScrollView>
                 )}
+                {/* <View style={{padding: 10, margin: 10, elevation: 3, alignSelf: 'center', backgroundColor: colors.mainBgColor}}>
+                    <Text>
+                        Hello
+                    </Text>
+                </View> */}
             </View>
         );
     }
@@ -220,7 +225,6 @@ const styles = StyleSheet.create({
         height: Dimensions.get('screen').height - 20,
         position: 'absolute',
         left: -15,
-        // backgroundColor: 'rgba(255, 255, 255, 0.3)',
         justifyContent: 'center',
         alignItems: 'center',
     },

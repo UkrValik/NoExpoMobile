@@ -27,7 +27,7 @@ class TeamScreenIcons extends React.Component {
             <ImageBackground
                 source={require('../../assets/background-white.png')}
                 resizeMode='cover'
-                style={{flex: 1, marginHorizontal: '-10%', paddingVertical: '45%'}}
+                style={{flex: 1, marginHorizontal: '-10%', paddingTop: '50%', paddingBottom: '45%'}}
                 >
                 <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
                     <View>

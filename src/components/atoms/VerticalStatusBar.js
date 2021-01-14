@@ -28,10 +28,15 @@ class VerticalStatusBar extends React.Component {
     }
 
     render() {
+
+        const textStyles = {
+            
+        }
         
         return (
             <View style={{flex: 1}}>
-                {this.state.scoreVisible ? <View style={{position: 'absolute', left: -52 - this.props.days, top: -65}}>
+                {this.state.scoreVisible ? 
+                <View style={{position: 'absolute', left: -52 - this.props.days, bottom: 248}}>
                     <View style={[styles.tooltip, this.props.style]}>
                         <View style={{borderRadius: 10, backgroundColor: this.props.color}}>
                             <Text style={styles.text}>
@@ -43,22 +48,15 @@ class VerticalStatusBar extends React.Component {
                         </View>
                     </View>
                 </View> : null}
-                <View style={{
-                    height: this.props.percent.toString() + '%', 
-                    backgroundColor: colors.mainBgColor,
-                    alignItems: 'center',
-                    borderRadius: 5,
-                    }}>
+                <View style={[styles.barContainer, {height: this.props.percent.toString() + '%'} ]}>
                     <TouchableNativeFeedback onPress={() => this.onPress()}>
-                        <View style={{
-                            height: '100%',
-                            backgroundColor: this.props.color,
-                            width: '90%',
-                            borderRadius: 5,
-                        }}>
-                        </View>
+                        <View style={[styles.bar, {backgroundColor: this.props.color} ]}/>
                     </TouchableNativeFeedback>
-                    <Text style={{fontSize: 18 - this.props.days / 3, color: this.props.color === colors.pink ? colors.pink : colors.lightTextColor, marginTop: '25%'}}>
+                    <Text style={{
+                        fontSize: 18 - this.props.days / 3,
+                        color: this.props.color === colors.pink ? colors.pink : colors.lightTextColor,
+                        marginTop: '25%'
+                        }}>
                         {this.props.day.toString()}
                     </Text>
                 </View>
@@ -100,6 +98,16 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 14,
         textAlign: 'center',
+    },
+    barContainer: {
+        backgroundColor: colors.mainBgColor,
+        alignItems: 'center',
+        borderRadius: 5,
+    },
+    bar: {
+        height: '100%',
+        width: '90%',
+        borderRadius: 5,
     }
 });
 

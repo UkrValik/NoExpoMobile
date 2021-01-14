@@ -245,3 +245,8 @@ export const updateSynchronizationResult = (result) => ({
 export const makeFirstLogin = () => dispatch => dispatch({
     type: ActionTypes.MAKE_FIRST_LOGIN,
 });
+
+export const chooseListType = (type) => dispatch => dispatch({
+    type: ActionTypes.CHOOSE_LIST_TYPE,
+    payload: type,
+});
