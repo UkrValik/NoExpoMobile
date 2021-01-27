@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, StyleSheet, } from 'react-native';
+import { ScrollView, Text, StyleSheet, SafeAreaView, View } from 'react-native';
 import { connect } from 'react-redux';
 import TeamScreenIcons from '../components/molecules/TeamScreenIcons';
 import MonthChallengeDiagram from '../components/molecules/MonthChallengeDiagram';
@@ -8,6 +8,11 @@ import InputDailyData from '../components/molecules/InputDailyData';
 import RatingButton from '../components/atoms/RatingButton';
 import colors from '../styles/colors.json';
 import { sortScores } from '../utilities/index';
+import { fetchTeam } from '../redux/actions/ActionCreators';
+
+const mapDispatchToProps = dispatch => ({
+    fetchTeam: async (teamId, token) => dispatch(fetchTeam(teamId, token)),
+});
 
 const mapStateToProps = state => {
     return {
@@ -57,7 +62,8 @@ class TeamScreen extends React.Component {
         this.setStepValueFromLocalStore(date);
     }
 
-    onDataSent() {
+    async onDataSent() {
+        await this.props.fetchTeam(this.state.team.teamId, this.props.consumer.token);
         this.setState({ team: this.props.teams.teams.filter(team => team.teamId === this.props.route.params.teamId)[0] });
     }
 
@@ -168,46 +174,53 @@ class TeamScreen extends React.Component {
             return currDate.getTime() < endDate.getTime();
         }
 
+
+        console.log(showInputDataSection(new Date(this.state.team.endDate)));
         return (
-            <ScrollView style={{backgroundColor: '#FFFFFF'}}>
-                <HeaderTeamScreen
-                    teamName={this.state.team.teamName}
-                    goBack={this.goBack}
-                    />
-                <Text style={styles.challengeDescription}>
-                    {this.state.team.challengeDescription.replace(regex, '')}
-                </Text>
-                <TeamScreenIcons team={this.state.team}/>
-                <Text style={styles.textStatistics}>
-                    STATISTICS
-                </Text>
-                {this.state.diagramData.map(month => (
-                    <MonthChallengeDiagram
-                        key={(monthKey++).toString()}
-                        consumer={this.props.consumer}
-                        team={this.state.team}
-                        month={month}
-                        maximumScore={this.state.maximumScore}
-                        setPressedScoreBar={this.setPressedScoreBar}
-                        pressedScoreBar={this.state.pressedScoreBar}
-                        />
-                ))}
-                <RatingButton
-                    navigate={this.props.navigation.navigate}
-                    teamId={this.state.team.teamId}
-                    />
-                {showInputDataSection(new Date(this.state.team.endDate)) && <InputDailyData 
-                    teamId={this.state.team.teamId}
-                    stepValue={this.state.stepValue}
-                    date={this.state.date}
-                    startDate={this.state.team.startDate}
-                    endDate={endDate}
-                    buildDiagramRanges={this.buildDiagramRanges}
-                    onDateChange={this.onDateChange}
-                    saveStepValue={this.saveStepValue}
-                    onDataSent={this.onDataSent}
-                    />}
-            </ScrollView>
+            <View>
+                <SafeAreaView style={{backgroundColor: colors.mainColor}} />
+                <SafeAreaView style={{backgroundColor: '#FFF'}}>
+                    <ScrollView style={{backgroundColor: '#FFF'}}>
+                        <HeaderTeamScreen
+                            teamName={this.state.team.teamName}
+                            goBack={this.goBack}
+                            />
+                        <Text style={styles.challengeDescription}>
+                            {this.state.team.challengeDescription.replace(regex, '')}
+                        </Text>
+                        <TeamScreenIcons team={this.state.team}/>
+                        <Text style={styles.textStatistics}>
+                            STATISTICS
+                        </Text>
+                        {this.state.diagramData.map(month => (
+                            <MonthChallengeDiagram
+                                key={(monthKey++).toString()}
+                                consumer={this.props.consumer}
+                                team={this.state.team}
+                                month={month}
+                                maximumScore={this.state.maximumScore}
+                                setPressedScoreBar={this.setPressedScoreBar}
+                                pressedScoreBar={this.state.pressedScoreBar}
+                                />
+                        ))}
+                        <RatingButton
+                            navigate={this.props.navigation.navigate}
+                            teamId={this.state.team.teamId}
+                            />
+                        {showInputDataSection(new Date(this.state.team.endDate)) && <InputDailyData 
+                            teamId={this.state.team.teamId}
+                            stepValue={this.state.stepValue}
+                            date={this.state.date}
+                            startDate={this.state.team.startDate}
+                            endDate={endDate}
+                            buildDiagramRanges={this.buildDiagramRanges}
+                            onDateChange={this.onDateChange}
+                            saveStepValue={this.saveStepValue}
+                            onDataSent={this.onDataSent}
+                            />}
+                    </ScrollView>
+                </SafeAreaView>
+            </View>
         );
     }
 }
@@ -230,4 +243,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(mapStateToProps)(TeamScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(TeamScreen);

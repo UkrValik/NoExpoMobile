@@ -13,6 +13,7 @@ import colors from '../../styles/colors.json';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { connect } from 'react-redux';
 import { postConsumerScore, sendChallengeData } from '../../redux/actions/ActionCreators';
+import { Platform } from 'react-native';
 
 const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
@@ -70,7 +71,7 @@ class InputDailyData extends React.Component {
             activities: team.scores,
         };
         await this.props.sendChallengeData(data, this.props.token);
-        this.props.onDataSent();
+        await this.props.onDataSent();
         this.props.buildDiagramRanges();
     }
 
@@ -102,8 +103,8 @@ class InputDailyData extends React.Component {
                         maximumDate={new Date(this.props.endDate)}
                         minimumDate={new Date(this.props.startDate)}
                         onChange={(event, date) => this.onDateChange(event, date)}
-                        display='calendar'
-                        style={{backgroundColor: colors.pink}}
+                        display={Platform.OS === 'ios' ? 'spinner' : 'calendar'}
+                        style={{backgroundColor: '#FFF'}}
                         />
                     }
                 </View>

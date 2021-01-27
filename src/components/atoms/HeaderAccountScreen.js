@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground, Dimensions, Platform } from 'react-native';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import icomoonConfig from '../../styles/selection.json';
 import colors from '../../styles/colors.json';
@@ -19,7 +19,7 @@ class HeaderAccountScreen extends React.Component {
                     source={require('../../assets/background-blue.png')}
                     resizeMode='cover'
                     style={{flex: 1}}
-                    imageStyle={{borderBottomLeftRadius: 15, borderBottomRightRadius: 15}}
+                    imageStyle={{borderBottomLeftRadius: 15, borderBottomRightRadius: 15, marginTop: Platform.OS === 'ios' ? -600 : 0}}
                     >
                     <View style={styles.top}>
                         <Icon

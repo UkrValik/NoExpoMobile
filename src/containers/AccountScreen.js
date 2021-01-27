@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Alert, Text, View } from 'react-native';
+import { StyleSheet, ScrollView, Alert, Text, View, SafeAreaView } from 'react-native';
 import { Input } from 'react-native-elements';
 import colors from '../styles/colors.json';
 import { connect } from 'react-redux';
@@ -117,59 +117,51 @@ class AccountScreen extends React.Component {
                 style={{flex: 1, backgroundColor: colors.mainBgColor}}
                 contentContainerStyle={{justifyContent: 'flex-start'}}
                 >
-                <HeaderAccountScreen
-                    goBack={this.goBack}
-                    firstName={this.state.firstName || ''}
-                    lastName={this.state.lastName || ''}
-                    />
-                <View style={styles.profileContainer}>
-                    <Text style={styles.textProfile}>
-                        MAIN PROFILE
-                    </Text>
-                    <Text style={styles.textYourData}>
-                        Your data - at a glance
-                    </Text>
-                    <AuthGoogleFitButton/>
-                    <Text style={styles.textPersonal}>
-                        Main personal data
-                    </Text>
-                    <Input
-                        value={this.state.email}
-                        label='EMAIL:'
-                        inputContainerStyle={styles.inputContainerStyle}
-                        labelStyle={styles.labelStyle}
-                        inputStyle={{color: colors.textColor, textAlign: 'center'}}
-                        keyboardType='email-address'
-                        onChangeText={(value) => this.saveEmail(value)}
+                <SafeAreaView style={{backgroundColor: colors.mainColor}}/>
+                <SafeAreaView>
+                    <HeaderAccountScreen
+                        goBack={this.goBack}
+                        firstName={this.state.firstName || ''}
+                        lastName={this.state.lastName || ''}
                         />
-                    <Input
-                        value={this.state.firstName}
-                        label='FIRST NAME:'
-                        inputContainerStyle={styles.inputContainerStyle}
-                        labelStyle={styles.labelStyle}
-                        inputStyle={{color: colors.textColor, textAlign: 'center'}}
-                        onChangeText={(value) => this.saveFirstName(value)}
-                        />
-                    <Input
-                        value={this.state.lastName}
-                        label='LAST NAME:'
-                        inputContainerStyle={styles.inputContainerStyle}
-                        labelStyle={styles.labelStyle}
-                        inputStyle={{color: colors.textColor, textAlign: 'center'}}
-                        onChangeText={(value) => this.saveLastName(value)}
-                        />
-                </View>
-                {/* <AutomationCheckbox
-                    synchronizeCheckbox={this.props.consumer.synchronizeGoogleFit}
-                    saveSynchronizeCheckbox={this.saveSynchronizeCheckbox}
-                    authorized={this.state.authorized}
-                    authorizeGoogleFit={this.authorizeGoogleFit}
-                    /> */}
-                {/* <AccountBlock 
-                    title='Main personal data' 
-                    saveBlock={this.saveConsumerBlock} 
-                    blockRotated={this.state.consumerBlockRotated}
-                    /> */}
+                    <View style={styles.profileContainer}>
+                        <Text style={styles.textProfile}>
+                            MAIN PROFILE
+                        </Text>
+                        <Text style={styles.textYourData}>
+                            Your data - at a glance
+                        </Text>
+                        <AuthGoogleFitButton/>
+                        <Text style={styles.textPersonal}>
+                            Main personal data
+                        </Text>
+                        <Input
+                            value={this.state.email}
+                            label='EMAIL:'
+                            inputContainerStyle={styles.inputContainerStyle}
+                            labelStyle={styles.labelStyle}
+                            inputStyle={{color: colors.textColor, textAlign: 'center'}}
+                            keyboardType='email-address'
+                            onChangeText={(value) => this.saveEmail(value)}
+                            />
+                        <Input
+                            value={this.state.firstName}
+                            label='FIRST NAME:'
+                            inputContainerStyle={styles.inputContainerStyle}
+                            labelStyle={styles.labelStyle}
+                            inputStyle={{color: colors.textColor, textAlign: 'center'}}
+                            onChangeText={(value) => this.saveFirstName(value)}
+                            />
+                        <Input
+                            value={this.state.lastName}
+                            label='LAST NAME:'
+                            inputContainerStyle={styles.inputContainerStyle}
+                            labelStyle={styles.labelStyle}
+                            inputStyle={{color: colors.textColor, textAlign: 'center'}}
+                            onChangeText={(value) => this.saveLastName(value)}
+                            />
+                    </View>
+                </SafeAreaView>
             </ScrollView>
         );
     }

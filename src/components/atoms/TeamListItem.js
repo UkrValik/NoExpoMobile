@@ -5,7 +5,8 @@ import {
     StyleSheet,
     Image,
     Dimensions,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    Platform,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Loading from '../atoms/Loading';
@@ -149,6 +150,15 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 10,
         borderBottomRightRadius: 10,
         borderBottomLeftRadius: 10,
+        shadowOffset: {
+            width: 2,
+            height: 3,
+            
+        },
+        shadowOpacity: 0.5,
+        shadowColor: '#000',
+        shadowRadius: 4,
+        backgroundColor: colors.mainBgColor,
     },
     container: {
         flexDirection: 'row',
@@ -158,8 +168,8 @@ const styles = StyleSheet.create({
     image: {
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
-        // marginRight: 2,
-        marginTop: 2,
+        margin: Platform.OS === 'ios' ? -2 : 0,
+        marginTop: Platform.OS === 'ios' ? -2 : 2,
     },
     blueText: {
         color: colors.mainColor,
@@ -183,6 +193,15 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 10,
         borderBottomRightRadius: 10,
         borderBottomLeftRadius: 10,
+        shadowOffset: {
+            width: 2,
+            height: 3,
+            
+        },
+        shadowOpacity: 0.5,
+        shadowColor: '#000',
+        shadowRadius: 4,
+        backgroundColor: colors.mainBgColor,
     },
     container2: {
         margin: 1.5,
@@ -191,8 +210,9 @@ const styles = StyleSheet.create({
     image2: {
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
-        marginRight: 2,
-        marginTop: 2,
+        margin: Platform.OS === 'ios' ? -2 : 0,
+        marginRight: Platform.OS === 'ios' ? -2 : 2,
+        marginTop: Platform.OS === 'ios' ? -2 : 2,
     },
     textBlock2: {
         marginLeft: '5%',

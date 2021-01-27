@@ -95,7 +95,7 @@ class LoginScreen extends React.Component {
                 <ImageBackground
                     source={require('../assets/background-blue.png')}
                     resizeMode='cover'
-                    style={{width: Dimensions.get('screen').width, height: Dimensions.get('screen').height - 20}}
+                    style={{width: Dimensions.get('screen').width, height: Dimensions.get('screen').height}}
                     >
                 <View style={styles.container}>
                     <Text style={styles.appName}>

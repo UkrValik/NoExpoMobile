@@ -5,7 +5,8 @@ import { StyleSheet,
     Modal,
     TouchableOpacity,
     RefreshControl,
-    ImageBackground
+    ImageBackground,
+    SafeAreaView
 } from 'react-native';
 import { connect } from 'react-redux';
 import GoogleFit, {Scopes} from 'react-native-google-fit';
@@ -134,6 +135,7 @@ class MainScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <SafeAreaView style={{backgroundColor: colors.mainColor}}/>
                 <Modal
                     visible={this.props.consumer.firstLogin}
                     presentationStyle='fullScreen'
@@ -156,52 +158,49 @@ class MainScreen extends React.Component {
                         </View>
                     </ImageBackground>
                 </Modal>
-                <HeaderMainScreen navigateToAccount={this.navigateToAccount}/>
-                <View style={{marginHorizontal: '3.5%', flexDirection: 'row', marginVertical: '5%', alignItems: 'center', justifyContent: 'space-around'}}>
-                    <View style={{flex: 4}}>
-                        <ListTypeButton 
-                            style={{flex: 10}}
-                            buttonType={1} 
-                            listType={this.state.listType} 
-                            setListType={this.setListType}
-                            />
-                    </View>
-                    <View style={{flex: 4}}>
-                        <ListTypeButton 
-                            style={{flex: 10}}
-                            buttonType={2} 
-                            listType={this.state.listType} 
-                            setListType={this.setListType}
-                            />
-                    </View>
-                    <Text style={styles.textTeams}>
-                        TEAMS
-                    </Text>
-                    <View style={{flex: 4}}/>
-                    <View style={{flex: 4}}/>
-                </View>
-                {this.props.teams.teams && this.props.teams.teams.length === 0 ? (<Loading/>) : (
-                    <ScrollView
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={this.state.refresh}
-                                onRefresh={this.onRefresh}
-                                colors={[colors.mainColor]}
+                <SafeAreaView>
+                    <HeaderMainScreen navigateToAccount={this.navigateToAccount}/>
+                    <View style={styles.containerWithoutModal}>
+                        <View style={{flex: 4}}>
+                            <ListTypeButton 
+                                style={{flex: 10}}
+                                buttonType={1} 
+                                listType={this.state.listType} 
+                                setListType={this.setListType}
                                 />
-                        }
-                        >
-                        <TeamList
-                            teams={this.props.teams.teams}
-                            navigation={this.props.navigation}
-                            listType={this.state.listType}
-                            />
-                    </ScrollView>
-                )}
-                {/* <View style={{padding: 10, margin: 10, elevation: 3, alignSelf: 'center', backgroundColor: colors.mainBgColor}}>
-                    <Text>
-                        Hello
-                    </Text>
-                </View> */}
+                        </View>
+                        <View style={{flex: 4}}>
+                            <ListTypeButton 
+                                style={{flex: 10}}
+                                buttonType={2} 
+                                listType={this.state.listType} 
+                                setListType={this.setListType}
+                                />
+                        </View>
+                        <Text style={styles.textTeams}>
+                            TEAMS
+                        </Text>
+                        <View style={{flex: 4}}/>
+                        <View style={{flex: 4}}/>
+                    </View>
+                    {this.props.teams.teams && this.props.teams.teams.length === 0 ? (<Loading/>) : (
+                        <ScrollView
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={this.state.refresh}
+                                    onRefresh={this.onRefresh}
+                                    colors={[colors.mainColor]}
+                                    />
+                            }
+                            >
+                            <TeamList
+                                teams={this.props.teams.teams}
+                                navigation={this.props.navigation}
+                                listType={this.state.listType}
+                                />
+                        </ScrollView>
+                    )}
+                </SafeAreaView>
             </View>
         );
     }
@@ -227,6 +226,14 @@ const styles = StyleSheet.create({
         left: -15,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    containerWithoutModal: {
+        marginHorizontal: '3.5%',
+        flexDirection: 'row',
+        marginVertical: '5%',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        backgroundColor: colors.mainBgColor,
     },
     button: {
         color: colors.mainBgColor,
