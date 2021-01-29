@@ -37,6 +37,7 @@ class HeaderAccountScreen extends React.Component {
                             size={20}
                             color={colors.mainBgColor}
                             style={{marginRight: '5%'}}
+                            onPress={() => this.props.logout()}
                             />
                     </View>
                     <View style={styles.bottom}>

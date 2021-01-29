@@ -250,3 +250,7 @@ export const chooseListType = (type) => dispatch => dispatch({
     type: ActionTypes.CHOOSE_LIST_TYPE,
     payload: type,
 });
+
+export const logout = () => dispatch => dispatch({
+    type: ActionTypes.LOGOUT,
+});

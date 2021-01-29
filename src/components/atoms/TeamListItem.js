@@ -76,7 +76,7 @@ class TeamListItem extends React.Component {
             if (this.props.listType === 1) {
                 return (
                     <TouchableNativeFeedback onPress={() => this.moveToTeamScreen()}>
-                        <View style={styles.topContainer}>
+                        <View style={[styles.topContainer, Platform.OS === 'ios' ? {backgroundColor: colors.mainBgColor} : {} ]}>
                             <View style={[styles.container]}>
                                 <Image
                                     style={[styles.image, {width: imageSize, height: imageSize}]}
@@ -108,7 +108,7 @@ class TeamListItem extends React.Component {
 
                 return (
                     <TouchableNativeFeedback onPress={() => this.moveToTeamScreen()}>
-                        <View style={styles.topContainer2}>
+                        <View style={[styles.topContainer2, Platform.OS === 'ios' ? {backgroundColor: colors.mainBgColor} : {} ]}>
                             <View style={styles.container2}>
                                 <Image
                                     style={[styles.image2, {width: imageSize, height: imageSize}]}
@@ -158,7 +158,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowColor: '#000',
         shadowRadius: 4,
-        backgroundColor: colors.mainBgColor,
     },
     container: {
         flexDirection: 'row',
@@ -201,7 +200,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowColor: '#000',
         shadowRadius: 4,
-        backgroundColor: colors.mainBgColor,
     },
     container2: {
         margin: 1.5,

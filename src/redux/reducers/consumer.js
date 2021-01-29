@@ -52,6 +52,9 @@ export const consumer = (state = initialState, action) => {
         case ActionTypes.CHOOSE_LIST_TYPE:
             return {...state, listType: action.payload};
 
+        case ActionTypes.LOGOUT:
+            return {...state, token: null};
+
         default:
             return state;
     }

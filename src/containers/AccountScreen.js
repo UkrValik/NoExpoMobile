@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import GoogleFit, { Scopes } from 'react-native-google-fit';
 import AuthGoogleFitButton from '../components/atoms/AuthGoogleFitButton';
 import HeaderAccountScreen from '../components/atoms/HeaderAccountScreen';
-import { toggleGoogleFit } from '../redux/actions/ActionCreators';
+import { toggleGoogleFit, logout } from '../redux/actions/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -16,6 +16,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     toggleGoogleFit: () => dispatch(toggleGoogleFit()),
+    logout: () => dispatch(logout()),
 });
 
 class AccountScreen extends React.Component {
@@ -41,6 +42,7 @@ class AccountScreen extends React.Component {
         this.saveLastName = this.saveLastName.bind(this);
         this.saveSex = this.saveSex.bind(this);
         this.goBack = this.goBack.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     componentDidMount() {
@@ -55,6 +57,10 @@ class AccountScreen extends React.Component {
 
     async saveSynchronizeCheckbox() {
         this.props.toggleGoogleFit();
+    }
+
+    logout() {
+        this.props.logout();
     }
 
     authorizeGoogleFit() {
@@ -123,6 +129,7 @@ class AccountScreen extends React.Component {
                         goBack={this.goBack}
                         firstName={this.state.firstName || ''}
                         lastName={this.state.lastName || ''}
+                        logout={this.logout}
                         />
                     <View style={styles.profileContainer}>
                         <Text style={styles.textProfile}>

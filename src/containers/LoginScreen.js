@@ -183,9 +183,9 @@ class LoginScreen extends React.Component {
                             onPress={() => this.onSignIn()}
                             />
                     </View>
-                    <Text style={styles.forgotPassword}>
+                    {/* <Text style={styles.forgotPassword}>
                         Forgot password?
-                    </Text>
+                    </Text> */}
                 </View>
                 </ImageBackground>
             </TouchableWithoutFeedback>

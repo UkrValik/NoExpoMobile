@@ -15,3 +15,4 @@ export const ADD_STEPS = 'ADD_STEPS';
 export const SEND_CHALLENGE_DATA = 'SEND_CHALLENGE_DATA';
 export const MAKE_FIRST_LOGIN = 'MAKE_FIRST_LOGIN';
 export const CHOOSE_LIST_TYPE = 'CHOOSE_LIST_TYPE';
+export const LOGOUT = 'LOGOUT';
