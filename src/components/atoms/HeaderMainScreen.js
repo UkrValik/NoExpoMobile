@@ -23,7 +23,7 @@ class HeaderMainScreen extends React.Component {
                     name='user'
                     color={colors.mainBgColor}
                     size={18}
-                    style={{marginRight: '5%'}}
+                    style={{marginRight: '5%', padding: 5}}
                     onPress={() => this.props.navigateToAccount()}
                     />
             </View>

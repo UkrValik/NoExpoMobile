@@ -14,6 +14,7 @@ import {
     addSteps,
     updateConsumerScores,
     sendChallengeData,
+    fetchTeam
 } from '../redux/actions/ActionCreators';
 
 const mapStateToProps = state => {
@@ -28,6 +29,7 @@ const mapDispatchToProps = dispatch => ({
     addSteps: (steps) => dispatch(addSteps(steps)),
     updateConsumerScores: (teamId, steps, startDate, endDate) => dispatch(updateConsumerScores(teamId, steps, startDate, endDate)),
     sendChallengeData: (data, token) => dispatch(sendChallengeData(data, token)),
+    fetchTeam: (teamId, token) => dispatch(fetchTeam(teamId, token)),
 });
 
 const MainStackNavigator = createStackNavigator();
@@ -80,22 +82,43 @@ class Main extends React.Component {
                 startDate: new Date('2018-05-05').toISOString(),
                 endDate: new Date().toISOString(),
             });
-            await this.props.addSteps(steps[1].steps);
+            
             if (this.props.teams.teams.length > 0) {
-                for (let team of this.props.teams.teams) {
-                    await this.props.updateConsumerScores(team.teamId, this.props.consumer.steps, team.startDate, team.endDate);
-                }
-                setTimeout(() => {
-                    for (let team of this.props.teams.teams) {
-                        const data = {
+                this.props.teams.teams.forEach(async team => {
+                    const activities = this.beautifyActivitiesForServer(steps[1].steps, team.startDate, team.finishDate);
+                    const currentDate = (new Date()).getTime();
+                    const finishDate = (new Date(team.finishDate)).getTime();
+                    
+                    if (currentDate < finishDate) {
+                        await this.props.sendChallengeData({
                             id: team.challengeId,
-                            activities: team.scores,
-                        };
-                        this.props.sendChallengeData(data, this.props.consumer.token);
+                            activities: activities,
+                        }, this.props.consumer.token);
                     }
+                    await this.props.fetchTeam(team.teamId, this.props.consumer.token);
                 });
             }
         }
+    }
+
+    beautifyActivitiesForServer(steps, startDate, endDate) {
+        startDate = new Date(startDate).getTime() - 10;
+        endDate = new Date(endDate).getTime() + 10;
+        if (new Date().getTime() < endDate) {
+            endDate = new Date().getTime();
+        }
+        let activities = [];
+        steps.forEach(day => {
+            const dayDate = new Date(day.date).getTime();
+            if (dayDate > startDate && dayDate < endDate) {
+                const activity = {
+                    date: day.date,
+                    score: day.value,
+                };
+                activities.push(activity);
+            }
+        });
+        return activities;
     }
 
     componentWillUnmount() {

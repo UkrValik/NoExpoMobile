@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     barContainer: {
-        backgroundColor: colors.mainBgColor,
+        backgroundColor: '#fff',
         alignItems: 'center',
         borderRadius: 5,
     },

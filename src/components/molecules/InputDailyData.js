@@ -22,6 +22,7 @@ const mapStateToProps = state => {
         consumer: state.consumer.consumer,
         teams: state.teams.teams,
         token: state.consumer.token,
+        synchronizeGoogleFit: state.consumer.synchronizeGoogleFit,
     };
 };
 
@@ -55,6 +56,11 @@ class InputDailyData extends React.Component {
     }
 
     toggleDatePicker() {
+        if (!this.state.showDatePicker) {
+            this.props.stopInterval();
+        } else {
+            this.props.startInterval();
+        }
         this.setState({ showDatePicker: !this.state.showDatePicker });
     }
 
@@ -108,7 +114,7 @@ class InputDailyData extends React.Component {
                         />
                     }
                 </View>
-                <Text style={styles.text}>Input data</Text>
+                <Text style={styles.text}>{this.props.synchronizeGoogleFit ? 'Data' : 'Input data'}</Text>
                 <Input
                     value={this.props.stepValue.toString()}
                     onChangeText={(value) => this.saveStepValue(value)}
@@ -123,13 +129,15 @@ class InputDailyData extends React.Component {
                             />
                     }
                     />
-                <TouchableNativeFeedback onPress={() => this.writeValue()}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText}>
-                            SEND
-                        </Text>
-                    </View>
-                </TouchableNativeFeedback>
+                {!this.props.synchronizeGoogleFit &&
+                    <TouchableNativeFeedback onPress={() => this.writeValue()}>
+                        <View style={styles.button}>
+                            <Text style={styles.buttonText}>
+                                SEND
+                            </Text>
+                        </View>
+                    </TouchableNativeFeedback>
+                }
             </View>
         );
     }

@@ -130,6 +130,8 @@ class AccountScreen extends React.Component {
                         firstName={this.state.firstName || ''}
                         lastName={this.state.lastName || ''}
                         logout={this.logout}
+                        avatar={this.props.consumer.consumer.avatar}
+                        token={this.props.consumer.token}
                         />
                     <View style={styles.profileContainer}>
                         <Text style={styles.textProfile}>

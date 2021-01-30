@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, ImageBackground, Dimensions, Platform } from 'react-native';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
+import FastImage from 'react-native-fast-image';
 import icomoonConfig from '../../styles/selection.json';
 import colors from '../../styles/colors.json';
 
@@ -14,46 +15,47 @@ class HeaderAccountScreen extends React.Component {
 
     render() {
         return (
-            // <View style={styles.container}>
-                <ImageBackground
-                    source={require('../../assets/background-blue.png')}
-                    resizeMode='cover'
-                    style={{flex: 1}}
-                    imageStyle={{borderBottomLeftRadius: 15, borderBottomRightRadius: 15, marginTop: Platform.OS === 'ios' ? -600 : 0}}
-                    >
-                    <View style={styles.top}>
-                        <Icon
-                            name='arrow-left'
-                            size={16}
-                            color={colors.mainBgColor}
-                            style={{marginLeft: '3%'}}
-                            onPress={() => this.props.goBack()}
-                            />
-                        <Text style={styles.textAccount}>
-                            Account
-                        </Text>
-                        <Icon
-                            name='exit'
-                            size={20}
-                            color={colors.mainBgColor}
-                            style={{marginRight: '5%'}}
-                            onPress={() => this.props.logout()}
-                            />
-                    </View>
-                    <View style={styles.bottom}>
-                        <Image
-                            style={styles.image}
-                            source={{uri: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
-                            />
-                        <Text style={styles.textHello}>
-                            Hello!
-                        </Text>
-                        <Text style={styles.textName}>
-                            {this.props.firstName + ' ' + this.props.lastName}
-                        </Text>
-                    </View>
-                </ImageBackground>
-            // </View>
+            <ImageBackground
+                source={require('../../assets/background-blue.png')}
+                resizeMode='cover'
+                style={{flex: 1}}
+                imageStyle={{borderBottomLeftRadius: 15, borderBottomRightRadius: 15, marginTop: Platform.OS === 'ios' ? -600 : 0}}
+                >
+                <View style={styles.top}>
+                    <Icon
+                        name='arrow-left'
+                        size={16}
+                        color={colors.mainBgColor}
+                        style={{marginLeft: '3%'}}
+                        onPress={() => this.props.goBack()}
+                        />
+                    <Text style={styles.textAccount}>
+                        Account
+                    </Text>
+                    <Icon
+                        name='exit'
+                        size={20}
+                        color={colors.mainBgColor}
+                        style={{marginRight: '5%'}}
+                        onPress={() => this.props.logout()}
+                        />
+                </View>
+                <View style={styles.bottom}>
+                    <FastImage
+                        style={styles.image}
+                        source={{
+                            uri: this.props.avatar,
+                            headers: {'Authorization': 'Bearer ' + this.props.token}
+                        }}
+                        />
+                    <Text style={styles.textHello}>
+                        Hello!
+                    </Text>
+                    <Text style={styles.textName}>
+                        {this.props.firstName + ' ' + this.props.lastName}
+                    </Text>
+                </View>
+            </ImageBackground>
         );
     }
 }

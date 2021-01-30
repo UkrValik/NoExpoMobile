@@ -67,7 +67,6 @@ class MainScreen extends React.Component {
         this._unsubscribe = this.props.navigation.addListener('focus', async () => {
             this.props.fetchConsumer(this.props.consumer.token);
             const teams = await this.props.fetchTeams(this.props.consumer.token);
-            console.log(teams);
             for (let team of teams.payload) {
                 this.props.fetchTeam(team.teamId, this.props.consumer.token);
             }
@@ -160,7 +159,7 @@ class MainScreen extends React.Component {
                 </Modal>
                 <SafeAreaView>
                     <HeaderMainScreen navigateToAccount={this.navigateToAccount}/>
-                    <View style={styles.containerWithoutModal}>
+                    <View style={styles.teamsHeaderContainer}>
                         <View style={{flex: 4}}>
                             <ListTypeButton 
                                 style={{flex: 10}}
@@ -183,24 +182,23 @@ class MainScreen extends React.Component {
                         <View style={{flex: 4}}/>
                         <View style={{flex: 4}}/>
                     </View>
-                    {this.props.teams.teams && this.props.teams.teams.length === 0 ? (<Loading/>) : (
-                        <ScrollView
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={this.state.refresh}
-                                    onRefresh={this.onRefresh}
-                                    colors={[colors.mainColor]}
-                                    />
-                            }
-                            >
-                            <TeamList
-                                teams={this.props.teams.teams}
-                                navigation={this.props.navigation}
-                                listType={this.state.listType}
-                                />
-                        </ScrollView>
-                    )}
                 </SafeAreaView>
+                {this.props.teams.teams && this.props.teams.teams.length === 0 ? (<Loading/>) : (
+                    <ScrollView
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refresh}
+                                onRefresh={this.onRefresh}
+                                colors={[colors.mainColor]}
+                                />
+                        }>
+                        <TeamList
+                            teams={this.props.teams.teams}
+                            navigation={this.props.navigation}
+                            listType={this.state.listType}
+                            />
+                    </ScrollView>
+                )}
             </View>
         );
     }
@@ -208,7 +206,7 @@ class MainScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
+        flex: 1,
         backgroundColor: colors.mainBgColor,
     },
     textTeams: {
@@ -227,7 +225,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    containerWithoutModal: {
+    teamsHeaderContainer: {
         marginHorizontal: '3.5%',
         flexDirection: 'row',
         marginVertical: '5%',

@@ -40,6 +40,9 @@ class TeamScreen extends React.Component {
         this.goBack = this.goBack.bind(this);
         this.onDataSent = this.onDataSent.bind(this);
         this.setPressedScoreBar = this.setPressedScoreBar.bind(this);
+        this.intervalCallback = this.intervalCallback.bind(this);
+        this.stopInterval = this.stopInterval.bind(this);
+        this.startInterval = this.startInterval.bind(this);
     }
 
     componentDidMount() {
@@ -51,15 +54,30 @@ class TeamScreen extends React.Component {
             this.buildDiagramRanges();
         });
         this.setStepValueFromLocalStore(this.state.date);
+        this._interval = setInterval(() => this.intervalCallback(), 7500);
     }
 
     componentWillUnmount() {
         this._unsubscribe();
+        clearInterval(this._interval);
     }
 
     onDateChange(date) {
         this.setState({ date: date });
         this.setStepValueFromLocalStore(date);
+    }
+
+    async intervalCallback() {
+        this.setState({ team: this.props.teams.teams.filter(team => team.teamId === this.props.route.params.teamId)[0] });
+        this.buildDiagramRanges();
+    }
+
+    stopInterval() {
+        clearInterval(this._interval);
+    }
+
+    startInterval() {
+        this._interval = setInterval(() => this.intervalCallback(), 7500);
     }
 
     async onDataSent() {
@@ -171,11 +189,9 @@ class TeamScreen extends React.Component {
 
         const showInputDataSection = (endDate) => {
             const currDate = new Date();
-            return currDate.getTime() < endDate.getTime();
+            return (currDate.getTime() < endDate.getTime());
         }
 
-
-        console.log(showInputDataSection(new Date(this.state.team.endDate)));
         return (
             <View>
                 <SafeAreaView style={{backgroundColor: colors.mainColor}} />
@@ -217,6 +233,8 @@ class TeamScreen extends React.Component {
                             onDateChange={this.onDateChange}
                             saveStepValue={this.saveStepValue}
                             onDataSent={this.onDataSent}
+                            stopInterval={this.stopInterval}
+                            startInterval={this.startInterval}
                             />}
                     </ScrollView>
                 </SafeAreaView>
