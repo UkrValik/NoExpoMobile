@@ -4,16 +4,20 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    Modal,
+    Platform,
+    ImageBackground,
+    Dimensions,
 } from 'react-native';
 import { Input } from 'react-native-elements';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
-import icomoonConfig from '../../styles/selection.json';
-import colors from '../../styles/colors.json';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { connect } from 'react-redux';
+import icomoonConfig from '../../styles/selection.json';
+import colors from '../../styles/colors.json';
 import { postConsumerScore, sendChallengeData } from '../../redux/actions/ActionCreators';
-import { Platform } from 'react-native';
+import Loading from '../atoms/Loading';
 
 const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
@@ -37,6 +41,9 @@ class InputDailyData extends React.Component {
         this.state = {
             showDatePicker: false,
             stepValue: 0,
+            sendingData: false,
+            receivedResponse: false,
+            sendDataResponse: null,
         };
 
         this.writeValue = this.writeValue.bind(this);
@@ -65,6 +72,7 @@ class InputDailyData extends React.Component {
     }
 
     async writeValue(){
+        this.setState({ sendingData: true });
         const day = {
             date: new Date(this.props.date).toISOString().split('T')[0],
             score: this.props.stepValue,
@@ -76,7 +84,12 @@ class InputDailyData extends React.Component {
             id: team.challengeId,
             activities: team.scores,
         };
-        await this.props.sendChallengeData(data, this.props.token);
+        const sendDataResponse = await this.props.sendChallengeData(data, this.props.token);
+        this.setState({
+            receivedResponse: true,
+            sendingData: false,
+            sendDataResponse: sendDataResponse.payload.success ? 'success' : 'fail',
+        });
         await this.props.onDataSent();
         this.props.buildDiagramRanges();
     }
@@ -85,6 +98,35 @@ class InputDailyData extends React.Component {
 
         return (
             <View>
+                <Modal visible={this.state.sendingData}>
+                    <ImageBackground
+                        source={require('../../assets/background-white.png')}
+                        style={styles.modal}
+                        resizeMode='cover'
+                        >
+                        <Loading/>
+                    </ImageBackground>
+                </Modal>
+                <Modal visible={this.state.receivedResponse}>
+                    <ImageBackground
+                        source={require('../../assets/background-white.png')}
+                        style={styles.modal}
+                        resizeMode='cover'
+                        >
+                        <View style={{flex: 1, justifyContent: 'space-around'}}>
+                            <Text style={styles.modalLabel}>
+                                Data send result: {this.state.sendDataResponse}
+                            </Text>
+                            <TouchableNativeFeedback onPress={() => this.setState({receivedResponse: false})}>
+                                <View style={[styles.button, {marginBottom: 0, marginHorizontal: 0}]}>
+                                    <Text style={styles.buttonText}>
+                                        OK
+                                    </Text>
+                                </View>
+                            </TouchableNativeFeedback>
+                        </View>
+                    </ImageBackground>
+                </Modal>
                 <Text style={styles.text}>Choose date</Text>
                 <View>
                     <TouchableOpacity
@@ -187,7 +229,24 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 16,
         color: colors.mainBgColor,
-    }
+    },
+    modalLabel: {
+        color: colors.mainBgColor,
+        backgroundColor: colors.mainColor,
+        paddingVertical: '5%',
+        paddingHorizontal: '5%',
+        fontSize: 20,
+        borderRadius: 10,
+        textAlign: 'center',
+    },
+    modal: {
+        width: Dimensions.get('screen').width + 30,
+        height: Dimensions.get('screen').height - 20,
+        position: 'absolute',
+        left: -15,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputDailyData);

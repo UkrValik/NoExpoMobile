@@ -223,7 +223,8 @@ class TeamScreen extends React.Component {
                             navigate={this.props.navigation.navigate}
                             teamId={this.state.team.teamId}
                             />
-                        {showInputDataSection(new Date(this.state.team.endDate)) && <InputDailyData 
+                        {showInputDataSection(new Date(this.state.team.endDate)) &&
+                        <InputDailyData 
                             teamId={this.state.team.teamId}
                             stepValue={this.state.stepValue}
                             date={this.state.date}
