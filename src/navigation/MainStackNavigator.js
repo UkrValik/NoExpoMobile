@@ -14,7 +14,8 @@ import {
     addSteps,
     updateConsumerScores,
     sendChallengeData,
-    fetchTeam
+    fetchTeam,
+    receivedStepsFromGF,
 } from '../redux/actions/ActionCreators';
 
 const mapStateToProps = state => {
@@ -30,6 +31,7 @@ const mapDispatchToProps = dispatch => ({
     updateConsumerScores: (teamId, steps, startDate, endDate) => dispatch(updateConsumerScores(teamId, steps, startDate, endDate)),
     sendChallengeData: (data, token) => dispatch(sendChallengeData(data, token)),
     fetchTeam: (teamId, token) => dispatch(fetchTeam(teamId, token)),
+    receivedStepsFromGF: (value) => dispatch(receivedStepsFromGF(value)),
 });
 
 const MainStackNavigator = createStackNavigator();
@@ -64,10 +66,10 @@ class Main extends React.Component {
                         }
                         GoogleFit.authorize(options)
                             .then(authResult => {
-                                // console.log(authResult);
+                                console.log(authResult);
                             })
                             .catch(err => {
-                                // console.log(err);
+                                console.log(err);
                             });
                     }
                 });
@@ -78,14 +80,27 @@ class Main extends React.Component {
 
     async intervalCallback() {
         if (GoogleFit.isAuthorized && this.props.consumer.synchronizeGoogleFit) {
-            const steps = await GoogleFit.getDailyStepCountSamples({
+            const stepsFromGF = await GoogleFit.getDailyStepCountSamples({
                 startDate: new Date('2018-05-05').toISOString(),
                 endDate: new Date().toISOString(),
             });
-            
+
+            let steps = [];
+            if (stepsFromGF[1].steps.length < stepsFromGF[2].steps.length) {
+                steps = stepsFromGF[2].steps;
+            } else {
+                steps = stepsFromGF[1].steps;
+            }
+
+            if (steps.length === 0) {
+                this.props.receivedStepsFromGF(false);
+            } else {
+                this.props.receivedStepsFromGF(true);
+            }
+
             if (this.props.teams.teams.length > 0) {
                 this.props.teams.teams.forEach(async team => {
-                    const activities = this.beautifyActivitiesForServer(steps[1].steps, team.startDate, team.finishDate);
+                    const activities = this.beautifyActivitiesForServer(steps, team.startDate, team.finishDate);
                     const currentDate = (new Date()).getTime();
                     const finishDate = (new Date(team.finishDate)).getTime();
                     
@@ -104,8 +119,8 @@ class Main extends React.Component {
     beautifyActivitiesForServer(steps, startDate, endDate) {
         startDate = new Date(startDate).getTime() - 10;
         endDate = new Date(endDate).getTime() + 10;
-        if (new Date().getTime() < endDate) {
-            endDate = new Date().getTime();
+        if ((new Date()).getTime() < endDate) {
+            endDate = (new Date()).getTime();
         }
         let activities = [];
         steps.forEach(day => {

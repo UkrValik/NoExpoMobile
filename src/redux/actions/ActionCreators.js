@@ -250,3 +250,8 @@ export const chooseListType = (type) => dispatch => dispatch({
 export const logout = () => dispatch => dispatch({
     type: ActionTypes.LOGOUT,
 });
+
+export const receivedStepsFromGF = (value) => dispatch => dispatch({
+    type: ActionTypes.RECEIVED_STEPS_FROM_GF,
+    payload: value,
+});

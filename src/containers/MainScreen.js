@@ -6,7 +6,9 @@ import { StyleSheet,
     TouchableOpacity,
     RefreshControl,
     ImageBackground,
-    SafeAreaView
+    SafeAreaView,
+    Dimensions,
+    TouchableNativeFeedback,
 } from 'react-native';
 import { connect } from 'react-redux';
 import GoogleFit, {Scopes} from 'react-native-google-fit';
@@ -25,7 +27,6 @@ import {
     chooseListType,
 } from '../redux/actions/ActionCreators';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Dimensions } from 'react-native';
 
 const mapDispatchToProps = dispatch => ({
     fetchTeams: async (token) => dispatch(fetchTeams(token)),
@@ -52,12 +53,18 @@ class MainScreen extends React.Component {
         this.state = {
             refresh: false,
             listType: this.props.consumer.listType,
+            processingAuth: false,
+            authDone: false,
+            authResult: null,
+            showReceivedStepsModal: false,
+            receivedStepsModalAlreadyShown: false,
         };
 
         this.ref = React.createRef();
         this.navigateToAccount = this.navigateToAccount.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
         this.setListType = this.setListType.bind(this);
+        this.modalButtonYes = this.modalButtonYes.bind(this);
     }
 
     async componentDidMount() {
@@ -69,6 +76,13 @@ class MainScreen extends React.Component {
             const teams = await this.props.fetchTeams(this.props.consumer.token);
             for (let team of teams.payload) {
                 this.props.fetchTeam(team.teamId, this.props.consumer.token);
+            }
+
+            if (!this.props.consumer.receivedStepsFromGF && this.props.consumer.synchronizeGoogleFit && !this.state.receivedStepsModalAlreadyShown) {
+                this.setState({
+                    showReceivedStepsModal: true,
+                    receivedStepsModalAlreadyShown: true,
+                });
             }
         });
     }
@@ -91,6 +105,7 @@ class MainScreen extends React.Component {
     }
 
     async modalButtonYes() {
+        this.setState({ processingAuth: true });
         if (!GoogleFit.isAuthorized) {
             const options = {
                 scopes: [
@@ -102,24 +117,35 @@ class MainScreen extends React.Component {
             }
             GoogleFit.authorize(options)
                 .then(authResult => {
-                    // console.log(authResult);
-                    if (authResult.success) {
-                        this.setState({ authorized: true });
+                    this.setState({
+                        processingAuth: false,
+                        authDone: true,
+                        authResult: authResult.success ? 'success' : 'fail.\nDisabling Google Fit...',
+                    });
+                    if (!authResult.success) {
+                        this.props.toggleGoogleFit();
                     }
                 })
                 .then(async () => {
-                    const steps = await GoogleFit.getDailyStepCountSamples({
-                        startDate: new Date('2018-05-05').toISOString(),
-                        endDate: new Date().toISOString(),
-                    });
-                    this.props.addSteps(steps[1].steps);
                     this.props.makeFirstLogin();
                     this.props.toggleGoogleFit();
                 })
                 .catch(err => {
-                    // console.log(err);
+                    this.setState({
+                        processingAuth: false,
+                        authDone: true,
+                        authResult: JSON.stringify(err),
+                    });
+                    this.props.makeFirstLogin();
                 });
+        } else {
+            this.setState({ processingAuth: false });
         }
+    }
+
+    disableGoogleFitSynchronization() {
+        this.setState({ showReceivedStepsModal: false });
+        this.props.toggleGoogleFit();
     }
 
     async onRefresh() {
@@ -154,6 +180,60 @@ class MainScreen extends React.Component {
                             <TouchableOpacity onPress={() => this.modalButtonYes()}>
                                 <Text style={styles.button}>Yes</Text>
                             </TouchableOpacity>
+                        </View>
+                    </ImageBackground>
+                </Modal>
+                <Modal visible={this.state.processingAuth || this.state.authDone}>
+                    <ImageBackground
+                        source={require('../assets/background-white.png')}
+                        style={styles.modal}
+                        resizeMode='cover'
+                        >
+                        {this.state.authDone ?
+                        <View style={{justifyContent: 'space-around', flex: 1}}>
+                            <Text style={styles.modalLabel}>
+                                Google Fit auth result: {this.state.authResult}
+                            </Text>
+                            <TouchableNativeFeedback onPress={() => this.setState({ authDone: false })}>
+                                <View style={styles.modalButton}>
+                                    <Text style={styles.modalButtonText}>
+                                        OK
+                                    </Text>
+                                </View>
+                            </TouchableNativeFeedback>
+                        </View>
+                        :
+                        <Loading/>
+                        }
+                    </ImageBackground>
+                </Modal>
+                <Modal visible={this.state.showReceivedStepsModal}>
+                    <ImageBackground
+                        source={require('../assets/background-white.png')}
+                        style={styles.modal}
+                        resizeMode='cover'
+                        >
+                        <View style={{justifyContent: 'space-around', flex: 1}}>
+                            <Text style={[styles.modalLabel, {marginHorizontal: '5%', paddingHorizontal: '15%'}]}>
+                                Steps from Google Fit has not been received.{'\n\n'}
+                                Are you sure that you have Google Fit App installed on your device?
+                            </Text>
+                            <View style={{justifyContent: 'space-around', flexDirection: 'row'}}>
+                                <TouchableNativeFeedback onPress={() => this.disableGoogleFitSynchronization()}>
+                                    <View style={[styles.modalButton, {backgroundColor: colors.pink, paddingHorizontal: '5%'}]}>
+                                        <Text style={styles.modalButtonText}>
+                                            Disable Google Fit{'\n'}synchronization
+                                        </Text>
+                                    </View>
+                                </TouchableNativeFeedback>
+                                <TouchableNativeFeedback onPress={() => this.setState({ showReceivedStepsModal: false })}>
+                                    <View style={[styles.modalButton, {paddingHorizontal: '15%', justifyContent: 'center'}]}>
+                                        <Text style={[styles.modalButtonText, {fontSize: 22}]}>
+                                            OK
+                                        </Text>
+                                    </View>
+                                </TouchableNativeFeedback>
+                            </View>
                         </View>
                     </ImageBackground>
                 </Modal>
@@ -249,7 +329,28 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: colors.altColor,
         borderRadius: 10,
-    }
+    },
+    modalButton: {
+        backgroundColor: colors.altColor,
+        paddingVertical: '5%',
+        marginHorizontal: '5%',
+        borderRadius: 10,
+        elevation: 5,
+    },
+    modalButtonText: {
+        textAlign: 'center',
+        fontSize: 16,
+        color: colors.mainBgColor,
+    },
+    modalLabel: {
+        color: colors.mainBgColor,
+        backgroundColor: colors.mainColor,
+        paddingVertical: '5%',
+        marginHorizontal: '5%',
+        fontSize: 20,
+        borderRadius: 10,
+        textAlign: 'center',
+    },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

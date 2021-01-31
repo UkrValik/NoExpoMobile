@@ -9,6 +9,7 @@ const initialState = {
     synchronizationResult: null,
     firstLogin: true,
     listType: 2,
+    receivedStepsFromGF: true,
 };
 
 export const consumer = (state = initialState, action) => {
@@ -54,6 +55,9 @@ export const consumer = (state = initialState, action) => {
 
         case ActionTypes.LOGOUT:
             return {...state, token: null};
+
+        case ActionTypes.RECEIVED_STEPS_FROM_GF:
+            return {...state, receivedStepsFromGF: action.payload};
 
         default:
             return state;
