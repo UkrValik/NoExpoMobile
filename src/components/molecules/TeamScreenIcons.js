@@ -27,9 +27,9 @@ class TeamScreenIcons extends React.Component {
 
         return (
             <ImageBackground
-                source={require('../../assets/background-white.png')}
+                source={require('../../assets/background-white-small.png')}
                 resizeMode='cover'
-                style={{flex: 1, marginHorizontal: '-10%', paddingTop: paddingTop + '%', paddingBottom: '45%'}}
+                style={{flex: 1, marginHorizontal: '-5%', paddingTop: '25%', paddingBottom: '40%'}}
                 >
                 <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
                     <View>
@@ -55,7 +55,7 @@ class TeamScreenIcons extends React.Component {
                             />
                     </View>
                 </View>
-                <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: '10%'}}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: '20%'}}>
                     <View>
                         <Image
                             source={require('../../assets/duration.png')}

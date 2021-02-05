@@ -20,8 +20,8 @@ class HeaderTeamScreen extends React.Component {
         return (
             <ImageBackground
                 source={{uri: 'https://gesundheit-dev.teamworking.de/wp-content/uploads/B%C3%BCrolympics-Go-for-gold-challenge-1090.jpg'}}
-                style={{width: imageWidth, height: imageHeight, marginTop: '5%'}}
-                resizeMode='stretch'
+                style={{ height: imageHeight, marginTop: '-13%'}}
+                resizeMode='contain'
                 >
                 <View style={styles.container}>
                     <Icon
@@ -44,12 +44,12 @@ class HeaderTeamScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.mainColor,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
+        borderBottomLeftRadius: 12,
+        borderBottomRightRadius: 12,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: '-5%',
+        marginTop: '13%',
     },
     text: {
         color: colors.mainBgColor,

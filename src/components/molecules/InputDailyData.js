@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
         paddingVertical: '5%',
         marginHorizontal: '5%',
         borderRadius: 10,
-        marginBottom: '40%',
+        marginBottom: '30%',
         elevation: 5,
     },
     buttonText: {

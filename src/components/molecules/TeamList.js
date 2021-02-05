@@ -12,7 +12,7 @@ class TeamList extends React.Component {
         if (this.props.teams) {
             if (this.props.listType === 1) {
                 return (
-                    <View style={{marginTop: 0}}>
+                    <View style={{marginBottom: 10}}>
                         {this.props.teams.map(team => (
                             <TeamListItem 
                                 key={team.teamId} 

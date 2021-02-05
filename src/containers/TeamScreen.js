@@ -195,8 +195,8 @@ class TeamScreen extends React.Component {
         return (
             <View>
                 <SafeAreaView style={{backgroundColor: colors.mainColor}} />
-                <SafeAreaView style={{backgroundColor: '#FFF'}}>
-                    <ScrollView style={{backgroundColor: '#FFF'}}>
+                <SafeAreaView style={{backgroundColor: colors.mainBgColor}}>
+                    <ScrollView style={{backgroundColor: colors.mainBgColor}}>
                         <HeaderTeamScreen
                             teamName={this.state.team.teamName}
                             goBack={this.goBack}
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'normal',
         color: colors.lightTextColor,
-        marginTop: '7%',
+        marginTop: '-15%',
         textAlign: 'center',
         marginHorizontal: '10%',
     },
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '700',
         textAlign: 'center',
-        marginTop: '10%',
+        marginTop: '-10%',
     }
 });
 

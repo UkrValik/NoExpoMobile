@@ -9,10 +9,11 @@ import {
     Platform,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { AllHtmlEntities } from 'html-entities';
+import { BoxShadow } from 'react-native-shadow';
 import Loading from '../atoms/Loading';
 import colors from '../../styles/colors.json';
 import { fetchTeam } from '../../redux/actions/ActionCreators';
-import { AllHtmlEntities } from 'html-entities';
 
 const mapStateToProps = (state) => {
     return {
@@ -73,66 +74,94 @@ class TeamListItem extends React.Component {
 
             const imageSize = Dimensions.get('screen').width / 31 * 10;
 
+            const shadowOpt = {
+                width: imageSize * 3 - 20,
+                height: imageSize,
+                color: '#eee',
+                border: 8,
+                radius: 10,
+                opacity: 0.65,
+                x: 2,
+                y: 3.5,
+                style: {alignSelf: 'center', justifyContent: 'center', marginVertical: 8.5},
+            };
+
             if (this.props.listType === 1) {
                 return (
-                    <TouchableNativeFeedback onPress={() => this.moveToTeamScreen()}>
-                        <View style={[styles.topContainer, Platform.OS === 'ios' ? {backgroundColor: colors.mainBgColor} : {} ]}>
-                            <View style={[styles.container]}>
-                                <Image
-                                    style={[styles.image, {width: imageSize, height: imageSize}]}
-                                    source={{uri: 'https://gesundheit-dev.teamworking.de/wp-content/uploads/B%C3%BCrolympics-Go-for-gold-challenge-1090.jpg'}}
-                                    resizeMode='cover'
-                                    />
-                                <View style={{marginLeft: '5%', flex: 1}}>
-                                    <Text style={styles.teamName}>
-                                        {beatifyName(this.props.team.teamName, 'team')}
-                                    </Text>
-                                    <Text style={styles.smallText}>
-                                        {beatifyName(this.props.team.challengeName, 'challenge')}
-                                    </Text>
-                                    <Text style={styles.blueText}>
-                                        {'LAUFZEIT: ' + (this.props.team.activityDays === undefined ?
-                                            '?'
-                                        :
-                                            this.props.team.activityDays)
-                                        }
-                                    </Text>
+                    <BoxShadow setting={shadowOpt}>
+                        <TouchableNativeFeedback onPress={() => this.moveToTeamScreen()} style={{width: shadowOpt.width, height: shadowOpt.height}}>
+                            <View style={[styles.topContainer, Platform.OS === 'ios' ? {backgroundColor: colors.mainBgColor} : {width: shadowOpt.width, height: shadowOpt.height, borderBottomWidth: 0.7, borderBottomColor: '#ededed', borderBottomRightRadius: 10, borderRightColor: '#eee', borderRightWidth: 0.6} ]}>
+                                <View style={[styles.container]}>
+                                    <Image
+                                        style={[styles.image, {width: imageSize, height: imageSize}]}
+                                        source={{uri: 'https://gesundheit-dev.teamworking.de/wp-content/uploads/B%C3%BCrolympics-Go-for-gold-challenge-1090.jpg'}}
+                                        resizeMode='cover'
+                                        />
+                                    <View style={{marginLeft: '5%', flex: 1}}>
+                                        <Text style={styles.teamName}>
+                                            {beatifyName(this.props.team.teamName, 'team')}
+                                        </Text>
+                                        <Text style={styles.smallText}>
+                                            {beatifyName(this.props.team.challengeName, 'challenge')}
+                                        </Text>
+                                        <Text style={styles.blueText}>
+                                            {'LAUFZEIT: ' + (this.props.team.activityDays === undefined ?
+                                                '?'
+                                            :
+                                                this.props.team.activityDays)
+                                            }
+                                        </Text>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    </TouchableNativeFeedback>
+                        </TouchableNativeFeedback>
+                    </BoxShadow>
                 );
             } else if (this.props.listType === 2) {
 
                 const imageSize = Dimensions.get('screen').width / 20 * 9;
 
+                const shadowOpt = {
+                    width: imageSize - 5,
+                    height: imageSize * 100 / 59,
+                    color: '#eee',
+                    border: 8,
+                    radius: 10,
+                    opacity: 0.65,
+                    x:0,
+                    y:3.5,
+                    style: {alignSelf: 'center', justifyContent: 'center', marginVertical: 8.5},
+                };
+
                 return (
-                    <TouchableNativeFeedback onPress={() => this.moveToTeamScreen()}>
-                        <View style={[styles.topContainer2, Platform.OS === 'ios' ? {backgroundColor: colors.mainBgColor} : {} ]}>
-                            <View style={styles.container2}>
-                                <Image
-                                    style={[styles.image2, {width: imageSize, height: imageSize}]}
-                                    source={{uri: 'https://gesundheit-dev.teamworking.de/wp-content/uploads/B%C3%BCrolympics-Go-for-gold-challenge-1090.jpg'}}
-                                    resizeMode='cover'
-                                    />
-                                <View style={styles.textBlock2}>
-                                    <Text style={styles.teamName}>
-                                        {beatifyName(this.props.team.teamName, 'team')}
-                                    </Text>
-                                    <Text style={styles.smallText}>
-                                        {beatifyName(this.props.team.challengeName, 'challenge')}
-                                    </Text>
-                                    <Text style={styles.blueText}>
-                                        {'LAUFZEIT: ' + (this.props.team.activityDays === undefined ?
-                                            '?'
-                                        :
-                                            this.props.team.activityDays)
-                                        }
-                                    </Text>
+                    <BoxShadow setting={shadowOpt}>
+                        <TouchableNativeFeedback onPress={() => this.moveToTeamScreen()}>
+                            <View style={[styles.topContainer2, Platform.OS === 'ios' ? {backgroundColor: colors.mainBgColor} : {width: shadowOpt.width, height: shadowOpt.height, borderColor: '#ededed', borderBottomWidth: 0.5, borderLeftWidth: 0.5, borderRightWidth: 0.5, borderBottomRightRadius: 10, borderBottomLeftRadius: 10} ]}>
+                                <View style={styles.container2}>
+                                    <Image
+                                        style={[styles.image2, {width: imageSize, height: imageSize}]}
+                                        source={{uri: 'https://gesundheit-dev.teamworking.de/wp-content/uploads/B%C3%BCrolympics-Go-for-gold-challenge-1090.jpg'}}
+                                        resizeMode='cover'
+                                        />
+                                    <View style={styles.textBlock2}>
+                                        <Text style={styles.teamName}>
+                                            {beatifyName(this.props.team.teamName, 'team')}
+                                        </Text>
+                                        <Text style={styles.smallText}>
+                                            {beatifyName(this.props.team.challengeName, 'challenge')}
+                                        </Text>
+                                        <Text style={styles.blueText}>
+                                            {'LAUFZEIT: ' + (this.props.team.activityDays === undefined ?
+                                                '?'
+                                            :
+                                                this.props.team.activityDays)
+                                            }
+                                        </Text>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    </TouchableNativeFeedback>
+                        </TouchableNativeFeedback>
+                    </BoxShadow>
                 );
             }
         } else {
@@ -143,7 +172,8 @@ class TeamListItem extends React.Component {
 
 const styles = StyleSheet.create({
     topContainer: {
-        elevation: 3,
+        alignSelf: 'center',
+        // elevation: 3,
         marginVertical: 5,
         marginHorizontal: 10,
         borderTopLeftRadius: 10.1,
@@ -158,6 +188,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowColor: '#000',
         shadowRadius: 4,
+        backgroundColor: colors.mainBgColor,
+        overflow: 'hidden',
     },
     container: {
         flexDirection: 'row',
@@ -167,8 +199,8 @@ const styles = StyleSheet.create({
     image: {
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
-        margin: Platform.OS === 'ios' ? -2 : 0,
-        marginTop: Platform.OS === 'ios' ? -2 : 2,
+        margin: Platform.OS === 'ios' ? -2 : -1,
+        marginTop: Platform.OS === 'ios' ? -2 : -1,
     },
     blueText: {
         color: colors.mainColor,
@@ -186,7 +218,7 @@ const styles = StyleSheet.create({
         marginVertical: '2%',
     },
     topContainer2: {
-        elevation: 3,
+        // elevation: 3,
         marginVertical: 4,
         borderTopLeftRadius: 10.1,
         borderTopRightRadius: 10,
@@ -200,6 +232,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowColor: '#000',
         shadowRadius: 4,
+        backgroundColor: colors.mainBgColor,
+        overflow: 'hidden',
     },
     container2: {
         margin: 1.5,
@@ -209,8 +243,8 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         margin: Platform.OS === 'ios' ? -2 : 0,
-        marginRight: Platform.OS === 'ios' ? -2 : 2,
-        marginTop: Platform.OS === 'ios' ? -2 : 2,
+        marginRight: Platform.OS === 'ios' ? -2 : 1,
+        marginTop: Platform.OS === 'ios' ? -2 : -1,
     },
     textBlock2: {
         marginLeft: '5%',
