@@ -24,7 +24,7 @@ class HeaderTeamScreen extends React.Component {
                     onPress={() => this.props.goBack()}
                     />
                 <Text style={styles.text}>
-                    Team rating
+                    Teamwertung
                 </Text>
                 <View style={{paddingHorizontal: '3%'}}/>
             </View>
@@ -35,8 +35,8 @@ class HeaderTeamScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.mainColor,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
+        // borderBottomLeftRadius: 15,
+        // borderBottomRightRadius: 15,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     text: {
         color: colors.mainBgColor,
         fontSize: 20,
-        fontWeight: '700',
+        fontWeight: '400',
         paddingVertical: '3%',
     }
 });

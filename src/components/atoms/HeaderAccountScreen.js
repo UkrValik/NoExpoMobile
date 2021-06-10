@@ -19,37 +19,31 @@ class HeaderAccountScreen extends React.Component {
                 source={require('../../assets/background-blue.png')}
                 resizeMode='cover'
                 style={{flex: 1}}
-                imageStyle={{borderBottomLeftRadius: 15, borderBottomRightRadius: 15, marginTop: Platform.OS === 'ios' ? -600 : 0}}
-                >
+                imageStyle={{
+                    // borderBottomLeftRadius: 15,
+                    // borderBottomRightRadius: 15,
+                    marginTop: Platform.OS === 'ios' ? -600 : 0
+                }}>
                 <View style={styles.top}>
-                    <Icon
-                        name='arrow-left'
-                        size={16}
-                        color={colors.mainBgColor}
-                        style={{marginLeft: '3%'}}
-                        onPress={() => this.props.goBack()}
-                        />
                     <Text style={styles.textAccount}>
-                        Account
+                        Profilseite
                     </Text>
-                    <Icon
-                        name='exit'
-                        size={20}
-                        color={colors.mainBgColor}
-                        style={{marginRight: '5%'}}
-                        onPress={() => this.props.logout()}
-                        />
                 </View>
                 <View style={styles.bottom}>
                     <FastImage
-                        style={styles.image}
+                        style={{
+                            width: 100,
+                            height: this.props.avatar ? 100 : 0,
+                            borderRadius: 50,
+                            marginVertical: '3%',
+                        }}
                         source={{
                             uri: this.props.avatar,
                             headers: {'Authorization': 'Bearer ' + this.props.token}
                         }}
                         />
                     <Text style={styles.textHello}>
-                        Hello!
+                        Hallo!
                     </Text>
                     <Text style={styles.textName}>
                         {this.props.firstName + ' ' + this.props.lastName}
@@ -67,8 +61,6 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 15,
     },
     top: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: '3%',
     },
@@ -80,12 +72,6 @@ const styles = StyleSheet.create({
         color: colors.mainBgColor,
         fontSize: 20,
         fontWeight: '600',
-    },
-    image: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        marginVertical: '3%',
     },
     textHello: {
         color: colors.mainBgColor,

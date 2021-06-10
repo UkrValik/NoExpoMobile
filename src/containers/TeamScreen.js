@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text, StyleSheet, SafeAreaView, View } from 'react-native';
+import { ScrollView, Text, StyleSheet, SafeAreaView, View, StatusBar, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import TeamScreenIcons from '../components/molecules/TeamScreenIcons';
 import MonthChallengeDiagram from '../components/molecules/MonthChallengeDiagram';
@@ -9,6 +9,8 @@ import RatingButton from '../components/atoms/RatingButton';
 import colors from '../styles/colors.json';
 import { sortScores } from '../utilities/index';
 import { fetchTeam } from '../redux/actions/ActionCreators';
+import Diagram from '../components/TeamScreen/Diagram';
+import Diagram2 from '../components/TeamScreen/Diagram2';
 
 const mapDispatchToProps = dispatch => ({
     fetchTeam: async (teamId, token) => dispatch(fetchTeam(teamId, token)),
@@ -33,6 +35,8 @@ class TeamScreen extends React.Component {
             maximumScore: 0,
             pressedScoreBar: null,
         };
+
+        this.scoreBarTimeout = undefined;
 
         this.buildDiagramRanges = this.buildDiagramRanges.bind(this);
         this.saveStepValue = this.saveStepValue.bind(this);
@@ -91,6 +95,12 @@ class TeamScreen extends React.Component {
 
     setPressedScoreBar(component) {
         this.setState({ pressedScoreBar: component });
+        clearTimeout(this.scoreBarTimeout);
+        this.scoreBarTimeout = setTimeout(() => {
+            if (this.state.pressedScoreBar === component) {
+                this.setState({ pressedScoreBar: '' });
+            }
+        }, 2000);
     }
 
     setStepValueFromLocalStore(date) {
@@ -188,17 +198,24 @@ class TeamScreen extends React.Component {
         const endDate = new Date().getTime() > new Date(this.state.team.endDate).getTime() ? new Date(this.state.team.endDate) : new Date();
 
         const showInputDataSection = (endDate) => {
-            const currDate = new Date();
-            return (currDate.getTime() < endDate.getTime());
+            endDate = new Date(endDate.toDateString());
+            const currDate = new Date(new Date().toDateString());
+            return (currDate.getTime() <= endDate.getTime());
         }
 
+        // console.log(this.state.team.teamName + '\n\n\n', this.state.team);
+
         return (
-            <View>
+            <View 
+                style={{
+                    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+                }}>
                 <SafeAreaView style={{backgroundColor: colors.mainColor}} />
                 <SafeAreaView style={{backgroundColor: colors.mainBgColor}}>
                     <ScrollView style={{backgroundColor: colors.mainBgColor}}>
                         <HeaderTeamScreen
                             teamName={this.state.team.teamName}
+                            team={this.state.team}
                             goBack={this.goBack}
                             />
                         <Text style={styles.challengeDescription}>
@@ -206,25 +223,33 @@ class TeamScreen extends React.Component {
                         </Text>
                         <TeamScreenIcons team={this.state.team}/>
                         <Text style={styles.textStatistics}>
-                            STATISTICS
+                            DEINE ERFOLGE
                         </Text>
-                        {this.state.diagramData.map(month => (
-                            <MonthChallengeDiagram
-                                key={(monthKey++).toString()}
-                                consumer={this.props.consumer}
-                                team={this.state.team}
-                                month={month}
-                                maximumScore={this.state.maximumScore}
-                                setPressedScoreBar={this.setPressedScoreBar}
-                                pressedScoreBar={this.state.pressedScoreBar}
-                                />
-                        ))}
+                        {this.state.diagramData.map(month => 
+                            this.state.team.challengeType === 1 ? 
+                                <Diagram
+                                    key={(monthKey++).toString()}
+                                    consumer={this.props.consumer}
+                                    team={this.state.team}
+                                    month={month}
+                                    maximumScore={this.state.maximumScore}
+                                    setPressedScoreBar={this.setPressedScoreBar}
+                                    pressedScoreBar={this.state.pressedScoreBar}
+                                    />
+                            :
+                                <Diagram2
+                                    key={(monthKey++).toString()}
+                                    month={month}
+                                    scores={this.state.team.scores}
+                                    />
+                        )}
                         <RatingButton
                             navigate={this.props.navigation.navigate}
                             teamId={this.state.team.teamId}
                             />
-                        {showInputDataSection(new Date(this.state.team.endDate)) &&
+                        {showInputDataSection(new Date(this.state.team.finishDate)) &&
                         <InputDailyData 
+                            team={this.state.team}
                             teamId={this.state.team.teamId}
                             stepValue={this.state.stepValue}
                             date={this.state.date}
@@ -237,6 +262,7 @@ class TeamScreen extends React.Component {
                             stopInterval={this.stopInterval}
                             startInterval={this.startInterval}
                             />}
+                        {/* <Diagram/> */}
                     </ScrollView>
                 </SafeAreaView>
             </View>
@@ -249,7 +275,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'normal',
         color: colors.lightTextColor,
-        marginTop: '-15%',
+        marginTop: '3%',
         textAlign: 'center',
         marginHorizontal: '10%',
     },

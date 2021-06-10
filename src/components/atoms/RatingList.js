@@ -31,10 +31,10 @@ class RatingList extends React.Component {
                     <TouchableNativeFeedback key={i.toString()}>
                         <View style={[styles.columnNames, {backgroundColor: backgroundColor(i)}]}>
                             <Text style={[styles.column, {flex: 1}]}>{(++i).toString()}</Text>
-                            <Text style={[styles.column, {flex: 3, textAlign: 'center', marginLeft: '5%'}]}>
+                            <Text style={[styles.column, {flex: 3, textAlign: 'left', marginLeft: '5%'}]}>
                                 {consumer.displayName}
                             </Text>
-                            <Text style={[styles.column, {flex: 1.5}]}>{consumer.score}</Text>
+                            <Text style={[styles.column, {flex: 2}]}>{consumer.score}</Text>
                         </View>
                     </TouchableNativeFeedback>
                 ))}
@@ -45,17 +45,18 @@ class RatingList extends React.Component {
 
 const styles = StyleSheet.create({
     column: {
-        fontSize: 20,
+        fontSize: 14,
         color: colors.mainBgColor,
-        fontWeight: '700',
+        fontWeight: '400',
         textAlign: 'center',
         paddingVertical: '5%',
     },
     columnNames: {
         flexDirection: 'row',
-        marginTop: '5%',
-        marginHorizontal: '5%',
+        marginHorizontal: '2%',
+        marginBottom: '3%',
         borderRadius: 10,
+        alignItems: 'center',
     }
 });
 

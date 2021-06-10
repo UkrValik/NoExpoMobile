@@ -5,18 +5,21 @@ import { StyleSheet,
     Modal,
     TouchableOpacity,
     RefreshControl,
-    ImageBackground,
     SafeAreaView,
     Dimensions,
     TouchableNativeFeedback,
+    Platform,
+    StatusBar,
+    BackHandler,
+    TouchableWithoutFeedback,
+    ScrollView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import GoogleFit, {Scopes} from 'react-native-google-fit';
-import HeaderMainScreen from '../components/atoms/HeaderMainScreen';
-import TeamList from '../components/molecules/TeamList';
-import Loading from '../components/atoms/Loading';
-import ListTypeButton from '../components/atoms/ListTypeButton';
-import colors from '../styles/colors.json';
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
+import HeaderMainScreen from './HeaderMainScreen';
+import TeamList from './TeamList';
+import colors from '../../styles/colors.json';
 import {
     fetchTeams,
     fetchTeam,
@@ -25,8 +28,11 @@ import {
     addSteps,
     fetchConsumer,
     chooseListType,
-} from '../redux/actions/ActionCreators';
-import { ScrollView } from 'react-native-gesture-handler';
+} from '../../redux/actions/ActionCreators';
+import selection from '../../styles/selection.json';
+import { ActivityIndicator } from 'react-native';
+
+const Icon = createIconSetFromIcoMoon(selection);
 
 const mapDispatchToProps = dispatch => ({
     fetchTeams: async (token) => dispatch(fetchTeams(token)),
@@ -58,6 +64,7 @@ class MainScreen extends React.Component {
             authResult: null,
             showReceivedStepsModal: false,
             receivedStepsModalAlreadyShown: false,
+            fetchingTeams: false,
         };
 
         this.ref = React.createRef();
@@ -71,9 +78,12 @@ class MainScreen extends React.Component {
         this.props.navigation.setOptions({
             headerShown: false,
         });
+
         this._unsubscribe = this.props.navigation.addListener('focus', async () => {
             this.props.fetchConsumer(this.props.consumer.token);
+            this.setState({ fetchingTeams: true });
             const teams = await this.props.fetchTeams(this.props.consumer.token);
+            this.setState({ fetchingTeams: false });
             for (let team of teams.payload) {
                 this.props.fetchTeam(team.teamId, this.props.consumer.token);
             }
@@ -84,11 +94,21 @@ class MainScreen extends React.Component {
                     receivedStepsModalAlreadyShown: true,
                 });
             }
+
+            // BackHandler.addEventListener('hardwareBackPress', () => BackHandler.exitApp());
         });
+
+        // this.unsubscribeBlur = this.props.navigation.addListener('blur', () => {
+        //     BackHandler.removeEventListener('hardwareBackPress');
+        // });
+
+        StatusBar.setTranslucent(true);
+        StatusBar.setBackgroundColor(colors.mainColor+'ee');
     }
 
     componentWillUnmount() {
         this._unsubscribe();
+        // this.unsubscribeBlur();
     }
 
     navigateToAccount() {
@@ -158,15 +178,25 @@ class MainScreen extends React.Component {
     }
 
     render() {
+
+        const compareDates = (d1, d2) => {
+            return d1.getTime() < d2.getTime();
+        }
+
+        let paddingTop = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
+        const activeTeams = this.props.teams.teams.filter(team => 
+            compareDates(new Date(team.startDate), new Date()) && compareDates(new Date(), new Date(team.endDate))
+        );
+
         return (
             <View style={styles.container}>
-                <SafeAreaView style={{backgroundColor: colors.mainColor}}/>
-                <Modal
+
+                {/* <Modal
                     visible={this.props.consumer.firstLogin}
                     presentationStyle='fullScreen'
                     >
                     <ImageBackground
-                        source={require('../assets/background-white.png')}
+                        source={require('../../assets/background-white.png')}
                         style={styles.modal}
                         resizeMode='cover'
                         >
@@ -183,9 +213,10 @@ class MainScreen extends React.Component {
                         </View>
                     </ImageBackground>
                 </Modal>
+
                 <Modal visible={this.state.processingAuth || this.state.authDone}>
                     <ImageBackground
-                        source={require('../assets/background-white.png')}
+                        source={require('../../assets/background-white.png')}
                         style={styles.modal}
                         resizeMode='cover'
                         >
@@ -207,9 +238,10 @@ class MainScreen extends React.Component {
                         }
                     </ImageBackground>
                 </Modal>
+
                 <Modal visible={this.state.showReceivedStepsModal}>
                     <ImageBackground
-                        source={require('../assets/background-white.png')}
+                        source={require('../../assets/background-white.png')}
                         style={styles.modal}
                         resizeMode='cover'
                         >
@@ -236,48 +268,88 @@ class MainScreen extends React.Component {
                             </View>
                         </View>
                     </ImageBackground>
-                </Modal>
-                <SafeAreaView>
+                </Modal> */}
+                <SafeAreaView
+                    style={{
+                        paddingTop: paddingTop,
+//                         backgroundColor: colors.mainColor,
+                        borderBottomRightRadius: 15,
+                        borderBottomLeftRadius: 15,
+                    }}>
                     <HeaderMainScreen navigateToAccount={this.navigateToAccount}/>
-                    <View style={styles.teamsHeaderContainer}>
-                        <View style={{flex: 4}}>
-                            <ListTypeButton 
-                                style={{flex: 10}}
-                                buttonType={1} 
-                                listType={this.state.listType} 
-                                setListType={this.setListType}
-                                />
-                        </View>
-                        <View style={{flex: 4}}>
-                            <ListTypeButton 
-                                style={{flex: 10}}
-                                buttonType={2} 
-                                listType={this.state.listType} 
-                                setListType={this.setListType}
-                                />
-                        </View>
-                        <Text style={styles.textTeams}>
-                            TEAMS
-                        </Text>
-                        <View style={{flex: 4}}/>
-                        <View style={{flex: 4}}/>
-                    </View>
                 </SafeAreaView>
-                {this.props.teams.teams && this.props.teams.teams.length === 0 ? (<Loading/>) : (
-                    <ScrollView
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={this.state.refresh}
-                                onRefresh={this.onRefresh}
-                                colors={[colors.mainColor]}
+                {this.state.fetchingTeams && activeTeams.length === 0 ? 
+                    (
+                        <View
+                            style={{
+                                flex: 1,
+                                justifyContent: 'center',
+                            }}>
+                            <ActivityIndicator
+                                size={24}
+                                color={colors.mainColor}
                                 />
-                        }>
-                        <TeamList
-                            teams={this.props.teams.teams}
-                            navigation={this.props.navigation}
-                            listType={this.state.listType}
-                            />
-                    </ScrollView>
+                        </View>
+                    )
+                    :
+                    activeTeams.length === 0 ? 
+                    (
+                        <View
+                            style={{
+                                flex: 1,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}>
+                            <Text
+                                style={{
+                                    textAlign: 'center',
+                                    textAlignVertical: 'center',
+                                    fontSize: 20,
+                                    marginBottom: '10%',
+                                    color: colors.textColor,
+                                }}>
+                                Sie haben derzeit keine aktiven Challenges.
+                            </Text>
+                            <TouchableWithoutFeedback
+                                onPress={() => this.props.navigation.navigate('Challenges')}
+                                >
+                                <View
+                                    style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        padding: 10,
+                                        marginBottom: '10%',
+                                    }}>
+                                    <Text
+                                        style={{
+                                            fontSize: 16,
+                                            marginRight: 10,
+                                            color: colors.textColor,
+                                        }}>
+                                        Alle Challenges
+                                    </Text>
+                                    <Icon
+                                        name='arrow-right'
+                                        size={14}
+                                        color={colors.textColor}
+                                        />
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </View>
+                    ) : (
+                        <ScrollView
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={this.state.refresh}
+                                    onRefresh={this.onRefresh}
+                                    colors={[colors.mainColor]}
+                                    />
+                            }>
+                            <TeamList
+                                teams={this.props.teams.teams}
+                                navigation={this.props.navigation}
+                                />
+                        </ScrollView>
                 )}
             </View>
         );
@@ -287,7 +359,7 @@ class MainScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.mainBgColor,
+        backgroundColor: colors.lightgray,
     },
     textTeams: {
         fontSize: 20,

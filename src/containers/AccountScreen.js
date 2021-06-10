@@ -1,10 +1,18 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Alert, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet,
+    ScrollView,
+    Alert,
+    Text,
+    View,
+    SafeAreaView,
+    TouchableNativeFeedback,
+    Platform,
+    StatusBar,
+    BackHandler,
+} from 'react-native';
 import { Input } from 'react-native-elements';
 import colors from '../styles/colors.json';
 import { connect } from 'react-redux';
-import GoogleFit, { Scopes } from 'react-native-google-fit';
-import AuthGoogleFitButton from '../components/atoms/AuthGoogleFitButton';
 import HeaderAccountScreen from '../components/atoms/HeaderAccountScreen';
 import { toggleGoogleFit, logout } from '../redux/actions/ActionCreators';
 
@@ -19,161 +27,205 @@ const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logout()),
 });
 
-class AccountScreen extends React.Component {
+const AccountScreen = (props) => {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            authorized: GoogleFit.isAuthorized,
-            consumerBlockRotated: false,
-            firstName: this.props.consumer.consumer.firstName,
-            lastName: this.props.consumer.consumer.lastName,
-            sex: this.props.consumer.consumer.sex,
-            email: this.props.consumer.consumer.email,
-            description: this.props.consumer.consumer.description,
-        };
-
-        this.authorizeGoogleFit = this.authorizeGoogleFit.bind(this);
-        this.saveSynchronizeCheckbox = this.saveSynchronizeCheckbox.bind(this);
-        this.saveConsumerBlock = this.saveConsumerBlock.bind(this);
-        this.saveEmail = this.saveEmail.bind(this);
-        this.saveFirstName = this.saveFirstName.bind(this);
-        this.saveLastName = this.saveLastName.bind(this);
-        this.saveSex = this.saveSex.bind(this);
-        this.goBack = this.goBack.bind(this);
-        this.logout = this.logout.bind(this);
+    const handleBackButton = () => {
+        BackHandler.exitApp();
+        return true;
     }
 
-    componentDidMount() {
-        this.props.navigation.setOptions({
-            headerShown: false,
+    React.useEffect(() => {
+        const unsubscribe = props.navigation.addListener('focus', () => {
+            BackHandler.addEventListener('hardwareBackPress', handleBackButton);
         });
+        return unsubscribe;
+    }, [props.navigation]);
+
+    React.useEffect(() => {
+        const unsubscribe = props.navigation.addListener('blur', () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+        });
+        return unsubscribe;
+    }, [props.navigation]);
+
+    const [companyName, setCompanyName] = React.useState(props.consumer.consumer.companyName);
+    const [firstName, setFirstName] = React.useState(props.consumer.consumer.firstName);
+    const [lastName, setLastName] = React.useState(props.consumer.consumer.lastName);
+    const [email, setEmail] = React.useState(props.consumer.consumer.email);
+
+    const logout = () => {
+        props.logout();
     }
 
-    goBack() {
-        this.props.navigation.goBack();
-    }
-
-    async saveSynchronizeCheckbox() {
-        this.props.toggleGoogleFit();
-    }
-
-    logout() {
-        this.props.logout();
-    }
-
-    authorizeGoogleFit() {
-        if (!GoogleFit.isAuthorized) {
-            const options = {
-                scopes: [
-                    Scopes.FITNESS_BODY_READ,
-                    Scopes.FITNESS_BODY_READ_WRITE,
-                    Scopes.FITNESS_ACTIVITY_READ,
-                    Scopes.FITNESS_ACTIVITY_READ_WRITE,
-                ]
-            }
-            GoogleFit.authorize(options)
-                .then(authResult => {
-                    console.log(authResult);
-                    if (authResult.success) {
-                        this.setState({ authorized: true });
-                    }
-                    // Alert.alert(
-                    //     'Auth result',
-                    //     JSON.stringify(authResult),
-                    //     [
-                    //         {
-                    //             text: 'Ok',
-                    //         }
-                    //     ],
-                    //     { cancelable: false }
-                    // );
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-    }
-
-    saveConsumerBlock() {
-        this.setState({ consumerBlockRotated: !this.state.consumerBlockRotated });
-    }
-
-    saveEmail(email) {
-        this.setState({ email: email });
-    }
-
-    saveFirstName(firstName) {
-        this.setState({ firstName: firstName });
-    }
-
-    saveLastName(lastName) {
-        this.setState({ lastName: lastName });
-    }
-
-    saveSex(sex) {
-        this.setState({ sex: sex });
-    }
-
-    render() {
-
-        return (
-            <ScrollView 
-                style={{flex: 1, backgroundColor: colors.mainBgColor}}
+    return (
+        <View
+            style={{
+                paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+                flex: 1,
+            }}>
+            <ScrollView
+                style={{
+                    flex: 1,
+                    backgroundColor: colors.mainBgColor,
+                }}
                 contentContainerStyle={{justifyContent: 'flex-start'}}
                 >
                 <SafeAreaView style={{backgroundColor: colors.mainColor}}/>
                 <SafeAreaView>
                     <HeaderAccountScreen
-                        goBack={this.goBack}
-                        firstName={this.state.firstName || ''}
-                        lastName={this.state.lastName || ''}
-                        logout={this.logout}
-                        avatar={this.props.consumer.consumer.avatar}
-                        token={this.props.consumer.token}
+                        firstName={firstName || ''}
+                        lastName={lastName || ''}
+                        logout={logout}
+                        avatar={props.consumer.consumer.avatar}
+                        token={props.consumer.token}
                         />
                     <View style={styles.profileContainer}>
-                        <Text style={styles.textProfile}>
-                            MAIN PROFILE
-                        </Text>
-                        <Text style={styles.textYourData}>
-                            Your data - at a glance
-                        </Text>
-                        <AuthGoogleFitButton/>
-                        <Text style={styles.textPersonal}>
-                            Main personal data
-                        </Text>
+                            {/*<Text style={styles.textProfile}>
+                                HAUPTPROFIL
+                            </Text>
+                            <Text style={styles.textYourData}>
+                                Alle Daten - auf einen Blick
+                            </Text>
+                            <AuthGoogleFitButton/>
+                            <Text style={styles.textPersonal}>
+                                Persönliche Hauptdaten
+                            </Text>*/}
+                        <View
+                            style={{
+                                marginBottom: '7%',
+                            }}>
+                            <Text style={styles.labelStyle}>
+                                VORNAME:
+                            </Text>
+                            <Text
+                                style={{
+                                    textAlign: 'center',
+                                    fontSize: 18,
+                                    fontWeight: '700',
+                                    color: colors.textColor,
+                                }}>
+                                {firstName}
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                marginBottom: '7%',
+                            }}>
+                            <Text style={styles.labelStyle}>
+                                NACHNAME:
+                            </Text>
+                            <Text
+                                style={{
+                                    textAlign: 'center',
+                                    fontSize: 18,
+                                    fontWeight: '700',
+                                    color: colors.textColor,
+                                }}>
+                                {lastName}
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                marginBottom: '7%',
+                            }}>
+                            <Text style={styles.labelStyle}>
+                                EMAIL:
+                            </Text>
+                            <Text
+                                style={{
+                                    textAlign: 'center',
+                                    fontSize: 18,
+                                    fontWeight: '700',
+                                    color: colors.textColor,
+                                }}>
+                                {email}
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                marginBottom: '7%',
+                            }}>
+                            <Text style={styles.labelStyle}>
+                                UNTERNEHMEN:
+                            </Text>
+                            <Text
+                                style={{
+                                    textAlign: 'center',
+                                    fontSize: 18,
+                                    fontWeight: '700',
+                                    color: colors.textColor,
+                                }}>
+                                {companyName}
+                            </Text>
+                        </View>
+                        {/* <Input
+                            value={firstName}
+                            label='VORNAME:'
+                            inputContainerStyle={styles.inputContainerStyle}
+                            labelStyle={styles.labelStyle}
+                            inputStyle={{color: colors.textColor, textAlign: 'center'}}
+                            style={{fontWeight: '700', fontSize: 20}}
+                            onChangeText={(value) => setFirstName(value)}
+                            editable={false}
+                            />
                         <Input
-                            value={this.state.email}
+                            value={lastName}
+                            label='NACHNAME:'
+                            inputContainerStyle={styles.inputContainerStyle}
+                            labelStyle={styles.labelStyle}
+                            inputStyle={{color: colors.textColor, textAlign: 'center'}}
+                            style={{fontWeight: '700', fontSize: 20}}
+                            onChangeText={(value) => setLastName(value)}
+                            editable={false}
+                            />
+                        <Input
+                            value={email}
                             label='EMAIL:'
                             inputContainerStyle={styles.inputContainerStyle}
                             labelStyle={styles.labelStyle}
                             inputStyle={{color: colors.textColor, textAlign: 'center'}}
                             keyboardType='email-address'
-                            onChangeText={(value) => this.saveEmail(value)}
+                            style={{fontWeight: '700', fontSize: 18}}
+                            onChangeText={(value) => setEmail(value)}
+                            editable={false}
                             />
                         <Input
-                            value={this.state.firstName}
-                            label='FIRST NAME:'
+                            value={companyName}
+                            label='COMPANY NAME:'
                             inputContainerStyle={styles.inputContainerStyle}
                             labelStyle={styles.labelStyle}
                             inputStyle={{color: colors.textColor, textAlign: 'center'}}
-                            onChangeText={(value) => this.saveFirstName(value)}
-                            />
-                        <Input
-                            value={this.state.lastName}
-                            label='LAST NAME:'
-                            inputContainerStyle={styles.inputContainerStyle}
-                            labelStyle={styles.labelStyle}
-                            inputStyle={{color: colors.textColor, textAlign: 'center'}}
-                            onChangeText={(value) => this.saveLastName(value)}
-                            />
+                            keyboardType='email-address'
+                            style={{fontWeight: '700', fontSize: 20}}
+                            onChangeText={(value) => setCompanyName(value)}
+                            editable={false}
+                            /> */}
+                        <TouchableNativeFeedback onPress={logout}>
+                            <View
+                                style={{
+                                    backgroundColor: colors.pink,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    borderRadius: 10,
+                                    width: '95%',
+                                    marginBottom: '5%',
+                                    height: 40,
+                                    paddingHorizontal: 10,
+                                }}>
+                                <Text
+                                    style={{
+                                        fontSize: 16,
+                                        color: '#FFF',
+                                    }}>
+                                    ABMELDEN
+                                </Text>
+                            </View>
+                        </TouchableNativeFeedback>
                     </View>
                 </SafeAreaView>
             </ScrollView>
-        );
-    }
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -182,37 +234,20 @@ const styles = StyleSheet.create({
         marginTop: '7%',
         backgroundColor: colors.mainBgColor,
     },
-    textProfile: {
-        fontSize: 20,
-        fontWeight: '700',
-        color: colors.mainColor,
-    },
-    textYourData: {
-        fontSize: 20,
-        color: colors.lightTextColor,
-        marginTop: '3%',
-    },
-    textPersonal: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: colors.textColor,
-        marginTop: '10%',
-        marginBottom: '5%',
-    },
     inputContainerStyle: {
-        borderColor: colors.midgray,
-        borderRadius: 10,
-        borderBottomWidth: 1,
-        borderTopWidth: 1,
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
+        // borderColor: colors.midgray,
+        // borderRadius: 10,
+        borderBottomWidth: 0,
+        borderTopWidth: 0,
+        borderLeftWidth: 0,
+        borderRightWidth: 0,
     },
     labelStyle: {
-        fontSize: 16,
+        fontSize: 14,
         color: colors.lightTextColor,
         alignSelf: 'center',
         fontWeight: 'normal',
-        marginBottom: '3%',
+        marginBottom: '1%',
     }
 });
 

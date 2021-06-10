@@ -39,7 +39,7 @@ class TeamScreenIcons extends React.Component {
                             style={{width: 130, height: 130}}
                             />
                         <TeamScreenIconText
-                            label='Active participants'
+                            label='Aktive Teilnehmer'
                             value={activeParticipants}
                             />
                     </View>
@@ -50,7 +50,7 @@ class TeamScreenIcons extends React.Component {
                             style={{width: 130, height: 130}}
                             />
                         <TeamScreenIconText
-                            label='Your rank'
+                            label='Dein Rang'
                             value={this.props.team.rank + '/' + activeParticipants}
                             />
                     </View>
@@ -63,7 +63,7 @@ class TeamScreenIcons extends React.Component {
                             style={{width: 130, height: 130}}
                             />
                         <TeamScreenIconText
-                            label='Duration'
+                            label='Dauer der Challenge'
                             value={this.props.team.activityDays}
                             />
                     </View>
@@ -74,7 +74,7 @@ class TeamScreenIcons extends React.Component {
                             style={{width: 130, height: 130}}
                             />
                         <TeamScreenIconText
-                            label='End date'
+                            label='Enddatum'
                             value={beatifyDate(this.props.team.endDate)}
                             />
                     </View>

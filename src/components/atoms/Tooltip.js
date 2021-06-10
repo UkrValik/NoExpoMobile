@@ -13,7 +13,7 @@ class Tooltip extends React.Component {
             <View style={[{justifyContent: 'center', alignItems: 'center'}, this.props.style]}>
                 <View style={{borderRadius: 10, backgroundColor: colors.pink}}>
                     <Text style={styles.text}>
-                        Invalid login or password
+                        Ungültige Email oder Passwort
                     </Text>
                 </View>
                 <View style={styles.arrow}>

@@ -9,15 +9,16 @@ import {
     Platform,
     ImageBackground,
     Dimensions,
+    ActivityIndicator,
+    Button,
 } from 'react-native';
-import { Input } from 'react-native-elements';
+import { Input, ThemeConsumer } from 'react-native-elements';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { connect } from 'react-redux';
 import icomoonConfig from '../../styles/selection.json';
 import colors from '../../styles/colors.json';
 import { postConsumerScore, sendChallengeData } from '../../redux/actions/ActionCreators';
-import Loading from '../atoms/Loading';
 
 const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
@@ -46,6 +47,8 @@ class InputDailyData extends React.Component {
             sendDataResponse: null,
         };
 
+        this.valueRef = React.createRef();
+
         this.writeValue = this.writeValue.bind(this);
         this.onDateChange = this.onDateChange.bind(this);
         this.saveStepValue = this.saveStepValue.bind(this);
@@ -53,8 +56,8 @@ class InputDailyData extends React.Component {
 
     onDateChange(event, date) {
         if (event.type === 'set') {
-            this.props.onDateChange(date);
             this.toggleDatePicker();
+            this.props.onDateChange(date);
         }
     }
 
@@ -71,11 +74,11 @@ class InputDailyData extends React.Component {
         this.setState({ showDatePicker: !this.state.showDatePicker });
     }
 
-    async writeValue(){
+    async writeValue(value) {
         this.setState({ sendingData: true });
         const day = {
             date: new Date(this.props.date).toISOString().split('T')[0],
-            score: this.props.stepValue,
+            score: typeof value === 'number' ? value : this.props.stepValue,
         };
         await this.props.postConsumerScore(this.props.teamId, day);
 
@@ -88,7 +91,9 @@ class InputDailyData extends React.Component {
         this.setState({
             receivedResponse: true,
             sendingData: false,
-            sendDataResponse: sendDataResponse.payload.success ? 'success' : 'fail',
+            sendDataResponse: sendDataResponse.payload.success ? 
+            'Daten wurden erfolgreich hinzugefügt' : 
+            'Error. Daten wurden nicht hinzugefügt',
         });
         await this.props.onDataSent();
         this.props.buildDiagramRanges();
@@ -104,7 +109,10 @@ class InputDailyData extends React.Component {
                         style={styles.modal}
                         resizeMode='cover'
                         >
-                        <Loading/>
+                        <ActivityIndicator
+                            size={32}
+                            color={colors.mainColor}
+                            />
                     </ImageBackground>
                 </Modal>
                 <Modal visible={this.state.receivedResponse}>
@@ -115,10 +123,10 @@ class InputDailyData extends React.Component {
                         >
                         <View style={{flex: 1, justifyContent: 'space-around'}}>
                             <Text style={styles.modalLabel}>
-                                Data send result: {this.state.sendDataResponse}
+                                {this.state.sendDataResponse}
                             </Text>
                             <TouchableNativeFeedback onPress={() => this.setState({receivedResponse: false})}>
-                                <View style={[styles.button, {marginBottom: 0, marginHorizontal: 0}]}>
+                                <View style={[styles.button, {marginBottom: 0, marginHorizontal: '20%'}]}>
                                     <Text style={styles.buttonText}>
                                         OK
                                     </Text>
@@ -127,7 +135,7 @@ class InputDailyData extends React.Component {
                         </View>
                     </ImageBackground>
                 </Modal>
-                <Text style={styles.text}>Choose date</Text>
+                <Text style={styles.text}>Datum auswählen</Text>
                 <View>
                     <TouchableOpacity
                         onPress={() => this.toggleDatePicker()}
@@ -156,30 +164,89 @@ class InputDailyData extends React.Component {
                         />
                     }
                 </View>
-                <Text style={styles.text}>{this.props.synchronizeGoogleFit ? 'Data' : 'Input data'}</Text>
-                <Input
-                    value={this.props.stepValue.toString()}
-                    onChangeText={(value) => this.saveStepValue(value)}
-                    inputStyle={styles.inputText}
-                    inputContainerStyle={styles.inputContainerStyle}
-                    leftIcon={
-                        <Icon
-                            name='conversation'
-                            size={30}
-                            color={colors.midgray}
-                            style={{marginLeft: 12}}
-                            />
+                <Text style={styles.text}>{this.props.synchronizeGoogleFit && this.props.team.challengeType === 1 ? 'Daten' : this.props.team.challengeQuestion}</Text>
+                
+                {this.props.team.challengeType === 1 && <View>
+                    <Input
+                        ref={this.valueRef}
+                        value={this.props.stepValue.toString()}
+                        onChangeText={(value) => this.saveStepValue(value)}
+                        inputStyle={styles.inputText}
+                        inputContainerStyle={styles.inputContainerStyle}
+                        keyboardType='decimal-pad'
+                        onFocus={() => this.props.stepValue === 0 && this.saveStepValue('')}
+                        onBlur={() => this.props.stepValue === '' && this.props.saveStepValue(0)}
+                        leftIcon={
+                            <Icon
+                                name='conversation'
+                                size={30}
+                                color={colors.midgray}
+                                style={{marginLeft: 12}}
+                                />
+                        }
+                        />
+                    {!this.props.synchronizeGoogleFit &&
+                        <TouchableNativeFeedback onPress={() => this.writeValue()}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>
+                                    BESTÄTIGEN
+                                </Text>
+                            </View>
+                        </TouchableNativeFeedback>
                     }
-                    />
-                {!this.props.synchronizeGoogleFit &&
-                    <TouchableNativeFeedback onPress={() => this.writeValue()}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>
-                                SEND
+                </View>}
+                {this.props.team.challengeType === 2 &&
+                <View
+                    style={{
+                        justifyContent: 'space-around',
+                        flexDirection: 'row',
+                        marginBottom: '5%',
+                    }}>
+                    <TouchableNativeFeedback
+                        onPress={() => this.writeValue(1)}
+                        >
+                        <View
+                            style={{
+                                flex: 0.4,
+                                elevation: 4,
+                                borderRadius: 10,
+                            }}>
+                            <Text
+                                style={{
+                                    height: 40,
+                                    backgroundColor: colors.altColor,
+                                    textAlign: 'center',
+                                    textAlignVertical: 'center',
+                                    color: colors.mainBgColor,
+                                    borderRadius: 10,
+                                }}>
+                                Ja
                             </Text>
                         </View>
                     </TouchableNativeFeedback>
-                }
+                    <TouchableNativeFeedback
+                        onPress={() => this.writeValue(0)}
+                        >
+                        <View
+                            style={{
+                                flex: 0.4,
+                                elevation: 4,
+                                borderRadius: 10,
+                            }}>
+                            <Text
+                                style={{
+                                    height: 40,
+                                    backgroundColor: colors.pink,
+                                    textAlign: 'center',
+                                    textAlignVertical: 'center',
+                                    color: colors.mainBgColor,
+                                    borderRadius: 10,
+                                }}>
+                                Nein
+                            </Text>
+                        </View>
+                    </TouchableNativeFeedback>
+                </View>}
             </View>
         );
     }
@@ -189,7 +256,7 @@ const styles = StyleSheet.create({
     text: {
         textAlign: 'center',
         color: colors.textColor,
-        fontSize: 20,
+        fontSize: 18,
         marginBottom: '5%',
     },
     datePicker: {
@@ -222,7 +289,7 @@ const styles = StyleSheet.create({
         paddingVertical: '5%',
         marginHorizontal: '5%',
         borderRadius: 10,
-        marginBottom: '30%',
+        marginBottom: '5%',
         elevation: 5,
     },
     buttonText: {
@@ -231,8 +298,7 @@ const styles = StyleSheet.create({
         color: colors.mainBgColor,
     },
     modalLabel: {
-        color: colors.mainBgColor,
-        backgroundColor: colors.mainColor,
+        color: colors.textColor,
         paddingVertical: '5%',
         paddingHorizontal: '5%',
         fontSize: 20,

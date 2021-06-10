@@ -7,12 +7,13 @@ import {
     Modal,
     Dimensions,
     ImageBackground,
+    ActivityIndicator,
 } from 'react-native';
 import GoogleFit, { Scopes } from 'react-native-google-fit';
 import { connect } from 'react-redux';
 import colors from '../../styles/colors.json';
 import { toggleGoogleFit } from '../../redux/actions/ActionCreators';
-import Loading from './Loading';
+import Loading from '../atoms/Loading';
 
 const mapStateToProps = (state) => {
     return {
@@ -91,7 +92,7 @@ class AuthGoogleFitButton extends React.Component {
                             {this.state.authDone ?
                             <View style={{justifyContent: 'space-around', flex: 1}}>
                                 <Text style={styles.modalLabel}>
-                                    Google Fit auth result: {this.state.authResult}
+                                    Google Fit Auth Ergebnis: {this.state.authResult}
                                 </Text>
                                 <TouchableNativeFeedback onPress={() => this.setState({ authDone: false })}>
                                     <View style={styles.button}>
@@ -102,14 +103,24 @@ class AuthGoogleFitButton extends React.Component {
                                 </TouchableNativeFeedback>
                             </View>
                             :
-                            <Loading/>
+                            <View
+                                style={{
+                                    flex: 1,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}>
+                                <ActivityIndicator
+                                    color={colors.mainColor}
+                                    size={32}
+                                    />
+                            </View>
                             }
                         </ImageBackground>
                     </Modal>
                     <Text style={styles.text}>
                         {this.props.consumer.synchronizeGoogleFit ?
-                        'Disable Google Fit synchronization' :
-                        'Enable Google Fit synchronization'}
+                        'Deaktivieren Sie die Google Fit Synchronisierung' :
+                        'Aktivieren Sie die Google Fit Synchronisierung'}
                     </Text>
                 </View>
             </TouchableNativeFeedback>

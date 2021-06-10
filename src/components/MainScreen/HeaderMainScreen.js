@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import icomoonConfig from '../../styles/selection.json';
 import colors from '../../styles/colors.json';
+import DeviceInfo from 'react-native-device-info';
 
 const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
@@ -13,19 +14,14 @@ class HeaderMainScreen extends React.Component {
     }
 
     render() {
+
+        // let paddingTop = DeviceInfo.hasNotch() ? 25 : 0;
+
         return (
-            <View style={styles.container}>
-                <View style={{paddingHorizontal: '3%'}}/>
+            <View style={[styles.container,]}>
                 <Text style={styles.text}>
-                    Main
+                    Home
                 </Text>
-                <Icon
-                    name='user'
-                    color={colors.mainBgColor}
-                    size={18}
-                    style={{marginRight: '5%', padding: 5}}
-                    onPress={() => this.props.navigateToAccount()}
-                    />
             </View>
         );
     }
@@ -34,18 +30,18 @@ class HeaderMainScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.mainColor,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        // borderBottomLeftRadius: 15,
+        // borderBottomRightRadius: 15,
+//         flexDirection: 'row',
+//         justifyContent: 'space-between',
         alignItems: 'center',
     },
     text: {
         color: colors.mainBgColor,
-        fontSize: 20,
-        fontWeight: '700',
+        fontSize: 22,
+        fontWeight: '500',
         paddingVertical: '3%',
-        marginLeft: '5%',
+//         marginLeft: '5%',
     }
 });
 

@@ -5,7 +5,11 @@ import {
     StyleSheet,
     TouchableWithoutFeedback,
     ImageBackground,
-    Dimensions
+    Dimensions,
+    Platform,
+    StatusBar,
+    ScrollView,
+    Linking,
 } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
@@ -39,6 +43,8 @@ class LoginScreen extends React.Component {
             wrongPassword: false,
             emailInput: React.createRef(),
             passwordInput: React.createRef(),
+            buttonMargin: 0,
+            orientation: 'PORTRAIT',
         };
     }
 
@@ -46,6 +52,21 @@ class LoginScreen extends React.Component {
         this.props.navigation.setOptions({
             headerShown: false,
         });
+
+        StatusBar.setTranslucent(true);
+        StatusBar.setBackgroundColor('#00000000');
+
+        Dimensions.addEventListener('change', ({window: {width, height}}) => {
+            if (width < height) {
+                this.setState({ orientation: 'PORTRAIT' });
+            } else {
+                this.setState({ orientation: 'LANDSCAPE '});
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        Dimensions.removeEventListener('change');
     }
 
     onEmailChange(email) {
@@ -90,22 +111,34 @@ class LoginScreen extends React.Component {
     }
 
     render() {
+
         return (
+            <ScrollView>
             <TouchableWithoutFeedback style={{flex: 1}} onPress={() => this.onOutPress()} accessible={false}>
                 <ImageBackground
                     source={require('../assets/background-blue.png')}
                     resizeMode='cover'
-                    style={{width: Dimensions.get('screen').width, height: Dimensions.get('screen').height}}
+                    style={{
+                        width: '100%',
+                        height: Dimensions.get('screen').height,
+                    }}
                     >
-                <View style={styles.container}>
-                    <Text style={styles.appName}>
+                <View
+                    style={[
+                        styles.container,
+                        {
+                            paddingTop: this.state.orientation === 'PORTRAIT' ? 0 : 50,
+                            justifyContent: this.state.orientation === 'PORTRAIT' ? 'center' : 'flex-start',
+                        }
+                    ]}>
+                    {this.state.buttonMargin === 0 && this.state.orientation === 'PORTRAIT' && <Text style={styles.appName}>
                         GESUNDHEIT BEWEGT
-                    </Text>
+                    </Text>}
                     {this.state.wrongPassword ? (
                         <Tooltip style={{marginBottom: '4%'}}/>
                     ) : (
                         <Text style={styles.loginText}>
-                            Login
+                            Anmelden
                         </Text>
                     )}
                     <Input
@@ -118,6 +151,8 @@ class LoginScreen extends React.Component {
                         inputStyle={{fontSize: 16}}
                         ref={this.state.emailInput}
                         autoCapitalize='none'
+                        onFocus={() => this.setState({buttonMargin: '60%'})}
+                        onBlur={() => this.setState({buttonMargin: 0})}
                         leftIcon={
                             <Icon
                                 name='mail'
@@ -139,7 +174,7 @@ class LoginScreen extends React.Component {
                         }
                         />
                     <Input
-                        placeholder='Password'
+                        placeholder='Passwort'
                         onChangeText={(password) => this.onPasswordChange(password)}
                         value={this.state.password}
                         textContentType='password'
@@ -148,6 +183,8 @@ class LoginScreen extends React.Component {
                         inputStyle={{fontSize: 16}}
                         ref={this.state.passwordInput}
                         autoCapitalize='none'
+                        onFocus={() => this.setState({buttonMargin: '60%'})}
+                        onBlur={() => this.setState({buttonMargin: 0})}
                         leftIcon={
                             <Icon
                                 name='lock'
@@ -176,12 +213,45 @@ class LoginScreen extends React.Component {
                         />
                     <View style={styles.buttonView}>
                         <Button
-                            title='Sign in'
+                            title='Anmelden'
                             buttonStyle={styles.buttonStyle}
                             titleStyle={{color: colors.mainColor, fontSize: 20}}
                             containerStyle={{flex: 1}}
                             onPress={() => this.onSignIn()}
                             />
+                    </View>
+                    <View
+                        style={{
+                            justifyContent: 'space-between',
+                            flexDirection: 'row',
+                            width: '90%',
+                            marginBottom: this.state.buttonMargin,
+                            marginTop: '2%',
+                        }}>
+                        <TouchableWithoutFeedback
+                            onPress={() => Linking.openURL('https://www.gesund.live/passwort-vergessen-reset/')}
+                            >
+                            <Text
+                                style={{
+                                    color: colors.mainBgColor,
+                                    padding: 10,
+                                    fontWeight: '100',
+                                }}>
+                                Passwort vergessen?
+                            </Text>
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback
+                            onPress={() => Linking.openURL('https://www.gesund.live/info/faqs-public/')}
+                            >
+                            <Text
+                                style={{
+                                    color: colors.mainBgColor,
+                                    padding: 10,
+                                    fontWeight: '100',
+                                }}>
+                                Hilfe
+                            </Text>
+                        </TouchableWithoutFeedback>
                     </View>
                     {/* <Text style={styles.forgotPassword}>
                         Forgot password?
@@ -189,6 +259,7 @@ class LoginScreen extends React.Component {
                 </View>
                 </ImageBackground>
             </TouchableWithoutFeedback>
+            </ScrollView>
         );
     }
 }
@@ -196,9 +267,8 @@ class LoginScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: colors.mainColor
+        // backgroundColor: colors.mainColor,
     },
     inputContainerStyle: {
         borderWidth: 1,
@@ -230,8 +300,7 @@ const styles = StyleSheet.create({
     buttonView: {
         flexDirection: 'row',
         marginTop: 20,
-        marginBottom: 25,
-        marginHorizontal: '3%'
+        marginHorizontal: 11,
     }
 });
 

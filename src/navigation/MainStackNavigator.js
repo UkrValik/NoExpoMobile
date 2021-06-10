@@ -4,11 +4,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { connect } from 'react-redux';
 import GoogleFit, {Scopes} from 'react-native-google-fit';
 import Loading from '../components/atoms/Loading';
-import MainScreen from '../containers/MainScreen';
-import AccountScreen from '../containers/AccountScreen';
 import TeamScreen from '../containers/TeamScreen';
 import RatingScreen from '../containers/RatingScreen';
 import LoginScreen from '../containers/LoginScreen';
+import MainTabNavigator from './MainTabNavigator';
 import {
     fetchTokenValid,
     addSteps,
@@ -42,7 +41,7 @@ class Main extends React.Component {
 
         this._intervalDuration = 15000;
         this.intervalCallback = this.intervalCallback.bind(this);
-        
+
         this.state = {
             tokenChecked: false,
         };
@@ -103,7 +102,7 @@ class Main extends React.Component {
                     const activities = this.beautifyActivitiesForServer(steps, team.startDate, team.finishDate);
                     const currentDate = (new Date()).getTime();
                     const finishDate = (new Date(team.finishDate)).getTime();
-                    
+
                     if (currentDate < finishDate) {
                         await this.props.sendChallengeData({
                             id: team.challengeId,
@@ -145,17 +144,14 @@ class Main extends React.Component {
         if (this.state.tokenChecked) {
             return (
                 <NavigationContainer>
-                    <MainStackNavigator.Navigator>
+                    <MainStackNavigator.Navigator screenOptions={{headerShown: false}}>
                         {this.props.consumer.token == null ? (
                             <>
                                 <MainStackNavigator.Screen name='Login' component={LoginScreen}/>
                             </>
                         ) : (
                             <>
-                                <MainStackNavigator.Screen name='Main' component={MainScreen}/>
-                                <MainStackNavigator.Screen name='Account' component={AccountScreen}/>
-                                <MainStackNavigator.Screen name='Team' component={TeamScreen}/>
-                                <MainStackNavigator.Screen name='Rating' component={RatingScreen}/>
+                                <MainStackNavigator.Screen name='Main' component={MainTabNavigator}/>
                             </>
                         )}
                     </MainStackNavigator.Navigator>

@@ -9,7 +9,7 @@ const RatingButton = (props) => {
             <Button
                 buttonStyle={{backgroundColor: colors.mainColor, borderRadius: 10, paddingVertical: '5%', elevation: 5}}
                 titleStyle={{fontSize: 16}}
-                title='TO RATING'
+                title='DATEN EINGEBEN'
                 onPress={() => props.navigate('Rating', { teamId: props.teamId })}
                 />
         </View>

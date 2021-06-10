@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground, Dimensions, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import icomoonConfig from '../../styles/selection.json';
 import colors from '../../styles/colors.json';
@@ -18,11 +18,7 @@ class HeaderTeamScreen extends React.Component {
         const imageHeight = Dimensions.get('screen').width / 5 * 4;
 
         return (
-            <ImageBackground
-                source={{uri: 'https://gesundheit-dev.teamworking.de/wp-content/uploads/B%C3%BCrolympics-Go-for-gold-challenge-1090.jpg'}}
-                style={{ height: imageHeight, marginTop: '-13%'}}
-                resizeMode='contain'
-                >
+            <View>
                 <View style={styles.container}>
                     <Icon
                         name='arrow-left'
@@ -32,11 +28,20 @@ class HeaderTeamScreen extends React.Component {
                         onPress={() => this.props.goBack()}
                         />
                     <Text style={styles.text}>
-                        {this.props.teamName}
+                        {this.props.teamName ? this.props.teamName : 'Dein Team'}
                     </Text>
                     <View style={{paddingHorizontal: '3%'}}/>
                 </View>
-            </ImageBackground>
+                <Image
+                    source={{uri: this.props.team.challengeImage}}
+                    style={{ 
+                        width: '100%',
+                        aspectRatio: this.props.team.challengeImage ? 2.8 : 100000,
+                        backgroundColor: colors.midgray,
+                    }}
+                    resizeMode='stretch'
+                    />
+            </View>
         );
     }
 }
@@ -44,17 +49,16 @@ class HeaderTeamScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.mainColor,
-        borderBottomLeftRadius: 12,
-        borderBottomRightRadius: 12,
+        // borderBottomLeftRadius: 12,
+        // borderBottomRightRadius: 12,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: '13%',
     },
     text: {
         color: colors.mainBgColor,
         fontSize: 20,
-        fontWeight: '700',
+        fontWeight: '400',
         paddingVertical: '3%',
     }
 });

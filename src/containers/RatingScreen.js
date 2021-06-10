@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, Image, Dimensions, StatusBar, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import HeaderRatingScreen from '../components/atoms/HeaderRatingScreen';
 import RatingList from '../components/atoms/RatingList';
@@ -35,19 +35,30 @@ class RatingScreen extends React.Component {
 
     render() {
 
+        const teamName = this.state.team.teamName ? this.state.team.teamName : 'Dein Team';
+
         return (
-            <View style={{backgroundColor: colors.mainBgColor}}>
+            <View
+                style={{
+                    flex: 1,
+                    backgroundColor: colors.mainBgColor,
+                    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+                }}>
                 <HeaderRatingScreen goBack={this.goBack}/>
                 <Image
-                    source={{uri: 'https://gesundheit-dev.teamworking.de/wp-content/uploads/B%C3%BCrolympics-Go-for-gold-challenge-1090.jpg'}}
-                    style={styles.imageStyle}
-                    resizeMode='contain'
+                    source={{uri: this.state.team.challengeImage}}
+                    style={{
+                        width: '100%',
+                        aspectRatio: this.state.team.challengeImage ? 2.8 : 100000,
+                        backgroundColor: colors.midgray,
+                    }}
+                    resizeMode='cover'
                     />
-                <Text style={styles.teamName}>{this.state.team.teamName.toUpperCase()}</Text>
+                <Text style={styles.teamName}>{teamName.toUpperCase()}</Text>
                 <View style={styles.columnNames}>
                     <Text style={[styles.column, {flex: 1}]}>№</Text>
                     <Text style={[styles.column, {flex: 3, textAlign: 'left', marginLeft: '5%'}]}>NAME</Text>
-                    <Text style={[styles.column, {flex: 1.5}]}>SCORE</Text>
+                    <Text style={[styles.column, {flex: 2}]}>ERGEBNIS</Text>
                 </View>
                 <RatingList participants={this.state.team.participants}/>
             </View>
@@ -56,28 +67,23 @@ class RatingScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    imageStyle: {
-        height: Dimensions.get('screen').width / 4,
-        marginTop: '15%',
-        borderRadius: 20,
-    },
     teamName: {
         textAlign: 'center',
-        marginTop: '10%',
+        marginTop: '5%',
         fontSize: 20,
         color: colors.mainColor,
         fontWeight: '600',
     },
     column: {
-        fontSize: 20,
+        fontSize: 16,
         color: colors.mainColor,
-        fontWeight: '700',
+        fontWeight: '400',
         textAlign: 'center',
     },
     columnNames: {
         flexDirection: 'row',
-        marginTop: '15%',
-        marginHorizontal: '5%',
+        marginTop: '7%',
+        marginHorizontal: '2%',
         marginBottom: '3%',
     }
 });
