@@ -58,6 +58,9 @@ class InputDailyData extends React.Component {
         if (event.type === 'set') {
             this.toggleDatePicker();
             this.props.onDateChange(date);
+        } else if (Platform.OS === 'ios') {
+            this.props.onDateChange(date);
+            console.log(date)
         }
     }
 
@@ -153,15 +156,17 @@ class InputDailyData extends React.Component {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    {this.state.showDatePicker && <DateTimePicker
-                        value={this.props.date}
-                        mode='date'
-                        maximumDate={new Date(this.props.endDate)}
-                        minimumDate={new Date(this.props.startDate)}
-                        onChange={(event, date) => this.onDateChange(event, date)}
-                        display={Platform.OS === 'ios' ? 'spinner' : 'calendar'}
-                        style={{backgroundColor: '#FFF'}}
-                        />
+                    {this.state.showDatePicker && <View>
+                        <DateTimePicker
+                            value={this.props.date}
+                            mode='date'
+                            maximumDate={new Date(this.props.endDate)}
+                            minimumDate={new Date(this.props.startDate)}
+                            onChange={(event, date) => this.onDateChange(event, date)}
+                            display={Platform.OS === 'ios' ? 'spinner' : 'calendar'}
+                            style={{backgroundColor: '#FFF'}}
+                            />
+                        </View>
                     }
                 </View>
                 <Text style={styles.text}>{this.props.synchronizeGoogleFit && this.props.team.challengeType === 1 ? 'Daten' : this.props.team.challengeQuestion}</Text>

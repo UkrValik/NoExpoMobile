@@ -235,7 +235,7 @@ class LoginScreen extends React.Component {
                                 style={{
                                     color: colors.mainBgColor,
                                     padding: 10,
-                                    fontWeight: '100',
+                                    fontWeight: '200',
                                 }}>
                                 Passwort vergessen?
                             </Text>
@@ -247,7 +247,7 @@ class LoginScreen extends React.Component {
                                 style={{
                                     color: colors.mainBgColor,
                                     padding: 10,
-                                    fontWeight: '100',
+                                    fontWeight: '200',
                                 }}>
                                 Hilfe
                             </Text>

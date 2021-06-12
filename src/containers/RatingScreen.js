@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Text, StyleSheet, Image, Dimensions, StatusBar, Platform } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, Image, Dimensions, StatusBar, Platform, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import HeaderRatingScreen from '../components/atoms/HeaderRatingScreen';
 import RatingList from '../components/atoms/RatingList';
@@ -44,23 +44,30 @@ class RatingScreen extends React.Component {
                     backgroundColor: colors.mainBgColor,
                     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
                 }}>
-                <HeaderRatingScreen goBack={this.goBack}/>
-                <Image
-                    source={{uri: this.state.team.challengeImage}}
+                <SafeAreaView style={{backgroundColor: colors.mainColor + 'ee'}} />
+                <SafeAreaView
                     style={{
-                        width: '100%',
-                        aspectRatio: this.state.team.challengeImage ? 2.8 : 100000,
-                        backgroundColor: colors.midgray,
+                        flex: 1,
                     }}
-                    resizeMode='cover'
-                    />
-                <Text style={styles.teamName}>{teamName.toUpperCase()}</Text>
-                <View style={styles.columnNames}>
-                    <Text style={[styles.column, {flex: 1}]}>№</Text>
-                    <Text style={[styles.column, {flex: 3, textAlign: 'left', marginLeft: '5%'}]}>NAME</Text>
-                    <Text style={[styles.column, {flex: 2}]}>ERGEBNIS</Text>
-                </View>
-                <RatingList participants={this.state.team.participants}/>
+                    >
+                    <HeaderRatingScreen goBack={this.goBack}/>
+                    <Image
+                        source={{uri: this.state.team.challengeImage}}
+                        style={{
+                            width: '100%',
+                            aspectRatio: this.state.team.challengeImage ? 2.8 : 100000,
+                            backgroundColor: colors.midgray,
+                        }}
+                        resizeMode='cover'
+                        />
+                    <Text style={styles.teamName}>{teamName.toUpperCase()}</Text>
+                    <View style={styles.columnNames}>
+                        <Text style={[styles.column, {flex: 1}]}>№</Text>
+                        <Text style={[styles.column, {flex: 3, textAlign: 'left', marginLeft: '5%'}]}>NAME</Text>
+                        <Text style={[styles.column, {flex: 2}]}>ERGEBNIS</Text>
+                    </View>
+                    <RatingList participants={this.state.team.participants}/>
+                </SafeAreaView>
             </View>
         );
     }

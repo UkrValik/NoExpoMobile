@@ -70,7 +70,7 @@ const AccountScreen = (props) => {
                 }}
                 contentContainerStyle={{justifyContent: 'flex-start'}}
                 >
-                <SafeAreaView style={{backgroundColor: colors.mainColor}}/>
+                <SafeAreaView style={{backgroundColor: colors.mainColor + 'ee'}}/>
                 <SafeAreaView>
                     <HeaderAccountScreen
                         firstName={firstName || ''}

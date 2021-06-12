@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StatusBar, Platform, BackHandler } from 'react-native';
+import { View, Text, StatusBar, Platform, BackHandler, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import colors from '../../styles/colors.json';
 import ChallengeList from './ChallengeList';
@@ -41,11 +41,18 @@ const ChallengesScreen = (props) => {
                 flex: 1,
                 paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
             }}>
-            <Header />
-            <ChallengeList
-                teams={props.teams.teams}
-                navigation={props.navigation}
-                />
+            <SafeAreaView style={{backgroundColor: colors.mainColor + 'ee'}} />
+            <SafeAreaView
+                style={{
+                    flex: 1,
+                }}
+                >
+                <Header />
+                <ChallengeList
+                    teams={props.teams.teams}
+                    navigation={props.navigation}
+                    />
+            </SafeAreaView>
         </View>
     );
 }

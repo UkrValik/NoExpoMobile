@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Platform, StatusBar, BackHandler, ScrollView } from 'react-native';
+import { View, Text, Platform, StatusBar, BackHandler, ScrollView, SafeAreaView } from 'react-native';
 import colors from '../../styles/colors.json';
 import Header from './Header';
 import SynchronizationGroup from './SynchronizationGroup';
@@ -37,14 +37,21 @@ const SettingsScreen = (props) => {
                 paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
                 backgroundColor: '#FFF',
             }}>
-            <Header/>
-            <ScrollView
+            <SafeAreaView style={{backgroundColor: colors.mainColor + 'ee'}} />
+            <SafeAreaView
                 style={{
-                    // marginHorizontal: '3%',
-                }}>
-                <SynchronizationGroup />
-                <SupportGroup />
-            </ScrollView>
+                    flex: 1,
+                }}
+                >
+                <Header/>
+                <ScrollView
+                    style={{
+                        // marginHorizontal: '3%',
+                    }}>
+                    <SynchronizationGroup />
+                    <SupportGroup />
+                </ScrollView>
+            </SafeAreaView>
         </View>
     );
 }

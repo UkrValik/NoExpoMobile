@@ -210,9 +210,9 @@ class TeamScreen extends React.Component {
                 style={{
                     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
                 }}>
-                <SafeAreaView style={{backgroundColor: colors.mainColor}} />
-                <SafeAreaView style={{backgroundColor: colors.mainBgColor}}>
-                    <ScrollView style={{backgroundColor: colors.mainBgColor}}>
+                <ScrollView style={{}}>
+                    <SafeAreaView style={{backgroundColor: colors.mainColor + 'ee'}} />
+                    <SafeAreaView style={{backgroundColor: colors.mainBgColor}}>    
                         <HeaderTeamScreen
                             teamName={this.state.team.teamName}
                             team={this.state.team}
@@ -263,8 +263,8 @@ class TeamScreen extends React.Component {
                             startInterval={this.startInterval}
                             />}
                         {/* <Diagram/> */}
-                    </ScrollView>
-                </SafeAreaView>
+                    </SafeAreaView>
+                </ScrollView>
             </View>
         );
     }

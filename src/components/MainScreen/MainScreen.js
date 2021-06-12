@@ -269,6 +269,7 @@ class MainScreen extends React.Component {
                         </View>
                     </ImageBackground>
                 </Modal> */}
+                <SafeAreaView style={{backgroundColor: colors.mainColor + 'ee'}} />
                 <SafeAreaView
                     style={{
                         paddingTop: paddingTop,

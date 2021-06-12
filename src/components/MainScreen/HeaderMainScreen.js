@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from 'react-native';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import icomoonConfig from '../../styles/selection.json';
 import colors from '../../styles/colors.json';
-import DeviceInfo from 'react-native-device-info';
 
 const Icon = createIconSetFromIcoMoon(icomoonConfig);
 

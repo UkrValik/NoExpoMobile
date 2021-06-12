@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Dimensions, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, TouchableNativeFeedback, Platform } from 'react-native';
 import colors from '../../styles/colors.json';
 import months from '../../styles/months.json';
 
@@ -155,6 +155,7 @@ const Diagram = (props) => {
                                         />
                                     <View
                                         style={{
+                                            marginTop: Platform.OS === 'ios' ? -1 : 0,
                                             width: 5,
                                             height: 0,
                                             backgroundColor: 'transparent',
