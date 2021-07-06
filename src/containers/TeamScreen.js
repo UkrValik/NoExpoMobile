@@ -203,15 +203,14 @@ class TeamScreen extends React.Component {
             return (currDate.getTime() <= endDate.getTime());
         }
 
-        // console.log(this.state.team.teamName + '\n\n\n', this.state.team);
-
         return (
             <View 
                 style={{
                     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+                    flex: 1,
                 }}>
-                <ScrollView style={{}}>
-                    <SafeAreaView style={{backgroundColor: colors.mainColor + 'ee'}} />
+                <SafeAreaView style={{backgroundColor: colors.mainColor + 'ee'}} />
+                <ScrollView>
                     <SafeAreaView style={{backgroundColor: colors.mainBgColor}}>    
                         <HeaderTeamScreen
                             teamName={this.state.team.teamName}

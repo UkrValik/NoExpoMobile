@@ -80,7 +80,7 @@ const Diagram = (props) => {
                         <Text
                             key={day.date}
                             style={{
-                                fontSize: 12,
+                                fontSize: month.length > 14 ? 8 : 12,
                                 width: (Dimensions.get('screen').width - 80) / month.length - 2,
                                 textAlign: 'center',
                                 color: equalDates(day.date, new Date().toDateString()) ? colors.pink : colors.lightTextColor,
@@ -135,7 +135,7 @@ const Diagram = (props) => {
                                                 color: '#FFF',
                                                 fontSize: 12,
                                             }}>
-                                            {day.score} points
+                                            {day.score} punkte
                                         </Text>
                                     </View>
                                     <View

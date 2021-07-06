@@ -7,5 +7,6 @@
     "fetchSingleTeamPATH": "/wp-json/wpps/v1/team/",
     "sendChallengeDataPATH": "/wp-json/wpps/v1/challenge/data",
     "userId": "alleavengers",
-    "password": "gb82166"
+    "password": "gb82166",
+    "checkGDPRPath": "/wp-json/wpps/v1/data-privacy"
 }

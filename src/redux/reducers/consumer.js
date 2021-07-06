@@ -7,9 +7,15 @@ const initialState = {
     synchronizeGoogleFit: false,
     steps: [],
     synchronizationResult: null,
-    firstLogin: true,
+    firstLogin: 1,
     listType: 2,
     receivedStepsFromGF: true,
+
+    gdprDate: null,
+    gdprData: '',
+    gdprError: null,
+
+    synchronizeAppleHealth: false,
 };
 
 export const consumer = (state = initialState, action) => {
@@ -48,7 +54,7 @@ export const consumer = (state = initialState, action) => {
             return {...state, synchronizationResult: action.payload};
 
         case ActionTypes.MAKE_FIRST_LOGIN:
-            return {...state, firstLogin: false};
+            return {...state, firstLogin: 0};
 
         case ActionTypes.CHOOSE_LIST_TYPE:
             return {...state, listType: action.payload};
@@ -58,6 +64,18 @@ export const consumer = (state = initialState, action) => {
 
         case ActionTypes.RECEIVED_STEPS_FROM_GF:
             return {...state, receivedStepsFromGF: action.payload};
+
+        case ActionTypes.CHECK_GDPR_SUCCESS:
+            return {...state, gdprData: action.payload, gdprError: null};
+
+        case ActionTypes.CHECK_GDPR_FAILED:
+            return {...state, gdprError: action.payload};
+
+        case ActionTypes.UPDATE_GDPR_DATE:
+            return {...state, gdprDate: action.payload};
+
+        case ActionTypes.SYNCHRONIZE_APPLE_HEALTH:
+            return {...state, synchronizeAppleHealth: action.payload};
 
         default:
             return state;

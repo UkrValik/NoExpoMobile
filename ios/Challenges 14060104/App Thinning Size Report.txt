@@ -1,0 +1,106 @@
+
+App Thinning Size Report for All Variants of NoExpoMobile
+
+Variant: NoExpoMobile-096DFE75-901E-4D08-9C94-17AA56EBDBA9.ipa
+Supported variant descriptors: [device: iPad7,1, os-version: 14.0], [device: iPad11,3, os-version: 13.0], [device: iPad8,9, os-version: 13.0], [device: iPad6,3, os-version: 14.0], [device: iPad6,4, os-version: 13.0], [device: iPad8,8, os-version: 14.0], [device: iPad11,1, os-version: 14.0], [device: iPad8,8, os-version: 13.0], [device: iPad8,4, os-version: 13.0], [device: iPad7,3, os-version: 13.0], [device: iPad7,1, os-version: 13.0], [device: iPad7,2, os-version: 13.0], [device: iPad8,12, os-version: 13.0], [device: iPad11,1, os-version: 13.0], [device: iPad8,3, os-version: 14.0], [device: iPad7,4, os-version: 14.0], [device: iPad11,2, os-version: 14.0], [device: MacFamily20,1, os-version: 14.0], [device: iPad6,3, os-version: 13.0], [device: iPad8,10, os-version: 13.0], [device: iPad8,2, os-version: 13.0], [device: iPad13,8, os-version: 14.0], [device: iPad8,6, os-version: 13.0], [device: iPad8,6, os-version: 14.0], [device: iPad7,2, os-version: 14.0], [device: iPad8,10, os-version: 14.0], [device: iPad13,11, os-version: 14.0], [device: iPad8,5, os-version: 13.0], [device: iPad8,11, os-version: 14.0], [device: iPad11,4, os-version: 14.0], [device: iPad8,9, os-version: 14.0], [device: iPad8,4, os-version: 14.0], [device: iPad13,7, os-version: 14.0], [device: iPad8,12, os-version: 14.0], [device: iPad13,9, os-version: 14.0], [device: iPad8,2, os-version: 14.0], [device: iPad8,3, os-version: 13.0], [device: iPad8,5, os-version: 14.0], [device: iPad13,10, os-version: 14.0], [device: iPad11,4, os-version: 13.0], [device: iPad8,7, os-version: 14.0], [device: iPad13,6, os-version: 14.0], [device: iPad8,1, os-version: 13.0], [device: iPad6,4, os-version: 14.0], [device: iPad13,5, os-version: 14.0], [device: iPad11,2, os-version: 13.0], [device: iPad13,1, os-version: 14.0], [device: iPad13,4, os-version: 14.0], [device: iPad8,11, os-version: 13.0], [device: iPad11,3, os-version: 14.0], [device: iPad7,4, os-version: 13.0], [device: iPad8,1, os-version: 14.0], [device: iPad7,3, os-version: 14.0], [device: iPad8,7, os-version: 13.0], and [device: iPad13,2, os-version: 14.0]
+App + On Demand Resources size: 5,2 MB compressed, 12,6 MB uncompressed
+App size: 5,2 MB compressed, 12,6 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: NoExpoMobile-3041B6BE-F87E-4834-8C96-53D28EA59C1F.ipa
+Supported variant descriptors: [device: iPhone9,3, os-version: 13.0], [device: iPhone10,1, os-version: 14.0], [device: iPhone10,4, os-version: 14.0], [device: iPhone10,1, os-version: 13.0], [device: iPhone9,1, os-version: 14.0], [device: iPhone9,1, os-version: 13.0], [device: iPhone9,3, os-version: 14.0], [device: iPhone12,8, os-version: 13.0], [device: iPhone10,4, os-version: 13.0], and [device: iPhone12,8, os-version: 14.0]
+App + On Demand Resources size: 5,2 MB compressed, 12,6 MB uncompressed
+App size: 5,2 MB compressed, 12,6 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: NoExpoMobile-6214B616-0E58-45F0-898A-CFC815019EDC.ipa
+Supported variant descriptors: [device: iPhone12,1, os-version: 13.0], [device: iPhone11,8, os-version: 13.0], [device: iPhone12,1, os-version: 14.0], and [device: iPhone11,8, os-version: 14.0]
+App + On Demand Resources size: 5,2 MB compressed, 12,6 MB uncompressed
+App size: 5,2 MB compressed, 12,6 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: NoExpoMobile-64770D86-C740-40D7-978B-6F5F25083282.ipa
+Supported variant descriptors: [device: iPhone11,2, os-version: 12.2], [device: iPhone9,2, os-version: 12.2], [device: iPhone11,4, os-version: 12.2], [device: iPhone11,2, os-version: 12.0], [device: iPhone11,6, os-version: 12.0], [device: iPhone9,2, os-version: 12.0], [device: iPhone11,4, os-version: 12.0], [device: iPhone10,6, os-version: 12.2], [device: iPhone10,2, os-version: 12.2], [device: iPhone10,5, os-version: 12.0], [device: iPhone9,4, os-version: 12.2], [device: iPhone10,5, os-version: 12.2], [device: iPhone10,6, os-version: 12.0], [device: iPhone10,3, os-version: 12.0], [device: iPhone9,4, os-version: 12.0], [device: iPhone10,2, os-version: 12.0], [device: iPhone10,3, os-version: 12.2], and [device: iPhone11,6, os-version: 12.2]
+App + On Demand Resources size: 5,2 MB compressed, 12,6 MB uncompressed
+App size: 5,2 MB compressed, 12,6 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: NoExpoMobile-7C54C878-9A7F-4122-95BF-DD9DBD1E5692.ipa
+Supported variant descriptors: [device: iPad8,2, os-version: 12.2], [device: iPad7,2, os-version: 12.0], [device: iPad6,4, os-version: 12.2], [device: iPad11,3, os-version: 12.2], [device: iPad8,8, os-version: 12.0], [device: iPad7,3, os-version: 12.0], [device: iPad8,7, os-version: 12.0], [device: iPad8,4, os-version: 12.2], [device: iPad7,3, os-version: 12.2], [device: iPad8,3, os-version: 12.0], [device: iPad7,1, os-version: 12.0], [device: iPad8,6, os-version: 12.0], [device: iPad11,1, os-version: 12.2], [device: iPad8,3, os-version: 12.2], [device: iPad7,1, os-version: 12.2], [device: iPad7,2, os-version: 12.2], [device: iPad8,5, os-version: 12.0], [device: iPad6,3, os-version: 12.0], [device: iPad7,4, os-version: 12.2], [device: iPad6,3, os-version: 12.2], [device: iPad11,4, os-version: 12.2], [device: iPad8,1, os-version: 12.2], [device: iPad7,4, os-version: 12.0], [device: iPad8,4, os-version: 12.0], [device: iPad8,1, os-version: 12.0], [device: iPad8,2, os-version: 12.0], [device: iPad8,5, os-version: 12.2], [device: iPad8,8, os-version: 12.2], [device: iPad11,2, os-version: 12.2], [device: iPad8,7, os-version: 12.2], [device: iPad8,6, os-version: 12.2], and [device: iPad6,4, os-version: 12.0]
+App + On Demand Resources size: 5,2 MB compressed, 12,6 MB uncompressed
+App size: 5,2 MB compressed, 12,6 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: NoExpoMobile-830E96D1-ADA6-4E21-BA78-702097381EF7.ipa
+Supported variant descriptors: [device: iPhone8,2, os-version: 12.2], [device: iPhone8,2, os-version: 12.0], [device: iPhone7,1, os-version: 12.0], and [device: iPhone7,1, os-version: 12.2]
+App + On Demand Resources size: 5,2 MB compressed, 12,6 MB uncompressed
+App size: 5,2 MB compressed, 12,6 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: NoExpoMobile-B9813505-6F77-4433-95C2-5E7AC6C5D66C.ipa
+Supported variant descriptors: [device: iPod9,1, os-version: 14.0], [device: iPhone8,4, os-version: 13.0], [device: iPod9,1, os-version: 13.0], [device: iPhone8,1, os-version: 13.0], [device: iPhone8,1, os-version: 14.0], and [device: iPhone8,4, os-version: 14.0]
+App + On Demand Resources size: 5,2 MB compressed, 12,6 MB uncompressed
+App size: 5,2 MB compressed, 12,6 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: NoExpoMobile-BA211271-4F0D-4BB8-8B83-8EC9C306BB53.ipa
+Supported variant descriptors: [device: iPhone11,8, os-version: 12.2] and [device: iPhone11,8, os-version: 12.0]
+App + On Demand Resources size: 5,2 MB compressed, 12,6 MB uncompressed
+App size: 5,2 MB compressed, 12,6 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: NoExpoMobile-BAEDAEDA-C36A-43B5-AC4C-8007226FF983.ipa
+Supported variant descriptors: [device: iPod7,1, os-version: 12.2], [device: iPhone7,2, os-version: 12.0], [device: iPod9,1, os-version: 12.2], [device: iPhone8,1, os-version: 12.0], [device: iPhone7,2, os-version: 12.2], [device: iPhone6,2, os-version: 12.0], [device: iPhone6,1, os-version: 12.2], [device: iPhone8,1, os-version: 12.2], [device: iPod7,1, os-version: 12.0], [device: iPhone6,2, os-version: 12.2], [device: iPhone8,4, os-version: 12.0], [device: iPhone8,4, os-version: 12.2], and [device: iPhone6,1, os-version: 12.0]
+App + On Demand Resources size: 5,2 MB compressed, 12,6 MB uncompressed
+App size: 5,2 MB compressed, 12,6 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: NoExpoMobile-C49633D0-53DB-448E-8D6C-C680AAE69C87.ipa
+Supported variant descriptors: [device: iPhone8,2, os-version: 13.0] and [device: iPhone8,2, os-version: 14.0]
+App + On Demand Resources size: 5,2 MB compressed, 12,6 MB uncompressed
+App size: 5,2 MB compressed, 12,6 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: NoExpoMobile-DEC6AC43-06D2-4C2A-995F-5ABE8FE97257.ipa
+Supported variant descriptors: [device: iPad6,12, os-version: 13.0], [device: iPad5,1, os-version: 13.0], [device: iPad6,8, os-version: 14.0], [device: iPad6,7, os-version: 13.0], [device: iPad6,11, os-version: 14.0], [device: iPad5,4, os-version: 14.0], [device: iPad7,11, os-version: 13.0], [device: iPad7,6, os-version: 13.0], [device: iPad7,11, os-version: 14.0], [device: iPad7,12, os-version: 14.0], [device: iPad5,2, os-version: 13.0], [device: iPad5,3, os-version: 13.0], [device: iPad5,1, os-version: 14.0], [device: iPad11,6, os-version: 14.0], [device: iPad7,5, os-version: 13.0], [device: iPad5,4, os-version: 13.0], [device: iPad5,2, os-version: 14.0], [device: iPad6,8, os-version: 13.0], [device: iPad7,6, os-version: 14.0], [device: iPad7,12, os-version: 13.0], [device: iPad6,12, os-version: 14.0], [device: iPad11,7, os-version: 14.0], [device: iPad6,7, os-version: 14.0], [device: iPad7,5, os-version: 14.0], [device: iPad6,11, os-version: 13.0], and [device: iPad5,3, os-version: 14.0]
+App + On Demand Resources size: 5,2 MB compressed, 12,6 MB uncompressed
+App size: 5,2 MB compressed, 12,6 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: NoExpoMobile-E0ADDC8F-86B8-4613-A982-6C2A4E47FE13.ipa
+Supported variant descriptors: [device: iPhone10,4, os-version: 12.0], [device: iPhone9,3, os-version: 12.0], [device: iPhone9,3, os-version: 12.2], [device: iPhone10,4, os-version: 12.2], [device: iPhone10,1, os-version: 12.2], [device: iPhone9,1, os-version: 12.0], [device: iPhone10,1, os-version: 12.0], and [device: iPhone9,1, os-version: 12.2]
+App + On Demand Resources size: 5,2 MB compressed, 12,6 MB uncompressed
+App size: 5,2 MB compressed, 12,6 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: NoExpoMobile-E11755C4-5260-4B66-A866-2471955B16CE.ipa
+Supported variant descriptors: [device: iPad4,7, os-version: 12.2], [device: iPad5,1, os-version: 12.0], [device: iPad5,1, os-version: 12.2], [device: iPad5,2, os-version: 12.0], [device: iPad6,7, os-version: 12.0], [device: iPad4,3, os-version: 12.0], [device: iPad4,8, os-version: 12.0], [device: iPad7,6, os-version: 12.0], [device: iPad7,5, os-version: 12.2], [device: iPad4,9, os-version: 12.0], [device: iPad5,2, os-version: 12.2], [device: iPad4,6, os-version: 12.2], [device: iPad5,3, os-version: 12.0], [device: iPad6,8, os-version: 12.0], [device: iPad4,5, os-version: 12.2], [device: iPad7,6, os-version: 12.2], [device: iPad4,8, os-version: 12.2], [device: iPad6,11, os-version: 12.2], [device: iPad4,5, os-version: 12.0], [device: iPad6,12, os-version: 12.2], [device: iPad4,4, os-version: 12.0], [device: iPad4,6, os-version: 12.0], [device: iPad4,7, os-version: 12.0], [device: iPad5,3, os-version: 12.2], [device: iPad6,12, os-version: 12.0], [device: iPad4,9, os-version: 12.2], [device: iPad4,4, os-version: 12.2], [device: iPad5,4, os-version: 12.0], [device: iPad4,2, os-version: 12.0], [device: iPad5,4, os-version: 12.2], [device: iPad4,2, os-version: 12.2], [device: iPad6,7, os-version: 12.2], [device: iPad4,1, os-version: 12.2], [device: iPad6,8, os-version: 12.2], [device: iPad6,11, os-version: 12.0], [device: iPad4,1, os-version: 12.0], [device: iPad7,5, os-version: 12.0], and [device: iPad4,3, os-version: 12.2]
+App + On Demand Resources size: 5,2 MB compressed, 12,6 MB uncompressed
+App size: 5,2 MB compressed, 12,6 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: NoExpoMobile-F1D74705-F57D-4B1F-980E-3F8EF7C4C991.ipa
+Supported variant descriptors: [device: iPhone11,6, os-version: 13.0], [device: iPhone10,3, os-version: 14.0], [device: iPhone13,4, os-version: 14.0], [device: iPhone11,2, os-version: 14.0], [device: iPhone13,2, os-version: 14.0], [device: iPhone10,5, os-version: 14.0], [device: iPhone11,4, os-version: 13.0], [device: iPhone9,2, os-version: 13.0], [device: iPhone13,3, os-version: 14.0], [device: iPhone10,2, os-version: 13.0], [device: iPhone12,3, os-version: 14.0], [device: iPhone11,6, os-version: 14.0], [device: iPhone9,4, os-version: 13.0], [device: iPhone10,6, os-version: 14.0], [device: iPhone12,5, os-version: 13.0], [device: iPhone13,1, os-version: 14.0], [device: iPhone12,3, os-version: 13.0], [device: iPhone10,3, os-version: 13.0], [device: iPhone10,6, os-version: 13.0], [device: iPhone11,2, os-version: 13.0], [device: iPhone10,5, os-version: 13.0], [device: iPhone12,5, os-version: 14.0], [device: iPhone11,4, os-version: 14.0], [device: iPhone9,4, os-version: 14.0], [device: iPhone9,2, os-version: 14.0], and [device: iPhone10,2, os-version: 14.0]
+App + On Demand Resources size: 5,2 MB compressed, 12,6 MB uncompressed
+App size: 5,2 MB compressed, 12,6 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed
+
+
+Variant: NoExpoMobile.ipa
+Supported variant descriptors: Universal
+App + On Demand Resources size: 5,3 MB compressed, 12,7 MB uncompressed
+App size: 5,3 MB compressed, 12,7 MB uncompressed
+On Demand Resources size: Zero KB compressed, Zero KB uncompressed

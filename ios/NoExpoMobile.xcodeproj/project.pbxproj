@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		002C40F534C04CCD9E385AEE /* Commissioner-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ECD73EBFEE40400BB149A690 /* Commissioner-ExtraBold.ttf */; };
 		00E356F31AD99517003FC87E /* NoExpoMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* NoExpoMobileTests.m */; };
+		0FD3A32B2A3A4EED83A9F678 /* Commissioner-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6FE195C4625A4AA2A04465B8 /* Commissioner-ExtraLight.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -16,20 +18,19 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* NoExpoMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* NoExpoMobileTests.m */; };
+		38AE9EED6840426FA5C89C4E /* Commissioner-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C55F5460DBF9472588C682E3 /* Commissioner-Black.ttf */; };
 		3D7C228F91DB2A77F53769F2 /* libPods-NoExpoMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7280854DF01D8AB8976EB3E /* libPods-NoExpoMobile.a */; };
+		572F36456A5C467C95E14DED /* Commissioner-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F974B83C1794902B2112F34 /* Commissioner-Light.ttf */; };
+		68EFC8F700C54AC590AE8835 /* Commissioner-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8DE97EE8381C48C3A8CA2E0B /* Commissioner-Regular.ttf */; };
+		79BF0567D98F42BCA053F3E2 /* Commissioner-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C753A36844924886928E0E51 /* Commissioner-Medium.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		83B355670CE84016B8916FCE /* Commissioner-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8639E1208CD843E6A471DB07 /* Commissioner-Thin.ttf */; };
+		96C57428A4F741F8BD9495C8 /* Commissioner-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 373FD0CC4CFE48D18EA78428 /* Commissioner-Bold.ttf */; };
 		B4280D4DB25192538FBA80F0 /* libPods-NoExpoMobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ED74F70DC473556417D4EB7 /* libPods-NoExpoMobile-tvOSTests.a */; };
+		C7D790F845F34DC6AB880A98 /* Commissioner-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A4589318CF44660BE8821BC /* Commissioner-SemiBold.ttf */; };
+		CE16C978268753AA00F457F0 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE16C977268753AA00F457F0 /* HealthKit.framework */; };
 		CE32699A25C1A5EC002309E9 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE32699925C1A5D5002309E9 /* icomoon.ttf */; };
 		ED84F0908930AAAA0C5DAF04 /* libPods-NoExpoMobile-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F647A13E26EC10A3B0D019 /* libPods-NoExpoMobile-tvOS.a */; };
-		38AE9EED6840426FA5C89C4E /* Commissioner-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C55F5460DBF9472588C682E3 /* Commissioner-Black.ttf */; };
-		96C57428A4F741F8BD9495C8 /* Commissioner-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 373FD0CC4CFE48D18EA78428 /* Commissioner-Bold.ttf */; };
-		002C40F534C04CCD9E385AEE /* Commissioner-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ECD73EBFEE40400BB149A690 /* Commissioner-ExtraBold.ttf */; };
-		0FD3A32B2A3A4EED83A9F678 /* Commissioner-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6FE195C4625A4AA2A04465B8 /* Commissioner-ExtraLight.ttf */; };
-		572F36456A5C467C95E14DED /* Commissioner-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F974B83C1794902B2112F34 /* Commissioner-Light.ttf */; };
-		79BF0567D98F42BCA053F3E2 /* Commissioner-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C753A36844924886928E0E51 /* Commissioner-Medium.ttf */; };
-		68EFC8F700C54AC590AE8835 /* Commissioner-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8DE97EE8381C48C3A8CA2E0B /* Commissioner-Regular.ttf */; };
-		C7D790F845F34DC6AB880A98 /* Commissioner-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A4589318CF44660BE8821BC /* Commissioner-SemiBold.ttf */; };
-		83B355670CE84016B8916FCE /* Commissioner-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8639E1208CD843E6A471DB07 /* Commissioner-Thin.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,40 +70,42 @@
 		2D02E4901E0B4A5D006451C7 /* NoExpoMobile-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NoExpoMobile-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB8BAB22CE64334AB9E5243 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		2E0774BB6639448F8DB5C0E5 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		373FD0CC4CFE48D18EA78428 /* Commissioner-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Commissioner-Bold.ttf"; path = "../src/assets/fonts/Commissioner-Bold.ttf"; sourceTree = "<group>"; };
 		413EC54DE00140E597069056 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		4EA2438887AA85FCFBC801CF /* Pods-NoExpoMobile-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoExpoMobile-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-NoExpoMobile-tvOS/Pods-NoExpoMobile-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		5A4589318CF44660BE8821BC /* Commissioner-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Commissioner-SemiBold.ttf"; path = "../src/assets/fonts/Commissioner-SemiBold.ttf"; sourceTree = "<group>"; };
 		5C991FD727EF413AA91E9813 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		5F36FC69B55EDD62B928FFAE /* Pods-NoExpoMobile-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoExpoMobile-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-NoExpoMobile-tvOSTests/Pods-NoExpoMobile-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		62CFEE691ADAFE6582815D96 /* Pods-NoExpoMobile-NoExpoMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoExpoMobile-NoExpoMobileTests.release.xcconfig"; path = "Target Support Files/Pods-NoExpoMobile-NoExpoMobileTests/Pods-NoExpoMobile-NoExpoMobileTests.release.xcconfig"; sourceTree = "<group>"; };
 		63F647A13E26EC10A3B0D019 /* libPods-NoExpoMobile-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoExpoMobile-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CE0270072A44C9BB61A333F /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		6FE195C4625A4AA2A04465B8 /* Commissioner-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Commissioner-ExtraLight.ttf"; path = "../src/assets/fonts/Commissioner-ExtraLight.ttf"; sourceTree = "<group>"; };
 		7141E922D0F443AB8535A80D /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		71BB8827E9DC4D238BC72B2C /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = NoExpoMobile/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8639E1208CD843E6A471DB07 /* Commissioner-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Commissioner-Thin.ttf"; path = "../src/assets/fonts/Commissioner-Thin.ttf"; sourceTree = "<group>"; };
+		8DE97EE8381C48C3A8CA2E0B /* Commissioner-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Commissioner-Regular.ttf"; path = "../src/assets/fonts/Commissioner-Regular.ttf"; sourceTree = "<group>"; };
 		8E8057C9BDC448A39F406714 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		8F974B83C1794902B2112F34 /* Commissioner-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Commissioner-Light.ttf"; path = "../src/assets/fonts/Commissioner-Light.ttf"; sourceTree = "<group>"; };
 		90B690277AFC48F795A1C0D0 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		91F4BC3684ED419AB0DCAC69 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		9ED74F70DC473556417D4EB7 /* libPods-NoExpoMobile-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoExpoMobile-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0527E8D4A80DBBCF46D13D1 /* Pods-NoExpoMobile-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoExpoMobile-tvOS.release.xcconfig"; path = "Target Support Files/Pods-NoExpoMobile-tvOS/Pods-NoExpoMobile-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		AC3EE2E0E5E044D898A1BCA6 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		C23ACFD5ED119A86D4A48B25 /* Pods-NoExpoMobile-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoExpoMobile-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-NoExpoMobile-tvOSTests/Pods-NoExpoMobile-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C55F5460DBF9472588C682E3 /* Commissioner-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Commissioner-Black.ttf"; path = "../src/assets/fonts/Commissioner-Black.ttf"; sourceTree = "<group>"; };
+		C753A36844924886928E0E51 /* Commissioner-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Commissioner-Medium.ttf"; path = "../src/assets/fonts/Commissioner-Medium.ttf"; sourceTree = "<group>"; };
 		C8B869C2DE7548AFA1DE4CE6 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		CB66C83F8829426B828B0643 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		CE16C976268753AA00F457F0 /* NoExpoMobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = NoExpoMobile.entitlements; path = NoExpoMobile/NoExpoMobile.entitlements; sourceTree = "<group>"; };
+		CE16C977268753AA00F457F0 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		CE32699925C1A5D5002309E9 /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = icomoon.ttf; path = ../resources/fonts/icomoon.ttf; sourceTree = "<group>"; };
 		DEE935BA91B6D650C7ABE7DB /* Pods-NoExpoMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoExpoMobile.release.xcconfig"; path = "Target Support Files/Pods-NoExpoMobile/Pods-NoExpoMobile.release.xcconfig"; sourceTree = "<group>"; };
 		E7280854DF01D8AB8976EB3E /* libPods-NoExpoMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NoExpoMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECD73EBFEE40400BB149A690 /* Commissioner-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Commissioner-ExtraBold.ttf"; path = "../src/assets/fonts/Commissioner-ExtraBold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F7D2464B782A4B38BF168E78 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		C55F5460DBF9472588C682E3 /* Commissioner-Black.ttf */ = {isa = PBXFileReference; name = "Commissioner-Black.ttf"; path = "../src/assets/fonts/Commissioner-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		373FD0CC4CFE48D18EA78428 /* Commissioner-Bold.ttf */ = {isa = PBXFileReference; name = "Commissioner-Bold.ttf"; path = "../src/assets/fonts/Commissioner-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		ECD73EBFEE40400BB149A690 /* Commissioner-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Commissioner-ExtraBold.ttf"; path = "../src/assets/fonts/Commissioner-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6FE195C4625A4AA2A04465B8 /* Commissioner-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Commissioner-ExtraLight.ttf"; path = "../src/assets/fonts/Commissioner-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8F974B83C1794902B2112F34 /* Commissioner-Light.ttf */ = {isa = PBXFileReference; name = "Commissioner-Light.ttf"; path = "../src/assets/fonts/Commissioner-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C753A36844924886928E0E51 /* Commissioner-Medium.ttf */ = {isa = PBXFileReference; name = "Commissioner-Medium.ttf"; path = "../src/assets/fonts/Commissioner-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8DE97EE8381C48C3A8CA2E0B /* Commissioner-Regular.ttf */ = {isa = PBXFileReference; name = "Commissioner-Regular.ttf"; path = "../src/assets/fonts/Commissioner-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		5A4589318CF44660BE8821BC /* Commissioner-SemiBold.ttf */ = {isa = PBXFileReference; name = "Commissioner-SemiBold.ttf"; path = "../src/assets/fonts/Commissioner-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8639E1208CD843E6A471DB07 /* Commissioner-Thin.ttf */ = {isa = PBXFileReference; name = "Commissioner-Thin.ttf"; path = "../src/assets/fonts/Commissioner-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D7C228F91DB2A77F53769F2 /* libPods-NoExpoMobile.a in Frameworks */,
+				CE16C978268753AA00F457F0 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +198,7 @@
 		13B07FAE1A68108700A75B9A /* NoExpoMobile */ = {
 			isa = PBXGroup;
 			children = (
+				CE16C976268753AA00F457F0 /* NoExpoMobile.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -208,6 +213,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE16C977268753AA00F457F0 /* HealthKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				E7280854DF01D8AB8976EB3E /* libPods-NoExpoMobile.a */,
@@ -363,7 +369,9 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 6P25VZNVJZ;
 						LastSwiftMigration = 1120;
+						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -800,7 +808,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = NoExpoMobile/NoExpoMobile.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6P25VZNVJZ;
 				ENABLE_BITCODE = NO;
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = NoExpoMobile/Info.plist;
@@ -810,8 +822,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = P25VZNVJZ;
 				PRODUCT_NAME = NoExpoMobile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -824,8 +837,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = NoExpoMobile/NoExpoMobile.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				EXCLUDED_ARCHS = arm64;
+				DEVELOPMENT_TEAM = 6P25VZNVJZ;
+				EXCLUDED_ARCHS = "";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = NoExpoMobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -835,8 +852,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = P25VZNVJZ;
 				PRODUCT_NAME = NoExpoMobile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -10,7 +10,6 @@ import { StyleSheet,
     StatusBar,
     BackHandler,
 } from 'react-native';
-import { Input } from 'react-native-elements';
 import colors from '../styles/colors.json';
 import { connect } from 'react-redux';
 import HeaderAccountScreen from '../components/atoms/HeaderAccountScreen';
@@ -63,6 +62,7 @@ const AccountScreen = (props) => {
                 paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
                 flex: 1,
             }}>
+            {/* <SafeAreaView style={{backgroundColor: colors.mainColor + 'ee'}}/> */}
             <ScrollView
                 style={{
                     flex: 1,
@@ -70,7 +70,6 @@ const AccountScreen = (props) => {
                 }}
                 contentContainerStyle={{justifyContent: 'flex-start'}}
                 >
-                <SafeAreaView style={{backgroundColor: colors.mainColor + 'ee'}}/>
                 <SafeAreaView>
                     <HeaderAccountScreen
                         firstName={firstName || ''}

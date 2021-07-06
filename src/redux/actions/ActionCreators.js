@@ -255,3 +255,51 @@ export const receivedStepsFromGF = (value) => dispatch => dispatch({
     type: ActionTypes.RECEIVED_STEPS_FROM_GF,
     payload: value,
 });
+
+export const checkGDPR = (params, token) => dispatch => {
+    console.log(params, token);
+    return fetch(shared.baseURL + shared.checkGDPRPath, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+        },
+        body: JSON.stringify(params),
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        } else {
+            let error = new Error('Error' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        let errMess = new Error(error.message);
+        throw errMess;
+    })
+    .then(response => response.json())
+    .then(result => dispatch(checkGDPRSuccess(result)))
+    .catch(error => dispatch(checkGDPRFailed(error)));
+}
+
+export const checkGDPRSuccess = (gdprData) => dispatch => dispatch({
+    type: ActionTypes.CHECK_GDPR_SUCCESS,
+    payload: gdprData,
+});
+
+export const checkGDPRFailed = (error) => dispatch => dispatch({
+    type: ActionTypes.CHECK_GDPR_FAILED,
+    payload: error,
+});
+
+export const updateGDPRDate = (date) => dispatch => dispatch({
+    type: ActionTypes.UPDATE_GDPR_DATE,
+    payload: date,
+});
+
+export const synchronizeAppleHealth = (value) => dispatch => dispatch({
+    type: ActionTypes.SYNCHRONIZE_APPLE_HEALTH,
+    payload: value,
+});

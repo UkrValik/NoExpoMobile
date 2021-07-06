@@ -4,8 +4,10 @@ import colors from '../../styles/colors.json';
 import Header from './Header';
 import SynchronizationGroup from './SynchronizationGroup';
 import SupportGroup from './SupportGroup';
+import AppGroup from './AppGroup';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import iconConfig from '../../styles/selection.json';
+import AppleHealthSynchronization from './AppleHealthSynchronization';
 
 const Icon = createIconSetFromIcoMoon(iconConfig);
 
@@ -44,12 +46,10 @@ const SettingsScreen = (props) => {
                 }}
                 >
                 <Header/>
-                <ScrollView
-                    style={{
-                        // marginHorizontal: '3%',
-                    }}>
+                <ScrollView>
                     <SynchronizationGroup />
                     <SupportGroup />
+                    <AppGroup />
                 </ScrollView>
             </SafeAreaView>
         </View>

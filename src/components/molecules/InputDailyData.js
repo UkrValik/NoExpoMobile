@@ -10,9 +10,8 @@ import {
     ImageBackground,
     Dimensions,
     ActivityIndicator,
-    Button,
 } from 'react-native';
-import { Input, ThemeConsumer } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { connect } from 'react-redux';
@@ -45,6 +44,7 @@ class InputDailyData extends React.Component {
             sendingData: false,
             receivedResponse: false,
             sendDataResponse: null,
+            inputFocus: false,
         };
 
         this.valueRef = React.createRef();
@@ -100,6 +100,16 @@ class InputDailyData extends React.Component {
         });
         await this.props.onDataSent();
         this.props.buildDiagramRanges();
+    }
+
+    onFocus() {
+        this.props.stepValue === 0 && this.saveStepValue('');
+        this.setState({ inputFocus: true });
+    }
+
+    onBlur() {
+        this.props.stepValue === '' && this.props.saveStepValue(0);
+        this.setState({ inputFocus: false });
     }
 
     render() {
@@ -169,9 +179,12 @@ class InputDailyData extends React.Component {
                         </View>
                     }
                 </View>
-                <Text style={styles.text}>{this.props.synchronizeGoogleFit && this.props.team.challengeType === 1 ? 'Daten' : this.props.team.challengeQuestion}</Text>
+                <Text style={styles.text}>{(this.props.synchronizeGoogleFit || this.props.synchronizeAppleHealth) && this.props.team.challengeType === 1 ? 'Daten' : this.props.team.challengeQuestion}</Text>
                 
-                {this.props.team.challengeType === 1 && <View>
+                {this.props.team.challengeType === 1 && <View
+                    style={{
+                        marginBottom: this.state.inputFocus ? '75%' : '0%',
+                    }}>
                     <Input
                         ref={this.valueRef}
                         value={this.props.stepValue.toString()}
@@ -179,8 +192,8 @@ class InputDailyData extends React.Component {
                         inputStyle={styles.inputText}
                         inputContainerStyle={styles.inputContainerStyle}
                         keyboardType='decimal-pad'
-                        onFocus={() => this.props.stepValue === 0 && this.saveStepValue('')}
-                        onBlur={() => this.props.stepValue === '' && this.props.saveStepValue(0)}
+                        onFocus={() => this.onFocus()}
+                        onBlur={() => this.onBlur()}
                         leftIcon={
                             <Icon
                                 name='conversation'
@@ -190,7 +203,7 @@ class InputDailyData extends React.Component {
                                 />
                         }
                         />
-                    {!this.props.synchronizeGoogleFit &&
+                    {(!this.props.synchronizeGoogleFit || !this.props.synchronizeAppleHealth) &&
                         <TouchableNativeFeedback onPress={() => this.writeValue()}>
                             <View style={styles.button}>
                                 <Text style={styles.buttonText}>
@@ -273,6 +286,7 @@ const styles = StyleSheet.create({
         paddingVertical: '3%',
         marginHorizontal: '5%',
         marginBottom: '10%',
+        alignItems: 'center',
     },
     inputText: {
         fontSize: 20,
