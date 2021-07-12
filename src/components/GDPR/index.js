@@ -5,6 +5,8 @@ import {
     Text,
     TouchableNativeFeedback,
     TouchableWithoutFeedback,
+    Platform,
+    StatusBar,
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { connect } from 'react-redux';
@@ -42,15 +44,18 @@ const GDPRView = (props) => {
         props.logout();
     }
 
+    const html = '<html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head><body>' + props.consumer.gdprData.dataPrivacy + '</body></html>';
+
     return (
         <View
             style={{
                 flex: 1,
+                paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
             }}>
             <SafeAreaView style={{backgroundColor: colors.mainColor + 'ee'}} />
             <SafeAreaView style={{flex: 1}}>
                 <WebView 
-                    source={{html: props.consumer.gdprData.dataPrivacy}}
+                    source={{html: html}}
                     />
                 <View
                     style={{

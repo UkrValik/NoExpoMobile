@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, Switch } from 'react-native';
+import { View, Text, Switch, Modal, ActivityIndicator, TouchableNativeFeedback } from 'react-native';
 import { toggleGoogleFit } from '../../redux/actions/ActionCreators';
 import GoogleFit, { Scopes } from 'react-native-google-fit';
 import { connect } from 'react-redux';
+import colors from '../../styles/colors.json';
 
 const mapStateToProps = (state) => {
     return {
@@ -22,36 +23,50 @@ const GoogleFitSynchronization = (props) => {
 
     const onSwitch = (value) => {
         if (!props.consumer.synchronizeGoogleFit && value) {
-            setProcessingAuth(true);
-            GoogleFit.checkIsAuthorized()
-                .then(() => {
-                    if (!GoogleFit.isAuthorized) {
-                        const options = {
-                            scopes: [
-                                Scopes.FITNESS_BODY_READ,
-                                Scopes.FITNESS_BODY_READ_WRITE,
-                                Scopes.FITNESS_ACTIVITY_READ,
-                                Scopes.FITNESS_ACTIVITY_READ_WRITE,
-                            ]
-                        }
-                        GoogleFit.authorize(options)
-                            .then(authResult => {
-                                setProcessingAuth(false);
-                                setAuthDone(true);
-                                setAuthResult(authResult.success ? 'success' : 'fail.\nDisabling Google Fit...');
-                                if (!authResult.success) {
-                                    props.toggleGoogleFit();
-                                }
-                            })
-                            .catch(err => {
-                                setProcessingAuth(false);
-                                setAuthDone(true);
-                                setAuthResult(JSON.stringify(err));
-                            });
-                    } else {
-                        setProcessingAuth(false);
-                    }
-                });
+            // setProcessingAuth(true);
+            // GoogleFit.checkIsAuthorized()
+            //     .then(() => {
+            //         if (!GoogleFit.isAuthorized) {
+            //             const options = {
+            //                 scopes: [
+            //                     Scopes.FITNESS_ACTIVITY_WRITE,
+            //                     Scopes.FITNESS_ACTIVITY_READ,
+            //                     // Scopes.FITNESS_ACTIVITY_READ_WRITE,
+            //                 ]
+            //             }
+            //             GoogleFit.authorize(options)
+            //                 .then(authResult => {
+            //                     // console.log('authResult\n\n\n', authResult);
+            //                     // setProcessingAuth(false);
+            //                     // setAuthDone(true);
+            //                     // setAuthResult(authResult.success ? 'success' : 'fail.\nDisabling Google Fit...');
+            //                     if (!authResult.success) {
+            //                         props.toggleGoogleFit();
+            //                     }
+            //                 })
+            //                 .catch(err => {
+            //                     // setProcessingAuth(false);
+            //                     // setAuthDone(true);
+            //                     // setAuthResult(JSON.stringify(err));
+            //                 });
+            //         // } else {
+            //             // setProcessingAuth(false);
+            //         }
+            //     });
+            const options = {
+                scopes: [
+                  Scopes.FITNESS_ACTIVITY_READ,
+                  Scopes.FITNESS_ACTIVITY_WRITE,
+                  Scopes.FITNESS_BODY_READ,
+                  Scopes.FITNESS_BODY_WRITE,
+                ],
+              }
+              GoogleFit.authorize(options)
+                .then(authResult => {
+                    console.log('authResult \n\n', authResult);
+                })
+                .catch(() => {
+                })
         }
         props.toggleGoogleFit();
     }
@@ -62,7 +77,7 @@ const GoogleFitSynchronization = (props) => {
                 borderBottomWidth: 1,
                 borderColor: colors.lightgray,
             }}>
-            <Modal visible={processingAuth || authDone}>
+            {/* <Modal visible={processingAuth || authDone}>
                 {authDone ?
                 <View style={{
                     justifyContent: 'space-around',
@@ -110,7 +125,7 @@ const GoogleFitSynchronization = (props) => {
                         />
                 </View>
                 }
-            </Modal>
+            </Modal> */}
             <View
                 style={{
                     flexDirection: 'row',

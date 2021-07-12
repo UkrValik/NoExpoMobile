@@ -16,6 +16,7 @@ import {
     receivedStepsFromGF,
     updateGDPRDate,
     checkGDPR,
+    toggleGoogleFit,
 } from '../redux/actions/ActionCreators';
 
 const mapStateToProps = state => {
@@ -34,6 +35,7 @@ const mapDispatchToProps = dispatch => ({
     receivedStepsFromGF: (value) => dispatch(receivedStepsFromGF(value)),
     updateGDPRDate: (date) => dispatch(updateGDPRDate(date)),
     checkGDPR: (params, token) => dispatch(checkGDPR(params, token)),
+    toggleGoogleFit: () => dispatch(toggleGoogleFit()),
 });
 
 const MainStackNavigator = createStackNavigator();
@@ -61,18 +63,15 @@ class Main extends React.Component {
                     if (!GoogleFit.isAuthorized) {
                         const options = {
                             scopes: [
-                                Scopes.FITNESS_BODY_READ,
-                                Scopes.FITNESS_BODY_READ_WRITE,
                                 Scopes.FITNESS_ACTIVITY_READ,
-                                Scopes.FITNESS_ACTIVITY_READ_WRITE,
                             ]
                         }
                         GoogleFit.authorize(options)
                             .then(authResult => {
-                                console.log(authResult);
+                                // console.log(authResult);
                             })
                             .catch(err => {
-                                console.log(err);
+                                // console.log(err);
                             });
                     }
                 });
