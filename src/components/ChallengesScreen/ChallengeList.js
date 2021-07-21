@@ -13,6 +13,7 @@ class ChallengeList extends React.Component {
         if (this.props.teams) {
             return (
                 <ScrollView
+                    ref={this.props.scrollRef}
                     style={{
                         width: '100%',
                     }}>

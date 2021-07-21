@@ -9,7 +9,7 @@ const RatingButton = (props) => {
             <Button
                 buttonStyle={{backgroundColor: colors.mainColor, borderRadius: 10, paddingVertical: '5%', elevation: 5}}
                 titleStyle={{fontSize: 16}}
-                title='DATEN EINGEBEN'
+                title='meine Erfolge'
                 onPress={() => props.navigate('Rating', { teamId: props.teamId })}
                 />
         </View>
@@ -19,7 +19,7 @@ const RatingButton = (props) => {
 const styles = StyleSheet.create({
     container: {
         marginTop: '13%',
-        marginBottom: '20%',
+        marginBottom: '10%',
         backgroundColor: colors.mainColor,
         marginHorizontal: '5%',
         borderRadius: 10,

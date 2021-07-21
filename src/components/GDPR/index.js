@@ -7,6 +7,8 @@ import {
     TouchableWithoutFeedback,
     Platform,
     StatusBar,
+    Modal,
+    ActivityIndicator,
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { connect } from 'react-redux';
@@ -15,6 +17,10 @@ import {
     makeFirstLogin,
     updateGDPRDate,
     checkGDPRSuccess,
+    fetchConsumer,
+    fetchTeam,
+    fetchTeams,
+    setLoadingTeams,
 } from '../../redux/actions/ActionCreators';
 import colors from '../../styles/colors.json';
 
@@ -30,14 +36,25 @@ const mapDispatchToProps = dispatch => ({
     makeFirstLogin: () => dispatch(makeFirstLogin()),
     updateGDPRDate: (date) => dispatch(updateGDPRDate(date)),
     checkGDPRSuccess: (gdprData) => dispatch(checkGDPRSuccess(gdprData)),
+    fetchTeams: async (token) => dispatch(fetchTeams(token)),
+    fetchTeam: async (teamId, token) => dispatch(fetchTeam(teamId, token)),
+    fetchConsumer: (token) => dispatch(fetchConsumer(token)),
+    setLoadingTeams: (value) => dispatch(setLoadingTeams(value)),
 });
 
 const GDPRView = (props) => {
 
-    const agree = () => {
+    const agree = async () => {
         props.updateGDPRDate(new Date().toISOString());
         props.makeFirstLogin();
         props.checkGDPRSuccess({success: true, dataPrivacy: ''});
+        await props.setLoadingTeams(true);
+        await props.fetchConsumer(props.consumer.token);
+        const teams = await props.fetchTeams(props.consumer.token);
+        await props.setLoadingTeams(false);
+        teams.payload.forEach((team) => {
+            props.fetchTeam(team.teamId, props.consumer.token);
+        });
     }
 
     const disagree = () => {
@@ -85,7 +102,7 @@ const GDPRView = (props) => {
                                 style={{
                                     color: colors.mainBgColor,
                                 }}>
-                                Agree
+                                ZUSTIMMEN
                             </Text>        
                         </View>
                     </TouchableNativeFeedback>
@@ -107,7 +124,7 @@ const GDPRView = (props) => {
                                 style={{
                                     color: colors.pink,
                                 }}>
-                                Disagree
+                                NICHT JETZT
                             </Text>        
                         </View>
                     </TouchableWithoutFeedback>

@@ -10,20 +10,31 @@ import {
     StatusBar,
     ScrollView,
     Linking,
+    SafeAreaView,
 } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import { connect } from 'react-redux';
 import icomoonConfig from '../styles/selection.json';
 import colors from '../styles/colors.json';
-import { fetchToken, fetchConsumer } from '../redux/actions/ActionCreators';
+import {
+    fetchToken,
+    fetchConsumer,
+    fetchTeams,
+    fetchTeam,
+    setLoadingTeams,
+} from '../redux/actions/ActionCreators';
 import Tooltip from '../components/atoms/Tooltip';
+import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 
 const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
 const mapDispatchToProps = dispatch => ({
     fetchToken: (emailPass) => dispatch(fetchToken(emailPass)),
     fetchConsumer: (token) => dispatch(fetchConsumer(token)),
+    fetchTeams: async (token) => dispatch(fetchTeams(token)),
+    fetchTeam: async (teamId, token) => dispatch(fetchTeam(teamId, token)),
+    setLoadingTeams: (value) => dispatch(setLoadingTeams(value)),
 });
 
 const mapStateToProps = state => {
@@ -44,7 +55,7 @@ class LoginScreen extends React.Component {
             emailInput: React.createRef(),
             passwordInput: React.createRef(),
             buttonMargin: 0,
-            orientation: 'PORTRAIT',
+            orientation: Dimensions.get('screen').width < Dimensions.get('screen').height ? 'PORTRAIT' : 'LANDSCAPE',
         };
     }
 
@@ -60,7 +71,7 @@ class LoginScreen extends React.Component {
             if (width < height) {
                 this.setState({ orientation: 'PORTRAIT' });
             } else {
-                this.setState({ orientation: 'LANDSCAPE '});
+                this.setState({ orientation: 'LANDSCAPE'});
             }
         });
     }
@@ -101,7 +112,13 @@ class LoginScreen extends React.Component {
         };
         const token = await this.props.fetchToken(emailPass);
         if (token.payload.success) {
+            await this.props.setLoadingTeams(true);
             let consumer = await this.props.fetchConsumer(token.payload.data.token);
+            let teams = await this.props.fetchTeams(token.payload.data.token);
+            teams.payload.forEach((team) => {
+                props.fetchTeam(team.teamId, props.consumer.token);
+            });
+            await this.props.setLoadingTeams(false);
             this.props.navigation.navigate('Main');
         } else {
             this.setState({
@@ -113,20 +130,28 @@ class LoginScreen extends React.Component {
     render() {
 
         return (
-            <ScrollView>
-            <TouchableWithoutFeedback style={{flex: 1}} onPress={() => this.onOutPress()} accessible={false}>
+            <SafeAreaView style={{backgroundColor: colors.mainColor}}>
+            <ScrollView keyboardShouldPersistTaps='handled'>
+            <TouchableWithoutFeedback onPress={() => this.onOutPress()} accessible={false}>
                 <ImageBackground
                     source={require('../assets/background-blue.png')}
                     resizeMode='cover'
-                    style={{
-                        width: '100%',
-                        height: Dimensions.get('screen').height,
-                    }}
+                    style={[
+                        this.state.orientation === 'PORTRAIT' && 
+                        {
+                            width: '100%',
+                            height: Dimensions.get('screen').height,
+                        },
+                        this.state.orientation === 'LANDSCAPE' &&
+                        {
+                            flex: 1,
+                        }]}
                     >
                 <View
                     style={[
                         styles.container,
                         {
+                            flex: 1,
                             paddingTop: this.state.orientation === 'PORTRAIT' ? 0 : 50,
                             justifyContent: this.state.orientation === 'PORTRAIT' ? 'center' : 'flex-start',
                         }
@@ -212,13 +237,26 @@ class LoginScreen extends React.Component {
                         }
                         />
                     <View style={styles.buttonView}>
-                        <Button
-                            title='Anmelden'
-                            buttonStyle={styles.buttonStyle}
-                            titleStyle={{color: colors.mainColor, fontSize: 20}}
-                            containerStyle={{flex: 1}}
-                            onPress={() => this.onSignIn()}
-                            />
+                        <TouchableNativeFeedback onPress={() => this.onSignIn()}>
+                            <View
+                                style={{
+                                    width: '100%',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    backgroundColor: '#fff',
+                                    borderRadius: 10,
+                                    padding: 15,
+                                }}>
+                                <Text
+                                    style={{
+                                        color: colors.mainColor,
+                                        fontSize: 20,
+                                        fontWeight: '600',
+                                    }}>
+                                    Anmelden
+                                </Text>
+                            </View>
+                        </TouchableNativeFeedback>
                     </View>
                     <View
                         style={{
@@ -253,22 +291,25 @@ class LoginScreen extends React.Component {
                             </Text>
                         </TouchableWithoutFeedback>
                     </View>
-                    {/* <Text style={styles.forgotPassword}>
-                        Forgot password?
-                    </Text> */}
                 </View>
                 </ImageBackground>
             </TouchableWithoutFeedback>
             </ScrollView>
+            </SafeAreaView>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
+    landScapeImageContainer: {
         flex: 1,
+    },
+    portraitImageContainer: {
+        width: '100%',
+        height: Dimensions.get('screen').height,
+    },
+    container: {
         alignItems: 'center',
-        // backgroundColor: colors.mainColor,
     },
     inputContainerStyle: {
         borderWidth: 1,
@@ -298,9 +339,11 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     buttonView: {
-        flexDirection: 'row',
         marginTop: 20,
-        marginHorizontal: 11,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 11,
     }
 });
 

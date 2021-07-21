@@ -14,6 +14,8 @@ const mapStateToProps = state => {
 
 const ChallengesScreen = (props) => {
 
+    const scrollRef = React.createRef();
+
     const handleBackButton = () => {
         BackHandler.exitApp();
         return true;
@@ -22,6 +24,7 @@ const ChallengesScreen = (props) => {
     React.useEffect(() => {
         const unsubscribe = props.navigation.addListener('focus', () => {
             BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+            scrollRef?.current?.scrollTo({x: 0, y: 0, animated: true});
         });
         return unsubscribe;
     }, [props.navigation]);
@@ -51,6 +54,7 @@ const ChallengesScreen = (props) => {
                 <ChallengeList
                     teams={props.teams.teams}
                     navigation={props.navigation}
+                    scrollRef={scrollRef}
                     />
             </SafeAreaView>
         </View>

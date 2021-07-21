@@ -45,6 +45,7 @@ class InputDailyData extends React.Component {
             receivedResponse: false,
             sendDataResponse: null,
             inputFocus: false,
+            responseSuccess: false,
         };
 
         this.valueRef = React.createRef();
@@ -59,8 +60,7 @@ class InputDailyData extends React.Component {
             this.toggleDatePicker();
             this.props.onDateChange(date);
         } else if (Platform.OS === 'ios') {
-            this.props.onDateChange(date);
-            console.log(date)
+            this.props.onDateChange(new Date(date.getTime() + 3 * 60 * 60 * 1000));
         }
     }
 
@@ -79,9 +79,10 @@ class InputDailyData extends React.Component {
 
     async writeValue(value) {
         this.setState({ sendingData: true });
+        console.log(value, this.props.stepValue);
         const day = {
             date: new Date(this.props.date).toISOString().split('T')[0],
-            score: typeof value === 'number' ? value : this.props.stepValue,
+            score: value === this.props.stepValue ? '' : typeof value === 'number' ? value : this.props.stepValue,
         };
         await this.props.postConsumerScore(this.props.teamId, day);
 
@@ -91,14 +92,15 @@ class InputDailyData extends React.Component {
             activities: team.scores,
         };
         const sendDataResponse = await this.props.sendChallengeData(data, this.props.token);
+        await this.props.onDataSent();
         this.setState({
             receivedResponse: true,
             sendingData: false,
             sendDataResponse: sendDataResponse.payload.success ? 
             'Daten wurden erfolgreich hinzugefügt' : 
             'Error. Daten wurden nicht hinzugefügt',
+            responseSuccess: sendDataResponse.payload.success,
         });
-        await this.props.onDataSent();
         this.props.buildDiagramRanges();
     }
 
@@ -108,7 +110,6 @@ class InputDailyData extends React.Component {
     }
 
     onBlur() {
-        this.props.stepValue === '' && this.props.saveStepValue(0);
         this.setState({ inputFocus: false });
     }
 
@@ -128,7 +129,7 @@ class InputDailyData extends React.Component {
                             />
                     </ImageBackground>
                 </Modal>
-                <Modal visible={this.state.receivedResponse}>
+                <Modal visible={this.state.receivedResponse && !this.state.responseSuccess}>
                     <ImageBackground
                         source={require('../../assets/background-white.png')}
                         style={styles.modal}
@@ -187,7 +188,7 @@ class InputDailyData extends React.Component {
                     }}>
                     <Input
                         ref={this.valueRef}
-                        value={this.props.stepValue.toString()}
+                        value={this.props.stepValue?.toString()}
                         onChangeText={(value) => this.saveStepValue(value)}
                         inputStyle={styles.inputText}
                         inputContainerStyle={styles.inputContainerStyle}
@@ -218,27 +219,30 @@ class InputDailyData extends React.Component {
                     style={{
                         justifyContent: 'space-around',
                         flexDirection: 'row',
-                        marginBottom: '5%',
+                        marginBottom: '15%',
                     }}>
                     <TouchableNativeFeedback
                         onPress={() => this.writeValue(1)}
                         >
                         <View
                             style={{
+                                flexDirection: 'row',
                                 flex: 0.4,
                                 elevation: 4,
                                 borderRadius: 10,
+                                height: 40,
+                                backgroundColor: this.props.stepValue === 0 ? colors.midgray : colors.altColor,
+                                justifyContent: 'center',
+                                alignItems: 'center',
                             }}>
+                            {this.props.stepValue === 1 && <Icon name='checkmark' color='#FFF' size={16}/>}
+                            {this.props.stepValue !== 1 && <View style={{width: 16, height: 16, borderRadius: 16, borderWidth: 1, borderColor: '#FFF'}}/>}
                             <Text
                                 style={{
-                                    height: 40,
-                                    backgroundColor: colors.altColor,
-                                    textAlign: 'center',
-                                    textAlignVertical: 'center',
                                     color: colors.mainBgColor,
-                                    borderRadius: 10,
+                                    marginLeft: 5,
                                 }}>
-                                Ja
+                                JA
                             </Text>
                         </View>
                     </TouchableNativeFeedback>
@@ -247,20 +251,23 @@ class InputDailyData extends React.Component {
                         >
                         <View
                             style={{
+                                flexDirection: 'row',
                                 flex: 0.4,
                                 elevation: 4,
                                 borderRadius: 10,
+                                height: 40,
+                                backgroundColor: this.props.stepValue === 1 ? colors.midgray : colors.pink,
+                                justifyContent: 'center',
+                                alignItems: 'center',
                             }}>
+                            {this.props.stepValue === 0 && <Icon name='checkmark' color='#FFF' size={16}/>}
+                            {this.props.stepValue !== 0 && <View style={{width: 16, height: 16, borderRadius: 16, borderWidth: 1, borderColor: '#FFF'}}/>}
                             <Text
                                 style={{
-                                    height: 40,
-                                    backgroundColor: colors.pink,
-                                    textAlign: 'center',
-                                    textAlignVertical: 'center',
                                     color: colors.mainBgColor,
-                                    borderRadius: 10,
+                                    marginLeft: 5,
                                 }}>
-                                Nein
+                                NEIN
                             </Text>
                         </View>
                     </TouchableNativeFeedback>

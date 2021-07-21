@@ -46,7 +46,7 @@ const Diagram2 = (props) => {
                         style={{
                             color: colors.lightTextColor,
                         }}>
-                        Ja
+                        JA
                     </Text>
                 </View>
                 <View
@@ -67,7 +67,7 @@ const Diagram2 = (props) => {
                         style={{
                             color: colors.lightTextColor,
                         }}>
-                        Nein
+                        NEIN
                     </Text>
                 </View>
                 <View

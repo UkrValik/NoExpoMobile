@@ -62,12 +62,13 @@ const MainTabNavigator = (props) => {
             }
 
             return <Icon name={iconName} size={size} color={iconColor} />
-        }
+        },
     });
 
     const tabBarOptions = {
         activeTintColor: colors.pink,
         inactiveTintColor: colors.mainColor,
+        labelPosition: 'below-icon',
     };
 
     if (gdprChecked && props.consumer.gdprData.dataPrivacy === '') {
@@ -91,7 +92,7 @@ const MainTabNavigator = (props) => {
                     listeners={({ navigation, route }) => ({
                         tabPress: e => {
                             navigation.navigate('Challenges');
-                        }
+                        },
                     })}
                     />
                 <Tab.Screen

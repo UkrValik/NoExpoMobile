@@ -1,6 +1,7 @@
 import * as ActionTypes from '../actions/ActionTypes';
 
 export const teams = (state = {
+    loadingTeams: false,
     errMess: null,
     teams: [],
 }, action) => {
@@ -69,6 +70,9 @@ export const teams = (state = {
             currTeam.scores = newScores;
             state.teams.splice(currTeamIndex, 1, currTeam);
             return state;
+
+        case ActionTypes.LOADING_TEAMS:
+            return {...state, loadingTeams: action.payload};
 
         default:
             return state;

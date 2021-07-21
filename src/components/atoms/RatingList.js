@@ -21,9 +21,11 @@ class RatingList extends React.Component {
                 case 2:
                     return colors.altColor;
                 default:
-                    return colors.mainBgColor;
+                    return colors.gray;
             }
         }
+
+        console.log(this.props.participants[0])
 
         return (
             <ScrollView>

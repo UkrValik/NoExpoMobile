@@ -1,4 +1,5 @@
 export const ADD_TEAMS = 'ADD_TEAMS';
+export const LOADING_TEAMS = 'LOADING_TEAMS';
 export const TEAMS_FAILED = 'TEAMS_FAILED';
 export const UPDATE_TEAM = 'UPDATE_TEAM';
 export const UPDATE_CONSUMER_SCORE = 'UPDATE_CONSUMER_SCORE';

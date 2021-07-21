@@ -4,10 +4,25 @@ import colors from '../../styles/colors.json';
 
 export const Loading = () => {
 
-    const gbTextWidth = Dimensions.get('screen').width * 70 / 100;
+    const screenWidth = Dimensions.get('screen').width;
+    const screenHeight = Dimensions.get('screen').height;
+
+    const [orientation, setOrientation] = React.useState(screenWidth < screenHeight ? 'PORTRAIT' : 'LANDSCAPE');
+
+    const gbTextWidth = screenWidth * 70 / 100;
     const gbTextHeight = 40;
-    const badgeWidth = Dimensions.get('screen').width / 3 * 1.2;
-    const badgeHeight = Dimensions.get('screen').width / 3 * 1.2;
+    const badgeWidth = screenWidth / 3 * 1.2;
+    const badgeHeight = screenWidth / 3 * 1.2;
+
+    React.useEffect(() => {
+        Dimensions.addEventListener('change', ({window: {width, height}}) => {
+            if (width < height) {
+                setOrientation('PORTRAIT');
+            } else {
+                setOrientation('LANDSCAPE');
+            }
+        });
+    });
 
     StatusBar.setTranslucent(true);
     StatusBar.setBackgroundColor(colors.mainColor+'ee');
@@ -27,14 +42,14 @@ export const Loading = () => {
             <View
                 style={{
                     alignSelf: 'center',
-                    flex: 1.7,
+                    flex: orientation === 'PORTRAIT' ? 1.7 : 5,
                     alignItems: 'center',
                 }}>
                 <Text
                     style={{
                         fontSize: 40,
                         color: '#FFF',
-                        marginBottom: '3%',
+                        marginBottom: orientation === 'PORTRAIT' ? '3%' : 0,
                         // fontWeight: '600',
                         fontFamily: 'Commissioner-SemiBold'
                     }}>
@@ -43,8 +58,8 @@ export const Loading = () => {
                 <Image
                     source={require('../../assets/badge.png')}
                     style={{
-                        width: badgeWidth,
-                        height: badgeHeight,
+                        width: orientation === 'PORTRAIT' ? badgeWidth : screenHeight / 3 * 1.2,
+                        height: orientation === 'PORTRAIT' ? badgeHeight : screenHeight / 3 * 1.2,
                         tintColor: colors.mainBgColor,
                     }}
                     />
@@ -55,12 +70,12 @@ export const Loading = () => {
                     flex: 1,
                     justifyContent: 'flex-end',
                     alignSelf: 'center',
-                    marginBottom: '5%',
+                    marginBottom: orientation === 'PORTRAIT' ? '5%' : '1%',
                 }}>
                 <Image
                     source={require('../../assets/gb-text.png')}
                     style={{
-                        width: gbTextWidth,
+                        width: orientation === 'PORTRAIT' ? gbTextWidth : screenHeight * 70 / 100,
                         height: gbTextHeight,
                         tintColor: colors.dark,
                     }}

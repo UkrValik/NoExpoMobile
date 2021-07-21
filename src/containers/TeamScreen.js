@@ -87,6 +87,7 @@ class TeamScreen extends React.Component {
     async onDataSent() {
         await this.props.fetchTeam(this.state.team.teamId, this.props.consumer.token);
         this.setState({ team: this.props.teams.teams.filter(team => team.teamId === this.props.route.params.teamId)[0] });
+        this.setStepValueFromLocalStore(this.state.date);
     }
 
     saveStepValue(value) {
@@ -112,7 +113,7 @@ class TeamScreen extends React.Component {
         if (dateScore) {
             this.setState({ stepValue: dateScore.score });
         } else {
-            this.setState({ stepValue: 0 });
+            this.setState({ stepValue: '' });
         }
     }
 
@@ -146,10 +147,10 @@ class TeamScreen extends React.Component {
                             scoreIndex += 1;
                         }
                     } else {
-                        monthArray.push({ date: currDate.toDateString(), score: 0 });
+                        monthArray.push({ date: currDate.toDateString(), score: '' });
                     }
                 } else {
-                    monthArray.push({ date: currDate.toDateString(), score: 0 });
+                    monthArray.push({ date: currDate.toDateString(), score: '' });
                 }
                 currDate.setDate(currDate.getDate() + 1);
             } else {
@@ -172,10 +173,10 @@ class TeamScreen extends React.Component {
                         scoreIndex += 1;
                     }
                 } else {
-                    monthArray.push({ date: currDate.toDateString(), score: 0 });
+                    monthArray.push({ date: currDate.toDateString(), score: '' });
                 }
             } else {
-                monthArray.push({ date: currDate.toDateString(), score: 0 });
+                monthArray.push({ date: currDate.toDateString(), score: '' });
             }
             diagramData.push(monthArray);
         } else {
@@ -210,7 +211,7 @@ class TeamScreen extends React.Component {
                     flex: 1,
                 }}>
                 <SafeAreaView style={{backgroundColor: colors.mainColor + 'ee'}} />
-                <ScrollView>
+                <ScrollView keyboardShouldPersistTaps='handled'>
                     <SafeAreaView style={{backgroundColor: colors.mainBgColor}}>    
                         <HeaderTeamScreen
                             teamName={this.state.team.teamName}

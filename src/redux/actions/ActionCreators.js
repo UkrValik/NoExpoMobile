@@ -303,3 +303,8 @@ export const synchronizeAppleHealth = (value) => dispatch => dispatch({
     type: ActionTypes.SYNCHRONIZE_APPLE_HEALTH,
     payload: value,
 });
+
+export const setLoadingTeams = (value) => dispatch => dispatch({
+    type: ActionTypes.LOADING_TEAMS,
+    payload: value,
+});

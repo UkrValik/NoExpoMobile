@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import colors from '../../styles/colors.json';
 
 class Tooltip extends React.Component {
@@ -40,8 +40,9 @@ const styles = StyleSheet.create({
         borderLeftColor: 'transparent',
     },
     halfCircle: {
+        marginTop: Platform.OS === 'ios' ? -2 : 0,
         width: 5,
-        height: 0,
+        height: 3,
         backgroundColor: 'transparent',
         borderStyle: 'solid',
         borderBottomWidth: 2,
