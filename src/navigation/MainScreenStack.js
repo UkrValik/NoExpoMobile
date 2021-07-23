@@ -27,8 +27,10 @@ const MainScreenStack = (props) => {
                             tabBarLabel: () => (
                                 <Text
                                     style={{
-                                        fontSize: 10,
+                                        fontSize: 11,
                                         color: colors.pink,
+                                        // borderWidth: 0.5,
+                                        // borderColor: '#FFF',
                                     }}>
                                     Home
                                 </Text>
@@ -43,7 +45,7 @@ const MainScreenStack = (props) => {
                             tabBarLabel: () => (
                                 <Text
                                     style={{
-                                        fontSize: 10,
+                                        fontSize: 11,
                                         color: colors.mainColor,
                                     }}>
                                     Home

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
@@ -14,6 +15,7 @@ import {
     checkGDPR,
     updateGDPRDate,
 } from '../redux/actions/ActionCreators';
+import MainTabBar from './MainTabBar';
 
 const Tab = createBottomTabNavigator();
 const Icon = createIconSetFromIcoMoon(icomoonConfig);
@@ -74,6 +76,7 @@ const MainTabNavigator = (props) => {
     if (gdprChecked && props.consumer.gdprData.dataPrivacy === '') {
         return (
             <Tab.Navigator
+                tabBar={MainTabBar}
                 screenOptions={screenOptions}
                 tabBarOptions={tabBarOptions}
                 >

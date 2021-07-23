@@ -237,7 +237,9 @@ class LoginScreen extends React.Component {
                         }
                         />
                     <View style={styles.buttonView}>
-                        <TouchableNativeFeedback onPress={() => this.onSignIn()}>
+                        <TouchableNativeFeedback
+                            containerStyle={{width: '100%'}}
+                            onPress={() => this.onSignIn()}>
                             <View
                                 style={{
                                     width: '100%',
@@ -301,13 +303,6 @@ class LoginScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    landScapeImageContainer: {
-        flex: 1,
-    },
-    portraitImageContainer: {
-        width: '100%',
-        height: Dimensions.get('screen').height,
-    },
     container: {
         alignItems: 'center',
     },
@@ -339,7 +334,7 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     buttonView: {
-        marginTop: 20,
+        marginTop: 10,
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',

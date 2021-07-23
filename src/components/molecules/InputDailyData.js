@@ -78,8 +78,9 @@ class InputDailyData extends React.Component {
     }
 
     async writeValue(value) {
+        console.log(value);
+        this.valueRef?.current?.blur();
         this.setState({ sendingData: true });
-        console.log(value, this.props.stepValue);
         const day = {
             date: new Date(this.props.date).toISOString().split('T')[0],
             score: value === this.props.stepValue ? '' : typeof value === 'number' ? value : this.props.stepValue,

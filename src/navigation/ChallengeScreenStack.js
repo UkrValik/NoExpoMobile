@@ -34,7 +34,7 @@ const ChallengeScreenStack = (props) => {
                             tabBarLabel: () => (
                                 <Text
                                     style={{
-                                        fontSize: 10,
+                                        fontSize: 11,
                                         color: colors.pink,
                                     }}>
                                     Challenges
@@ -50,7 +50,7 @@ const ChallengeScreenStack = (props) => {
                             tabBarLabel: () => (
                                 <Text
                                     style={{
-                                        fontSize: 10,
+                                        fontSize: 11,
                                         color: colors.mainColor,
                                     }}>
                                     Challenges

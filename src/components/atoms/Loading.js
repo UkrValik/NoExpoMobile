@@ -2,7 +2,7 @@ import React from 'react';
 import { ActivityIndicator, Dimensions, Text, View, Image, StatusBar, Platform } from 'react-native';
 import colors from '../../styles/colors.json';
 
-export const Loading = () => {
+export const Loading = (props) => {
 
     const screenWidth = Dimensions.get('screen').width;
     const screenHeight = Dimensions.get('screen').height;
@@ -29,6 +29,16 @@ export const Loading = () => {
 
     return(
         <View
+            onLayout={(props) => {
+                if (Platform.OS === 'android') {
+                    setOrientation(
+                        props.nativeEvent.layout.height >= 
+                        props.nativeEvent.layout.width ? 
+                        'PORTRAIT' : 
+                        'LANDSCAPE'
+                    );
+                }
+            }}
             style={{
                 flex: 1,
                 backgroundColor: colors.mainColor,
@@ -58,8 +68,8 @@ export const Loading = () => {
                 <Image
                     source={require('../../assets/badge.png')}
                     style={{
-                        width: orientation === 'PORTRAIT' ? badgeWidth : screenHeight / 3 * 1.2,
-                        height: orientation === 'PORTRAIT' ? badgeHeight : screenHeight / 3 * 1.2,
+                        width: orientation === 'PORTRAIT' || Platform.OS === 'android' ? badgeWidth : screenHeight / 3 * 1.2,
+                        height: orientation === 'PORTRAIT' || Platform.OS === 'android' ? badgeHeight : screenHeight / 3 * 1.2,
                         tintColor: colors.mainBgColor,
                     }}
                     />
@@ -75,7 +85,7 @@ export const Loading = () => {
                 <Image
                     source={require('../../assets/gb-text.png')}
                     style={{
-                        width: orientation === 'PORTRAIT' ? gbTextWidth : screenHeight * 70 / 100,
+                        width: orientation === 'PORTRAIT' || Platform.OS === 'android' ? gbTextWidth : screenHeight * 70 / 100,
                         height: gbTextHeight,
                         tintColor: colors.dark,
                     }}
