@@ -29,8 +29,8 @@ const MainScreenStack = (props) => {
                                     style={{
                                         fontSize: 11,
                                         color: colors.pink,
-                                        // borderWidth: 0.5,
-                                        // borderColor: '#FFF',
+                                        marginTop: 5,
+                                        fontWeight: '300',
                                     }}>
                                     Home
                                 </Text>
@@ -46,6 +46,8 @@ const MainScreenStack = (props) => {
                                 <Text
                                     style={{
                                         fontSize: 11,
+                                        marginTop: 5,
+                                        fontWeight: '300',
                                         color: colors.mainColor,
                                     }}>
                                     Home

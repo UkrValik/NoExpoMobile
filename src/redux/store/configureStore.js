@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { teams } from '../reducers/teams';
 import { consumer } from '../reducers/consumer';
+import { challenges } from '../reducers/challenges';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const ConfigureStore = () => {
@@ -17,6 +18,7 @@ export const ConfigureStore = () => {
         persistCombineReducers(config, {
             teams,
             consumer,
+            challenges,
         }),
         applyMiddleware(thunk, logger)
     );

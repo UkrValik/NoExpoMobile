@@ -10,7 +10,7 @@ class ChallengeList extends React.Component {
     }
 
     render() {
-        if (this.props.teams) {
+        if (this.props.challenges) {
             return (
                 <ScrollView
                     ref={this.props.scrollRef}
@@ -22,10 +22,10 @@ class ChallengeList extends React.Component {
                             marginTop: '3%',
                             // backgroundColor: colors.gray,
                         }}>
-                        {this.props.teams.map(team => (
+                        {this.props.challenges.map(challenge => (
                             <ChallengeItem
-                                key={team.teamId}
-                                team={team}
+                                key={challenge.challengeId}
+                                challenge={challenge}
                                 navigation={this.props.navigation}
                                 />
                         ))}

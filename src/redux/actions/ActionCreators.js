@@ -257,7 +257,6 @@ export const receivedStepsFromGF = (value) => dispatch => dispatch({
 });
 
 export const checkGDPR = (params, token) => dispatch => {
-    console.log(params, token);
     return fetch(shared.baseURL + shared.checkGDPRPath, {
         method: 'POST',
         headers: {
@@ -306,5 +305,49 @@ export const synchronizeAppleHealth = (value) => dispatch => dispatch({
 
 export const setLoadingTeams = (value) => dispatch => dispatch({
     type: ActionTypes.LOADING_TEAMS,
+    payload: value,
+});
+
+/**
+ * CHALLENGES *****************************************************************
+ */
+
+export const fetchChallenges = (token) => dispatch => {
+    return fetch(shared.baseURL + shared.addChallengesPath, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        } else {
+            let error = new Error('Error' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        let errMess = new Error(error.message);
+        throw errMess;
+    })
+    .then(response => response.json())
+    .then(result => dispatch(addChallenges(result)))
+    .catch(error => dispatch(addChallengesFailed(error)));
+}
+
+export const addChallenges = (result) => ({
+    type: ActionTypes.ADD_CHALLENGES,
+    payload: result,
+});
+
+export const addChallengesFailed = (error) => ({
+    type: ActionTypes.ADD_CHALLENGES_FAILED,
+    payload: error,
+});
+
+export const setLoadingChallenges = (value) => dispatch => dispatch({
+    type: ActionTypes.SET_LOADING_CHALLENGES,
     payload: value,
 });

@@ -1,21 +1,22 @@
 import React from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
-import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
+import { View, Text, TouchableWithoutFeedback, SafeAreaView } from 'react-native';
 import colors from '../styles/colors.json';
-import icomoonConfig from '../styles/selection.json';
-
-const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
 const MainTabBar = ({ state, descriptors, navigation }) => {
 
     return (
+        <SafeAreaView
+            style={{
+                backgroundColor: colors.mainBgColor,
+            }}>
         <View
             style={{
                 flexDirection: 'row',
                 justifyContent: 'space-around',
                 backgroundColor: '#FFF',
-                borderTopWidth: 2,
+                borderTopWidth: 0.5,
                 borderColor: colors.midgray,
+                paddingTop: 5,
             }}>
             {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
@@ -71,6 +72,8 @@ const MainTabBar = ({ state, descriptors, navigation }) => {
                                     style={{
                                         color: isFocused ? colors.pink : colors.mainColor,
                                         fontSize: 11,
+                                        marginTop: 5,
+                                        fontWeight: '300',
                                     }}>
                                     {label}
                                 </Text>
@@ -80,6 +83,7 @@ const MainTabBar = ({ state, descriptors, navigation }) => {
                 );
             })}
         </View>
+        </SafeAreaView>
     );
 }
 

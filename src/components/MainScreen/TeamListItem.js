@@ -101,6 +101,7 @@ class TeamListItem extends React.Component {
                         style={{
                             backgroundColor: statusColor,
                             paddingVertical: '2%',
+                            marginTop: -1,
                         }}>
                         <Text
                             style={{

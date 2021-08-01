@@ -8,5 +8,6 @@
     "sendChallengeDataPATH": "/wp-json/wpps/v1/challenge/data",
     "userId": "alleavengers",
     "password": "gb82166",
-    "checkGDPRPath": "/wp-json/wpps/v1/data-privacy"
+    "checkGDPRPath": "/wp-json/wpps/v1/data-privacy",
+    "addChallengesPath": "/wp-json/wpps/v1/challenges"
 }

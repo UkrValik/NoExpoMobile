@@ -1,16 +1,24 @@
 import React from 'react';
-import { View, Text, StatusBar, Platform, BackHandler, SafeAreaView } from 'react-native';
+import { View, Text, StatusBar, Platform, BackHandler, SafeAreaView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import colors from '../../styles/colors.json';
 import ChallengeList from './ChallengeList';
 import Header from './Header';
+import {
+    fetchChallenges,
+} from '../../redux/actions/ActionCreators';
 
 const mapStateToProps = state => {
     return {
         teams: state.teams,
         consumer: state.consumer,
+        challenges: state.challenges,
     };
 };
+
+const mapDispatchToProps = dispatch => ({
+    fetchChallenges: (token) => dispatch(fetchChallenges(token)),
+});
 
 const ChallengesScreen = (props) => {
 
@@ -25,6 +33,7 @@ const ChallengesScreen = (props) => {
         const unsubscribe = props.navigation.addListener('focus', () => {
             BackHandler.addEventListener('hardwareBackPress', handleBackButton);
             scrollRef?.current?.scrollTo({x: 0, y: 0, animated: true});
+            props.fetchChallenges(props.consumer.token);
         });
         return unsubscribe;
     }, [props.navigation]);
@@ -52,7 +61,7 @@ const ChallengesScreen = (props) => {
                 >
                 <Header />
                 <ChallengeList
-                    teams={props.teams.teams}
+                    challenges={props.challenges.array}
                     navigation={props.navigation}
                     scrollRef={scrollRef}
                     />
@@ -61,5 +70,5 @@ const ChallengesScreen = (props) => {
     );
 }
 
-export default connect(mapStateToProps)(ChallengesScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(ChallengesScreen);
 

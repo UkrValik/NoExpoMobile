@@ -116,7 +116,7 @@ class LoginScreen extends React.Component {
             let consumer = await this.props.fetchConsumer(token.payload.data.token);
             let teams = await this.props.fetchTeams(token.payload.data.token);
             teams.payload.forEach((team) => {
-                props.fetchTeam(team.teamId, props.consumer.token);
+                this.props.fetchTeam(team.teamId, token.payload.data.token);
             });
             await this.props.setLoadingTeams(false);
             this.props.navigation.navigate('Main');

@@ -48,12 +48,8 @@ class ChallengeItem extends React.Component {
         this._unsubscribe();
     }
 
-    async moveToTeamScreen() {
-        if (!this.props.team.participants) {
-            this.setState({ loading: true });
-            await this.props.fetchTeam(this.props.team.teamId, this.props.consumer.token);
-        }
-        this.props.navigation.navigate('Team', { teamId: this.props.team.teamId });
+    async moveToChallengeDetails() {
+        this.props.navigation.navigate('ChallengeDetails', { challenge: this.props.challenge });
     }
 
     render() {
@@ -69,16 +65,9 @@ class ChallengeItem extends React.Component {
             return teamName;
         }
 
-        let statusColor = colors.mainColor;
-        if (this.props.team.statusCode === 'done') {
-            statusColor = colors.altColor;
-        } else if (this.props.team.statusCode === 'action') {
-            statusColor = colors.actionColor;
-        }
-
         return (
             <TouchableNativeFeedback
-                onPress={() => this.moveToTeamScreen()}
+                onPress={() => this.moveToChallengeDetails()}
                 >
                 <View
                     style={{
@@ -89,16 +78,16 @@ class ChallengeItem extends React.Component {
                         backgroundColor: '#FFF',
                     }}>
                     <Image
-                        source={{uri: this.props.team.challengeImage}}
+                        source={{uri: this.props.challenge.challengeImage}}
                         resizeMode='cover'
                         style={{
                             width: '100%',
-                            aspectRatio: this.props.team.challengeImage ? 2.8 : 100000,
+                            aspectRatio: this.props.challenge.challengeImage ? 2.8 : 100000,
                             backgroundColor: colors.midgray,
                         }}
                         >
                     </Image>
-                    <View
+                    {/* <View
                         style={{
                             backgroundColor: statusColor,
                             paddingVertical: '2%',
@@ -111,8 +100,8 @@ class ChallengeItem extends React.Component {
                             }}>
                             {this.props.team.statusText}
                         </Text>
-                    </View>
-                    <View
+                    </View> */}
+                    {/* <View
                         style={{
                             flexDirection: 'row',
                             alignItems: 'center',
@@ -134,7 +123,7 @@ class ChallengeItem extends React.Component {
                             }}>
                             {beatifyName(this.props.team.teamName, 'team')}
                         </Text>
-                    </View>
+                    </View> */}
                     <View
                         style={{
                             flexDirection: 'row',
@@ -142,7 +131,7 @@ class ChallengeItem extends React.Component {
                             marginVertical: '3%',
                         }}>
                         <Icon
-                            name='calendar'
+                            name='challenge'
                             size={30}
                             color={colors.gray}
                             style={{
@@ -155,7 +144,7 @@ class ChallengeItem extends React.Component {
                                 marginLeft: '3%',
                                 color: colors.textColor,
                             }}>
-                            {beatifyName(this.props.team.challengeName, 'challenge')}
+                            {beatifyName(this.props.challenge.challengeName, 'challenge')}
                         </Text>
                     </View>
                 </View>
