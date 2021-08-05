@@ -47,8 +47,14 @@ const MainScreen = (props) => {
     const [fetchingTeams, setFetchingTeams] = React.useState(false);
     const [showInactiveTeams, setShowInactiveTeams] = React.useState(false);
 
+    const handleBackButton = () => {
+        BackHandler.exitApp();
+        return true;
+    }
+
     React.useEffect(() => {
         const unsubscribe = props.navigation.addListener('focus', async () => {
+            BackHandler.addEventListener('hardwareBackPress', handleBackButton);
             props.fetchConsumer(props.consumer.token);
             setFetchingTeams(true);
             const teams = await props.fetchTeams(props.consumer.token);
@@ -61,6 +67,13 @@ const MainScreen = (props) => {
             headerShown: false,
         });
 
+        return unsubscribe;
+    }, [props.navigation]);
+
+    React.useEffect(() => {
+        const unsubscribe = props.navigation.addListener('blur', () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+        });
         return unsubscribe;
     }, [props.navigation]);
 

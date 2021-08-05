@@ -6,6 +6,7 @@ import ChallengeList from './ChallengeList';
 import Header from './Header';
 import {
     fetchChallenges,
+    fetchChallengeById,
 } from '../../redux/actions/ActionCreators';
 
 const mapStateToProps = state => {
@@ -18,6 +19,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     fetchChallenges: (token) => dispatch(fetchChallenges(token)),
+    fetchChallengeById: (token, challengeId) => dispatch(fetchChallengeById(token, challengeId)),
 });
 
 const ChallengesScreen = (props) => {
@@ -30,10 +32,13 @@ const ChallengesScreen = (props) => {
     }
 
     React.useEffect(() => {
-        const unsubscribe = props.navigation.addListener('focus', () => {
+        const unsubscribe = props.navigation.addListener('focus', async () => {
             BackHandler.addEventListener('hardwareBackPress', handleBackButton);
             scrollRef?.current?.scrollTo({x: 0, y: 0, animated: true});
-            props.fetchChallenges(props.consumer.token);
+            const challenges = await props.fetchChallenges(props.consumer.token);
+            for (let challenge of challenges.payload) {
+                props.fetchChallengeById(props.consumer.token, challenge.challengeId);
+            }
         });
         return unsubscribe;
     }, [props.navigation]);

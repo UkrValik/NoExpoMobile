@@ -1,7 +1,11 @@
 import React from 'react';
-import { View, Text, Image, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, Image, ScrollView, SafeAreaView, Platform, StatusBar } from 'react-native';
 import { AllHtmlEntities } from 'html-entities';
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import colors from '../../styles/colors.json';
+import icomoonConfig from '../../styles/selection.json';
+
+const Icon = createIconSetFromIcoMoon(icomoonConfig);
 
 const ChallengeDetails = (props) => {
 
@@ -13,16 +17,32 @@ const ChallengeDetails = (props) => {
     }
 
     return (
-        <View>
+        <View
+            style={{
+                paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+                backgroundColor: colors.mainBgColor,
+                flex: 1,
+            }}>
             <SafeAreaView style={{backgroundColor: colors.mainColor + 'ee'}} />
-            <SafeAreaView>
+            <SafeAreaView
+                style={{
+                    flex: 1,
+                }}>
                 <View
                     style={{
                         alignItems: 'center',
-                        justifyContent: 'center',
+                        justifyContent: 'space-between',
+                        flexDirection: 'row',
                         height: 50,
                         backgroundColor: colors.mainColor,
+                        paddingHorizontal: '3%',
                     }}>
+                    <Icon
+                        name='arrow-left'
+                        size={16}
+                        color={colors.mainBgColor}
+                        onPress={() => props.navigation.goBack()}
+                        />
                     <Text
                         style={{
                             fontSize: 20,
@@ -31,6 +51,7 @@ const ChallengeDetails = (props) => {
                         }}>
                         {beatifyName(challenge.challengeName)}
                     </Text>
+                    <View style={{width: 24}}/>
                 </View>
                 <ScrollView>
                     <Image 
@@ -46,12 +67,130 @@ const ChallengeDetails = (props) => {
                             style={{
                                 color: colors.lightTextColor,
                                 fontSize: 16,
-                                marginTop: '3%',
+                                marginTop: challenge.challengeDescription ? '3%' : 0,
                                 textAlign: 'center',
                                 marginHorizontal: '10%',
                             }}>
                             {challenge.challengeDescription.replace(regex, '')}
                         </Text>
+                    </View>
+                    <View>
+                        <Text
+                            style={{
+                                color: colors.pink,
+                                fontSize: 24,
+                                fontWeight: '600',
+                                textAlign: 'center',
+                                marginTop: challenge.daysToStart > 0 ? '5%' : 0,
+                            }}>
+                            {challenge.daysToStart > 0 ? challenge.daysToStart + ' days to start' : ''}
+                        </Text>
+                    </View>
+
+                        {/**
+                         * first line icons
+                         */}
+
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-evenly',
+                            marginTop: '5%',
+                            marginHorizontal: '7%',
+                        }}>
+                        <View
+                            style={{
+                                alignItems: 'center',
+                                flex: 1,
+                            }}>
+                            <Icon name='team' size={50} color={colors.textColor} />
+                            <Text
+                                style={{
+                                    color: colors.mainColor,
+                                    fontSize: 16,
+                                }}>
+                                {challenge.numberOfConsumers}
+                            </Text>
+                            <Text
+                                style={{
+                                    color: colors.textColor,
+                                }}>
+                                Aktive(r) Teilnehmer
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                alignItems: 'center',
+                                flex: 1,
+                            }}>
+                        <Icon name='calendar' size={50} color={colors.textColor} />
+                            <Text
+                                style={{
+                                    color: colors.mainColor,
+                                    fontSize: 16,
+                                }}>
+                                {challenge.activityDays}
+                            </Text>
+                            <Text
+                                style={{
+                                    color: colors.textColor,
+                                }}>
+                                Dauer
+                            </Text>
+                        </View>
+                    </View>
+
+                        {/**
+                         * second line icons
+                         */}
+
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-evenly',
+                            marginVertical: '5%',
+                            marginHorizontal: '7%',
+                        }}>
+                        <View
+                            style={{
+                                alignItems: 'center',
+                                flex: 1,
+                            }}>
+                            <Icon name='bewegung' size={50} color={colors.textColor} />
+                            <Text
+                                style={{
+                                    color: colors.mainColor,
+                                    fontSize: 16,
+                                }}>
+                                {challenge.challengeStartDate.split('-').reverse().join('.')}
+                            </Text>
+                            <Text
+                                style={{
+                                    color: colors.textColor,
+                                }}>
+                                Anfangsdatum
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                alignItems: 'center',
+                                flex: 1,
+                            }}>
+                        <Icon name='end-date' size={50} color={colors.textColor} />
+                            <Text
+                                style={{
+                                    color: colors.mainColor,
+                                    fontSize: 16,
+                                }}>
+                                {challenge.challengeEndDate.split('-').reverse().join('.')}
+                            </Text>
+                            <Text
+                                style={{
+                                    color: colors.textColor
+                                }}>
+                                Enddatum
+                            </Text>
+                        </View>
                     </View>
 
                 </ScrollView>

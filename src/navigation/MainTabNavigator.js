@@ -14,6 +14,10 @@ import GDPRView from '../components/GDPR';
 import {
     checkGDPR,
     updateGDPRDate,
+    fetchTeam,
+    fetchTeams,
+    fetchChallengeById,
+    fetchChallenges,
 } from '../redux/actions/ActionCreators';
 import MainTabBar from './MainTabBar';
 
@@ -29,6 +33,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
     updateGDPRDate: (date) => dispatch(updateGDPRDate(date)),
     checkGDPR: (params, token) => dispatch(checkGDPR(params, token)),
+    fetchTeam: (teamId, token) => dispatch(fetchTeam(teamId, token)),
+    fetchTeams: (token) => dispatch(fetchTeams(token)),
+    fetchChallengeById: (token, challengeId) => dispatch(fetchChallengeById(token, challengeId)),
+    fetchChallenges: (token) => dispatch(fetchChallenges(token)),
 });
 
 const MainTabNavigator = (props) => {
@@ -43,6 +51,15 @@ const MainTabNavigator = (props) => {
                 await props.updateGDPRDate(date);
             }
             await props.checkGDPR({ date: date, firstTimeOpen: props.consumer.firstLogin }, props.consumer.token);
+            const teams = await props.fetchTeams(props.consumer.token);
+            const challenges = await props.fetchChallenges(props.consumer.token);
+            for (let team of teams.payload) {
+                props.fetchTeam(team.teamId, props.consumer.token);
+            }
+            for (let challenge of challenges.payload) {
+                props.fetchChallengeById(props.consumer.token, challenge.challengeId);
+            }
+
             setTimeout(() => setgdprChecked(true), 1000);
         }
         effectFunction();
@@ -111,7 +128,6 @@ const MainTabNavigator = (props) => {
             </Tab.Navigator>
         );
     } else if (gdprChecked && props.consumer.gdprData.dataPrivacy !== '') {
-        console.log('BLIABLUA', props.consumer.gdprData);
         return (
             <GDPRView />
         );

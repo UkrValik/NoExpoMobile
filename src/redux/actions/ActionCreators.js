@@ -339,7 +339,7 @@ export const fetchChallenges = (token) => dispatch => {
 
 export const addChallenges = (result) => ({
     type: ActionTypes.ADD_CHALLENGES,
-    payload: result,
+    payload: result.challenges,
 });
 
 export const addChallengesFailed = (error) => ({
@@ -350,4 +350,39 @@ export const addChallengesFailed = (error) => ({
 export const setLoadingChallenges = (value) => dispatch => dispatch({
     type: ActionTypes.SET_LOADING_CHALLENGES,
     payload: value,
+});
+
+export const fetchChallengeById = (token, challengeId) => dispatch => {
+    return fetch(shared.baseURL + shared.fetchTeamsPATH + '/' + challengeId, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        } else {
+            let error = new Error('Error' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        let errMess = new Error(error.message);
+        throw errMess;
+    })
+    .then(response => response.json())
+    .then(result => dispatch(updateChallenge(result)))
+    .catch(error => dispatch(updateChallengeFailed(error)));
+}
+
+export const updateChallenge = result => ({
+    type: ActionTypes.UPDATE_CHALLENGE,
+    payload: result.challenge,
+});
+
+export const updateChallengeFailed = error => ({
+    type: ActionTypes.UPDATE_CHALLENGE_FAILED,
+    payload: error,
 });
