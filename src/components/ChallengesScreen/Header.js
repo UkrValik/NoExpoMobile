@@ -15,14 +15,15 @@ const Header = (props) => {
                 // borderBottomLeftRadius: 15,
                 // borderBottomRightRadius: 15,
                 alignItems: 'center',
+                justifyContent: 'center',
                 width: '100%',
+                height: 60,
             }}>
             <Text
                 style={{
                     color: colors.mainBgColor,
-                    fontSize: 22,
+                    fontSize: 24,
                     fontWeight: '500',
-                    paddingVertical: '3%',
                 }}>
                 Challenges
             </Text>

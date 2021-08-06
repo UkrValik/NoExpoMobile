@@ -10,12 +10,14 @@ const Header = (props) => {
                 backgroundColor: colors.mainColor,
                 // borderBottomLeftRadius: 15,
                 // borderBottomRightRadius: 15,
-                paddingVertical: '3%',
                 alignItems: 'center',
+                justifyContent: 'center',
+                height: 60,
             }}>
             <Text
                 style={{
-                    fontSize: 22,
+                    fontSize: 24,
+                    fontWeight: '500',
                     color: '#FFF',
                 }}>
                 Einstellungen

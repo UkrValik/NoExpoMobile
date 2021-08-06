@@ -33,7 +33,7 @@ const ChallengeDetails = (props) => {
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         flexDirection: 'row',
-                        height: 50,
+                        height: 60,
                         backgroundColor: colors.mainColor,
                         paddingHorizontal: '3%',
                     }}>
@@ -45,7 +45,7 @@ const ChallengeDetails = (props) => {
                         />
                     <Text
                         style={{
-                            fontSize: 20,
+                            fontSize: 24,
                             fontWeight: '500',
                             color: colors.mainBgColor,
                         }}>
@@ -108,6 +108,7 @@ const ChallengeDetails = (props) => {
                                 style={{
                                     color: colors.mainColor,
                                     fontSize: 16,
+                                    marginVertical: '3%',
                                 }}>
                                 {challenge.numberOfConsumers}
                             </Text>
@@ -128,6 +129,7 @@ const ChallengeDetails = (props) => {
                                 style={{
                                     color: colors.mainColor,
                                     fontSize: 16,
+                                    marginVertical: '3%',
                                 }}>
                                 {challenge.activityDays}
                             </Text>
@@ -161,8 +163,9 @@ const ChallengeDetails = (props) => {
                                 style={{
                                     color: colors.mainColor,
                                     fontSize: 16,
+                                    marginVertical: '3%',
                                 }}>
-                                {challenge.challengeStartDate.split('-').reverse().join('.')}
+                                {challenge.challengeStartDate?.split('-').reverse().join('.')}
                             </Text>
                             <Text
                                 style={{
@@ -181,8 +184,9 @@ const ChallengeDetails = (props) => {
                                 style={{
                                     color: colors.mainColor,
                                     fontSize: 16,
+                                    marginVertical: '3%',
                                 }}>
-                                {challenge.challengeEndDate.split('-').reverse().join('.')}
+                                {challenge.challengeEndDate?.split('-').reverse().join('.')}
                             </Text>
                             <Text
                                 style={{

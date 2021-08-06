@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
     },
     textAccount: {
         color: colors.mainBgColor,
-        fontSize: 20,
-        fontWeight: '600',
+        fontSize: 24,
+        fontWeight: '500',
     },
     textHello: {
         color: colors.mainBgColor,

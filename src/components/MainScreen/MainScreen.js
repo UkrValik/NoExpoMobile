@@ -112,6 +112,10 @@ const MainScreen = (props) => {
                 }}>
                 <HeaderMainScreen/>
             </SafeAreaView>
+            <SafeAreaView
+                style={{
+                    flex: 1,
+                }}>
             {(fetchingTeams || props.teams.loadingTeams) && activeTeams.length === 0 ? 
                 (
                     <View
@@ -150,6 +154,7 @@ const MainScreen = (props) => {
                         }
                     </ScrollView>
             )}
+            </SafeAreaView>
         </View>
     );
 }

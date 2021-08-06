@@ -54,12 +54,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        height: 60,
     },
     text: {
         color: colors.mainBgColor,
-        fontSize: 20,
-        fontWeight: '400',
-        paddingVertical: '3%',
+        fontSize: 24,
+        fontWeight: '500',
     }
 });
 

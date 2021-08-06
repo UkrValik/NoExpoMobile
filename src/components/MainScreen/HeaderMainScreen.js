@@ -34,13 +34,13 @@ const styles = StyleSheet.create({
 //         flexDirection: 'row',
 //         justifyContent: 'space-between',
         alignItems: 'center',
+        justifyContent: 'center',
+        height: 60,
     },
     text: {
         color: colors.mainBgColor,
-        fontSize: 22,
+        fontSize: 24,
         fontWeight: '500',
-        paddingVertical: '3%',
-//         marginLeft: '5%',
     }
 });
 
