@@ -25,6 +25,7 @@ const mapDispatchToProps = dispatch => ({
 const ChallengesScreen = (props) => {
 
     const scrollRef = React.createRef();
+    const [refreshing, setRefreshing] = React.useState(false);
 
     const handleBackButton = () => {
         BackHandler.exitApp();
@@ -46,9 +47,19 @@ const ChallengesScreen = (props) => {
     React.useEffect(() => {
         const unsubscribe = props.navigation.addListener('blur', () => {
             BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+            setRefreshing(false);
         });
         return unsubscribe;
     }, [props.navigation]);
+
+    const onRefresh = async () => {
+        setRefreshing(true);
+        const challenges = await props.fetchChallenges(props.consumer.token);
+        for (let challenge of challenges.payload) {
+            props.fetchChallengeById(props.consumer.token, challenge.challengeId);
+        }
+        setRefreshing(false);
+    }
 
     return (
         <View
@@ -69,6 +80,8 @@ const ChallengesScreen = (props) => {
                     challenges={props.challenges.array}
                     navigation={props.navigation}
                     scrollRef={scrollRef}
+                    onRefresh={onRefresh}
+                    refreshing={refreshing}
                     />
             </SafeAreaView>
         </View>

@@ -73,6 +73,7 @@ const MainScreen = (props) => {
     React.useEffect(() => {
         const unsubscribe = props.navigation.addListener('blur', () => {
             BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+            setRefresh(false);
         });
         return unsubscribe;
     }, [props.navigation]);
