@@ -204,6 +204,10 @@ class TeamScreen extends React.Component {
             return (currDate.getTime() >= startDate.getTime()) && this.state.team.statusCode !== 'finished';
         }
 
+        const daysToStart = (startDate) => {
+            return new Date(new Date(startDate).getTime() - new Date().getTime()).getDate();
+        }
+
         return (
             <View 
                 style={{
@@ -221,6 +225,20 @@ class TeamScreen extends React.Component {
                         <Text style={styles.challengeDescription}>
                             {this.state.team.challengeDescription.replace(regex, '')}
                         </Text>
+                        {new Date(this.state.team.startDate).getTime() > new Date().getTime() &&
+                            <View>
+                                <Text
+                                    style={{
+                                        color: colors.pink,
+                                        fontSize: 24,
+                                        fontWeight: '600',
+                                        textAlign: 'center',
+                                        marginTop: daysToStart(this.state.team.startDate) > 0 ? '5%' : 0,
+                                    }}>
+                                    {daysToStart(this.state.team.startDate) + ' Tage zu starten'}
+                                </Text>
+                            </View>
+                        }
                         <TeamScreenIcons team={this.state.team}/>
                         <Text style={styles.textStatistics}>
                             DEINE ERFOLGE

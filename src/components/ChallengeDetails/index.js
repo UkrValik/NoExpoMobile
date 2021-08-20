@@ -74,7 +74,7 @@ const ChallengeDetails = (props) => {
                             {challenge.challengeDescription.replace(regex, '')}
                         </Text>
                     </View>
-                    <View>
+                    {/* <View>
                         <Text
                             style={{
                                 color: colors.pink,
@@ -85,7 +85,7 @@ const ChallengeDetails = (props) => {
                             }}>
                             {challenge.daysToStart > 0 ? challenge.daysToStart + ' days to start' : ''}
                         </Text>
-                    </View>
+                    </View> */}
 
                         {/**
                          * first line icons
