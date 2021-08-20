@@ -198,10 +198,10 @@ class TeamScreen extends React.Component {
         const regex = /(<([^>]+)>)/ig;
         const endDate = new Date().getTime() > new Date(this.state.team.endDate).getTime() ? new Date(this.state.team.endDate) : new Date();
 
-        const showInputDataSection = (endDate) => {
-            endDate = new Date(endDate.toDateString());
+        const showInputDataSection = (startDate) => {
+            startDate = new Date(startDate.toDateString());
             const currDate = new Date(new Date().toDateString());
-            return (currDate.getTime() <= endDate.getTime());
+            return (currDate.getTime() >= startDate.getTime()) && this.state.team.statusCode !== 'finished';
         }
 
         return (
@@ -247,7 +247,7 @@ class TeamScreen extends React.Component {
                             navigate={this.props.navigation.navigate}
                             teamId={this.state.team.teamId}
                             />
-                        {showInputDataSection(new Date(this.state.team.finishDate)) &&
+                        {showInputDataSection(new Date(this.state.team.startDate)) &&
                         <InputDailyData 
                             team={this.state.team}
                             teamId={this.state.team.teamId}

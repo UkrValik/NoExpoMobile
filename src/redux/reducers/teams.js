@@ -14,6 +14,14 @@ export const teams = (state = {
                         state.teams.unshift(team);
                     } 
                 }
+                let i = 0;
+                while (i < state.teams.length) {
+                    if (action.payload.find(actionTeam => actionTeam.teamId === state.teams[i].teamId) === undefined) {
+                        state.teams.splice(i, 1);
+                    } else {
+                        i++;
+                    }
+                }
                 return state;
             } else {
                 console.log(action.payload);
