@@ -62,6 +62,9 @@ class InputDailyData extends React.Component {
         } else if (Platform.OS === 'ios') {
             this.props.onDateChange(new Date(date.getTime() + 3 * 60 * 60 * 1000));
         }
+        if (event.type === 'dismissed') {
+            this.toggleDatePicker();
+        }
     }
 
     saveStepValue(value) {
