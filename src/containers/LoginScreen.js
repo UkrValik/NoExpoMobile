@@ -228,7 +228,7 @@ class LoginScreen extends React.Component {
                                     />
                             :
                                 <Icon
-                                    name={this.state.passwordVisible ? 'minus' : 'plus'}
+                                    name={this.state.passwordVisible ? 'eye' : 'eye-blocked'}
                                     size={24}
                                     color={colors.midgray}
                                     style={{marginRight: 10}}
