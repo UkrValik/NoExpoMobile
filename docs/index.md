@@ -28,3 +28,5 @@ Single screen with settings of the app. User can turn on synchronization with Go
 To install app on android just move apk file from /android/app/release/ to your device.
 ### ios
 Latest build is located by /ios/Challanges2508.
+## Build
+To build for ios/android you need Xcode/android studio respectively. **npm install** to install npm dependencies.
