@@ -29,8 +29,6 @@ build/
 local.properties
 *.iml
 
-android/app/release/app-release.apk
-
 # node.js
 #
 node_modules/
