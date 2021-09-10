@@ -816,6 +816,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = NoExpoMobile/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -845,6 +846,7 @@
 				EXCLUDED_ARCHS = "";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = NoExpoMobile/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (

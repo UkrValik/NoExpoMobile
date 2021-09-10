@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NoExpoMobile.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>41EEA1DE4B0D39D069C91CFE9AD06E0529121D4D</string>
+				<key>dateExpires</key>
+				<string>11.06.2022</string>
+				<key>type</key>
+				<string>Apple Development</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>6P25VZNVJZ.P25VZNVJZ</string>
+				<key>com.apple.developer.healthkit</key>
+				<true/>
+				<key>com.apple.developer.healthkit.access</key>
+				<array/>
+				<key>com.apple.developer.team-identifier</key>
+				<string>6P25VZNVJZ</string>
+				<key>get-task-allow</key>
+				<true/>
+			</dict>
+			<key>name</key>
+			<string>NoExpoMobile.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>5117a8ed-cc33-41ca-ad42-7253cf941ac2</string>
+				<key>name</key>
+				<string>iOS Team Provisioning Profile: P25VZNVJZ</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>6P25VZNVJZ</string>
+				<key>name</key>
+				<string>Gesundheit bewegt GmbH</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
